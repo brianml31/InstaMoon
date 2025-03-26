@@ -10,8 +10,8 @@ public class InstagramMainActivity extends AppCompatActivity {
 
     public UserSession A05;
 
-    public final _2up BIK() {
-        return null;
-    }
+//    public final _2up BIK() {
+//        return null;
+//    }
 
 }
