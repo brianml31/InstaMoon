@@ -88,7 +88,7 @@ class DialogUtils {
         }
 
         fun showExtraOptionsDialog(ctx: Context) {
-            val items = arrayOf("Disable Ads", "Disable analytics")
+            val items = arrayOf("Hide ads", "Disable analytics")
             val checkedItemsArray = booleanArrayOf(false, false)
             val checkedItems = PrefsUtils.loadPreferencesExtraOptions(ctx, checkedItemsArray)
             val alertDialog = buildAlertDialog(ctx, "EXTRA OPTIONS ⚙\uFE0F")
@@ -96,6 +96,12 @@ class DialogUtils {
             alertDialog.setMultiChoiceItems(items, checkedItems, object : DialogInterface.OnMultiChoiceClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int, isChecked: Boolean) {
                     checkedItems[which] = isChecked
+                    if (which == 0 && isChecked) {
+                            buildAlertDialog(ctx, "WARNING || Hide ads")
+                            .setMessage("Hides ads in stories, discover, profile, etc. An ad can still appear once when refreshing the home feed")
+                            .setPositiveButton("CLOSE", null)
+                            .show()
+                    }
                 }
             })
 

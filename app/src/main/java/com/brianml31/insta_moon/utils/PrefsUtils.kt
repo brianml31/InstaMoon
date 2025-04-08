@@ -49,7 +49,7 @@ class PrefsUtils {
         }
 
         fun getKeysPreferences(position: Int): String {
-            val keys = arrayOf("hide_seen_stories", "hide_seen_dm","hide_seen_live_videos", "disable_ads", "disable_analytics")
+            val keys = arrayOf("hide_seen_stories", "hide_seen_dm","hide_seen_live_videos", "hide_ads", "disable_analytics")
             return keys[position]
         }
     }
