@@ -1,9 +1,11 @@
 <div align="center">
     <img src="https://github.com/brianml31/InstaMoon/blob/InstaMoon/assets/InstaMoon_Logo.png" alt="InstaMoon_Logo" height="250" />
 
+
 # InstaMoon 🌙
 InstaMoon is a reverse-engineered injectable menu that enhances your Instagram experience.<br/><br/>
 
+<sub>Created with ❤️ by <a href="https://github.com/brianml31">brianml31</a></sub>
 </div>
 
 <hr>

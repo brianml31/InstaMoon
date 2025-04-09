@@ -97,10 +97,7 @@ class DialogUtils {
                 override fun onClick(dialog: DialogInterface, which: Int, isChecked: Boolean) {
                     checkedItems[which] = isChecked
                     if (which == 0 && isChecked) {
-                            buildAlertDialog(ctx, "WARNING || Hide ads")
-                            .setMessage("Hides ads in stories, discover, profile, etc. An ad can still appear once when refreshing the home feed")
-                            .setPositiveButton("CLOSE", null)
-                            .show()
+                        showMessageDialog(ctx, "WARNING || Hide ads", "Hides ads in stories, discover, profile, etc. An ad can still appear once when refreshing the home feed")
                     }
                 }
             })
@@ -120,6 +117,13 @@ class DialogUtils {
 
             alertDialog.create()
             alertDialog.show()
+        }
+
+        fun showMessageDialog(ctx: Context, title: String, message: String){
+            buildAlertDialog(ctx, title)
+                .setMessage(message)
+                .setPositiveButton("CLOSE", null)
+                .show()
         }
 
         fun showRestartAppDialog(ctx: Context) {
