@@ -24,28 +24,28 @@ class Brian {
         }
 
         fun hideSeenDM(): Boolean {
-            return PrefsUtils.getBoolean(PrefsUtils.getKeysPreferences(1), false)
+            return PrefsUtils.getBoolean(PrefsUtils.arrayGhostModeKeys[1], false)
         }
 
         fun disableAds(): Boolean {
-            return PrefsUtils.getBoolean(PrefsUtils.getKeysPreferences(3), false)
+            return PrefsUtils.getBoolean(PrefsUtils.arrayExtraOptionsKeys[0], false)
         }
 
         fun validateUriHost(uri: URI) {
             if(uri!=null){
                 var uriPath: String = uri.path
                 if(uriPath.contains("/v2/media/seen/")){
-                    if (PrefsUtils.getBoolean(PrefsUtils.getKeysPreferences(0), false)) {
+                    if (PrefsUtils.getBoolean(PrefsUtils.arrayGhostModeKeys[0], false)) {
                         throw IOException("URL has no host")
                     }
                 }
                 if (uriPath.contains("/heartbeat_and_get_viewer_count/")) {
-                    if (PrefsUtils.getBoolean(PrefsUtils.getKeysPreferences(2), false)) {
+                    if (PrefsUtils.getBoolean(PrefsUtils.arrayGhostModeKeys[2], false)) {
                         throw IOException("URL has no host")
                     }
                 }
                 if (uriPath.contains("graph.instagram.com") || uriPath.contains("graph.facebook.com") || uriPath.contains("/logging_client_events")) {
-                    if (PrefsUtils.getBoolean(PrefsUtils.getKeysPreferences(4), false)) {
+                    if (PrefsUtils.getBoolean(PrefsUtils.arrayExtraOptionsKeys[1], false)) {
                         throw IOException("URL has no host")
                     }
                 }

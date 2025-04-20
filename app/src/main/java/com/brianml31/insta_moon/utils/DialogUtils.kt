@@ -60,8 +60,7 @@ class DialogUtils {
 
         fun showGhostModeDialog(ctx: Context) {
             val items = arrayOf("Hide Seen in Stories", "Hide Seen in Messages", "Hide Seen in Live Videos")
-            val checkedItemsArray = booleanArrayOf(false, false, false)
-            val checkedItems = PrefsUtils.loadPreferencesGhostMode(ctx, checkedItemsArray)
+            val checkedItems = PrefsUtils.loadPreferencesGhostMode(ctx)
             val alertDialog = buildAlertDialog(ctx, "GHOST MODE 👻")
 
             alertDialog.setMultiChoiceItems(items, checkedItems, object : DialogInterface.OnMultiChoiceClickListener {
@@ -89,8 +88,7 @@ class DialogUtils {
 
         fun showExtraOptionsDialog(ctx: Context) {
             val items = arrayOf("Hide ads", "Disable analytics")
-            val checkedItemsArray = booleanArrayOf(false, false)
-            val checkedItems = PrefsUtils.loadPreferencesExtraOptions(ctx, checkedItemsArray)
+            val checkedItems = PrefsUtils.loadPreferencesExtraOptions(ctx)
             val alertDialog = buildAlertDialog(ctx, "EXTRA OPTIONS ⚙\uFE0F")
 
             alertDialog.setMultiChoiceItems(items, checkedItems, object : DialogInterface.OnMultiChoiceClickListener {
