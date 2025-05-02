@@ -3,7 +3,9 @@ package com.brianml31.insta_moon
 import android.app.Application
 import android.content.Context
 import android.util.Base64
-import com.brianml31.insta_moon.utils.PrefsUtils
+import android.util.Log
+import com.brianml31.insta_moon.utils.ExtraOptionsUtils
+import com.brianml31.insta_moon.utils.GhostModeUtils
 import java.io.IOException
 import java.net.URI
 
@@ -23,29 +25,36 @@ class Brian {
             return String(Base64.decode(encodedString, Base64.DEFAULT))
         }
 
-        fun hideSeenDM(): Boolean {
-            return PrefsUtils.getBoolean(PrefsUtils.arrayGhostModeKeys[1], false)
-        }
-
-        fun disableAds(): Boolean {
-            return PrefsUtils.getBoolean(PrefsUtils.arrayExtraOptionsKeys[0], false)
-        }
-
         fun validateUriHost(uri: URI) {
             if(uri!=null){
                 var uriPath: String = uri.path
                 if(uriPath.contains("/v2/media/seen/")){
-                    if (PrefsUtils.getBoolean(PrefsUtils.arrayGhostModeKeys[0], false)) {
+                    if (GhostModeUtils.hideSeenStories()) {
                         throw IOException("URL has no host")
                     }
                 }
                 if (uriPath.contains("/heartbeat_and_get_viewer_count/")) {
-                    if (PrefsUtils.getBoolean(PrefsUtils.arrayGhostModeKeys[2], false)) {
+                    if (GhostModeUtils.hideSeenLiveVideos()) {
+                        throw IOException("URL has no host")
+                    }
+                }
+                if (uriPath.endsWith("/ephemeral_screenshot/") || uriPath.endsWith("/screenshot/")) {
+                    if (GhostModeUtils.hideTookScreenshot()) {
+                        throw IOException("URL has no host")
+                    }
+                }
+                if (uriPath.endsWith("/item_seen/")){
+                    if (GhostModeUtils.hideOpenedMedia()) {
+                        throw IOException("URL has no host")
+                    }
+                }
+                if (uriPath.endsWith("/item_replayed/")){
+                    if (GhostModeUtils.hideReplayedMedia()) {
                         throw IOException("URL has no host")
                     }
                 }
                 if (uriPath.contains("graph.instagram.com") || uriPath.contains("graph.facebook.com") || uriPath.contains("/logging_client_events")) {
-                    if (PrefsUtils.getBoolean(PrefsUtils.arrayExtraOptionsKeys[1], false)) {
+                    if (ExtraOptionsUtils.disableAnalytics()) {
                         throw IOException("URL has no host")
                     }
                 }

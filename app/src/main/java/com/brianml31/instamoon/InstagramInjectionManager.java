@@ -8,12 +8,18 @@ import android.view.View;
 
 import com.brianml31.insta_moon.Brian;
 import com.brianml31.insta_moon.LongClickMenuHandler;
+import com.brianml31.insta_moon.utils.ExtraOptionsUtils;
+import com.brianml31.insta_moon.utils.GhostModeUtils;
 import com.instagram.mainactivity.InstagramMainActivity;
 
 import java.net.URI;
 
-public class KotlinInvoker {
+public class InstagramInjectionManager {
     //In this class are the invocation lines for InstaMoon functions.
+
+    public static void after_onActivityResultKotlin(Activity activity, int requestCode, int resultCode, Intent data){
+        com.brianml31.insta_moon.InstagramMainActivity.Companion.after_onActivityResult(activity, requestCode, resultCode, data);
+    }
 
     public static void setLongClickMenuHandlerKotlin(InstagramMainActivity instagramMainActivity, View v){
         LongClickMenuHandler.Companion.setLongClickMenuHandler(instagramMainActivity, v);
@@ -23,20 +29,30 @@ public class KotlinInvoker {
         Brian.Companion.setCtx(application);
     }
 
+    // Privacy
     public static void validateUriHostKotlin(URI uri){
         Brian.Companion.validateUriHost(uri);
     }
 
-    public static void hideSeen(){
-        if(Brian.Companion.hideSeenDM()){
+    public static void hideSeenDM(){
+        if(GhostModeUtils.Companion.hideSeenDM()){
             return;
         }else{
             Log.i("","mark_thread_seen-");
         }
     }
 
+    public static void hideTyping(){
+        if(GhostModeUtils.Companion.hideTypingDM()){
+            return;
+        }else{
+            Log.i("","is_typing_indicator_enabled");
+        }
+    }
+
+    //ExtraOptions
     public static boolean disableAds(){
-        if(Brian.Companion.disableAds()){
+        if(ExtraOptionsUtils.Companion.disableAds()){
             return false;
         }else{
             Log.i("","SponsoredContentController.insertItem");
@@ -44,8 +60,15 @@ public class KotlinInvoker {
         }
     }
 
-    public static void after_onActivityResultKotlin(Activity activity, int requestCode, int resultCode, Intent data){
-        com.brianml31.insta_moon.InstagramMainActivity.Companion.after_onActivityResult(activity, requestCode, resultCode, data);
+    public static boolean disableVideoAutoplay(){
+        if(ExtraOptionsUtils.Companion.disableVideoAutoplay()){
+            return true;
+        }else{
+            Log.i("","ig_disable_video_autoplay");
+            return false;
+        }
     }
+
+
 
 }

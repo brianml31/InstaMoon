@@ -6,8 +6,8 @@ import com.brianml31.insta_moon.Brian
 
 class PrefsUtils {
     companion object{
-        val arrayGhostModeKeys = arrayOf("hide_seen_stories", "hide_seen_dm","hide_seen_live_videos")
-        val arrayExtraOptionsKeys = arrayOf("hide_ads", "disable_analytics")
+        val arrayGhostModeKeys = arrayOf("hideSeenStories", "hideSeenDM", "hideTypingDM", "hideTookScreenshot", "hideOpenedMedia", "hideReplayedMedia", "hideSeenLiveVideos")
+        val arrayExtraOptionsKeys = arrayOf("disableAds", "disableAnalytics", "disableVideoAutoplay")
 
         fun getBoolean(key: String?, defValue: Boolean): Boolean {
             return getSharedPreferences(Brian.getCtx()!!).getBoolean(key, defValue)
@@ -36,7 +36,7 @@ class PrefsUtils {
         }
 
         fun loadPreferencesGhostMode(ctx: Context): BooleanArray {
-            val checkedItems = booleanArrayOf(false, false, false)
+            val checkedItems = booleanArrayOf(false, false, false, false, false, false, false)
             val preferences = getSharedPreferences(ctx)
             for (i in checkedItems.indices) {
                 checkedItems[i] = preferences.getBoolean(arrayGhostModeKeys[i], false)
@@ -45,7 +45,7 @@ class PrefsUtils {
         }
 
         fun loadPreferencesExtraOptions(ctx: Context): BooleanArray {
-            val checkedItems = booleanArrayOf(false, false)
+            val checkedItems = booleanArrayOf(false, false, false)
             val preferences = getSharedPreferences(ctx)
             for (i in checkedItems.indices) {
                 checkedItems[i] = preferences.getBoolean(arrayExtraOptionsKeys[i], false)

@@ -26,15 +26,15 @@ class DialogUtils {
 
         fun showInstaMoonOptionsDialog(ctx: Context, instagramMainActivity: InstagramMainActivity) {
             val alertDialog = buildAlertDialog(ctx, "INSTA MOON \uD83C\uDF19")
-            val options = arrayOf("Ghost Mode", "Extra options", "Open Developer Mode", "Export Developer Mode Settings", "Import Developer Mode Settings", "Clear Developer Mode Settings", "Save File (id_name_mapping.json)", "About the App")
+            val options = arrayOf("Ghost mode", "Extra options", "Open developer mode", "Export backup", "Import backup", "Clear developer mode settings", "Save file (id_name_mapping.json)", "About the App")
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     when (which) {
                         0 -> showGhostModeDialog(ctx)
                         1 -> showExtraOptionsDialog(ctx)
                         2 -> DeveloperUtils.openDeveloperMode(ctx, instagramMainActivity)
-                        3 -> FileUtils.exportDevSettingsV2(ctx)
-                        4 -> com.brianml31.insta_moon.InstagramMainActivity.requestFileToRestore(instagramMainActivity)
+                        3 -> FileUtils.exportBackup(ctx)
+                        4 -> showImportBackupDialog(ctx, instagramMainActivity)
                         5 -> {
                             if (FileUtils.deleteMCOverrides(ctx)) {
                                 ToastUtils.showShortToast(ctx, "Developer mode settings successfully cleared")
@@ -47,50 +47,43 @@ class DialogUtils {
                     }
                 }
             })
-
             alertDialog.setPositiveButton("CLOSE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     dialog.dismiss()
                 }
             })
-
             alertDialog.create()
             alertDialog.show()
         }
 
         fun showGhostModeDialog(ctx: Context) {
-            val items = arrayOf("Hide Seen in Stories", "Hide Seen in Messages", "Hide Seen in Live Videos")
+            val items = arrayOf("Hide (Seen) in stories", "Hide (Seen) in DM", "Hide (Typing) in DM", "Hide (You took a screenshot) in DM", "Hide (Opened) in media", "Hide (Replayed) in media", "Hide (Seen) in live videos")
             val checkedItems = PrefsUtils.loadPreferencesGhostMode(ctx)
             val alertDialog = buildAlertDialog(ctx, "GHOST MODE 👻")
-
             alertDialog.setMultiChoiceItems(items, checkedItems, object : DialogInterface.OnMultiChoiceClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int, isChecked: Boolean) {
                     checkedItems[which] = isChecked
                 }
             })
-
             alertDialog.setNegativeButton("CLOSE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     dialog.dismiss()
                 }
             })
-
             alertDialog.setPositiveButton("SAVE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     PrefsUtils.savePreferencesGhostMode(ctx, checkedItems)
                     showRestartAppDialog(ctx)
                 }
             })
-
             alertDialog.create()
             alertDialog.show()
         }
 
         fun showExtraOptionsDialog(ctx: Context) {
-            val items = arrayOf("Hide ads", "Disable analytics")
+            val items = arrayOf("Disable ads", "Disable analytics", "Disable video autoplay")
             val checkedItems = PrefsUtils.loadPreferencesExtraOptions(ctx)
             val alertDialog = buildAlertDialog(ctx, "EXTRA OPTIONS ⚙\uFE0F")
-
             alertDialog.setMultiChoiceItems(items, checkedItems, object : DialogInterface.OnMultiChoiceClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int, isChecked: Boolean) {
                     checkedItems[which] = isChecked
@@ -99,23 +92,42 @@ class DialogUtils {
                     }
                 }
             })
-
             alertDialog.setNegativeButton("CLOSE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     dialog.dismiss()
                 }
             })
-
             alertDialog.setPositiveButton("SAVE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     PrefsUtils.savePreferencesExtraOptions(ctx, checkedItems)
                     showRestartAppDialog(ctx)
                 }
             })
-
             alertDialog.create()
             alertDialog.show()
         }
+
+        fun showImportBackupDialog(ctx: Context, instagramMainActivity: InstagramMainActivity) {
+            val alertDialog = buildAlertDialog(ctx, "IMPORT BACKUP")
+            val options = arrayOf("Import from .JSON", "Import from .ibackup (instafel)")
+            alertDialog.setItems(options, object : DialogInterface.OnClickListener {
+                override fun onClick(dialog: DialogInterface, which: Int) {
+                    when (which) {
+                        0 -> com.brianml31.insta_moon.InstagramMainActivity.requestFileJsonToRestore(instagramMainActivity)
+                        1 -> com.brianml31.insta_moon.InstagramMainActivity.requestFileIbackupToRestore(instagramMainActivity)
+                    }
+                }
+            })
+            alertDialog.setPositiveButton("CLOSE", object : DialogInterface.OnClickListener {
+                override fun onClick(dialog: DialogInterface, which: Int) {
+                    dialog.dismiss()
+                }
+            })
+            alertDialog.create()
+            alertDialog.show()
+        }
+
+
 
         fun showMessageDialog(ctx: Context, title: String, message: String){
             buildAlertDialog(ctx, title)
@@ -182,7 +194,7 @@ class DialogUtils {
 
         private fun showAboutAppDialogDialog(ctx: Context) {
             val alertDialog = buildAlertDialog(ctx, "ABOUT THE APP \uD83D\uDCF1")
-            alertDialog.setMessage("InstaMoon \uD83C\uDF19 "+Constants.VERSION+"\n\n⭒Developed by brianml31⭒\n\nBased on version: "+Utils.getVersionName(ctx)+"\n\nThanks to:\n⋆ Monserrat G\n⋆ Revanced")
+            alertDialog.setMessage("InstaMoon \uD83C\uDF19 "+Constants.VERSION+"\n\n⭒Developed by brianml31⭒\n\nBased on version: "+Utils.getVersionName(ctx)+"\n\nThanks to:\n⋆ Monserrat G\n⋆ Revanced\n⋆ mamiiblt\nMarcos shiinaider")
             alertDialog.setNeutralButton("CHECK UPDATE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     val updateTask = UpdateTask(ctx)

@@ -4,13 +4,21 @@ import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
+import org.json.JSONObject
+import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileNotFoundException
 import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
+
 
 class FileUtils {
     companion object{
-        fun exportDevSettingsV2(ctx: Context) {
+        fun exportBackup(ctx: Context) {
             if (!PermissionsUtils.checkPermission(ctx)) {
                 PermissionsUtils.requestPermission(ctx)
             } else {
@@ -27,26 +35,93 @@ class FileUtils {
             }
         }
 
-        fun importDevSettings(activity: Activity, uri: Uri?) {
+        fun importJsonBackup(activity: Activity, uri: Uri?){
+            val contentBackup = readBackupFile(activity, uri)
+            if(contentBackup!=null){
+                val state = writeBackupContent(activity, contentBackup, false)
+                if(state.equals("SUCCESS")){
+                    ToastUtils.showShortToast(activity, "The backup was imported successfully")
+                    DialogUtils.showRestartAppDialog(activity)
+                }else{
+                    ToastUtils.showShortToast(activity, "Error: " + state)
+                }
+            } else {
+                ToastUtils.showShortToast(activity, "Failed to read backup file")
+            }
+        }
+
+        fun importIbackupBackup(activity: Activity, uri: Uri?){
+            val contentBackup = readBackupFile(activity, uri)
+            if(contentBackup!=null){
+                val state = writeBackupContent(activity, contentBackup, true)
+                if(state.equals("SUCCESS")){
+                    ToastUtils.showShortToast(activity, "The backup was imported successfully")
+                    DialogUtils.showRestartAppDialog(activity)
+                }else{
+                    ToastUtils.showShortToast(activity, "Error: " + state)
+                }
+            } else {
+                ToastUtils.showShortToast(activity, "Failed to read backup file")
+            }
+        }
+
+        private fun readBackupFile(activity: Activity, uri: Uri?): String? {
+            val stringBuilder = StringBuilder()
+            var inputStream: InputStream? = null
+            var reader: BufferedReader? = null
             try {
-                val inputStream = activity.contentResolver.openInputStream(uri!!)
-                val fileMCOverrides = File(activity.filesDir, "mobileconfig" + File.separator + "mc_overrides.json")
+                inputStream = activity.contentResolver.openInputStream(uri!!)
+                reader = BufferedReader(InputStreamReader(inputStream))
+                var line: String?
+                while (reader.readLine().also { line = it } != null) {
+                    stringBuilder.append(line)
+                }
+                return stringBuilder.toString()
+            } catch (fileNotFoundException: FileNotFoundException) {
+                return null
+            } catch (e: Exception) {
+                return null
+            } finally {
+                try {
+                    reader?.close()
+                    inputStream?.close()
+                } catch (e: IOException) {
+                }
+            }
+        }
+
+        private fun writeBackupContent(activity: Activity, contentBackup: String, isIbackup: Boolean): String? {
+            val fileMCOverrides = File(activity.filesDir, "mobileconfig" + File.separator + "mc_overrides.json")
+            var fileOutputStream: FileOutputStream? = null
+            var osw: OutputStreamWriter? = null
+            try {
                 if (!fileMCOverrides.exists()) {
                     fileMCOverrides.createNewFile()
                 }
-                val fileOutputStream = FileOutputStream(fileMCOverrides)
-                val buffer = ByteArray(1024)
-                var bytesRead: Int
-                while ((inputStream!!.read(buffer).also { bytesRead = it }) > 0) {
-                    fileOutputStream.write(buffer, 0, bytesRead)
+                fileOutputStream = FileOutputStream(fileMCOverrides)
+                osw = OutputStreamWriter(fileOutputStream)
+                if(isIbackup) {
+                    val jsonBackupObject = JSONObject(contentBackup)
+                    if (jsonBackupObject.has("backup")) {
+                        osw.write(jsonBackupObject.getJSONObject("backup").toString())
+                    } else {
+                        return "Incompatible backup"
+                    }
+                }else{
+                    osw.write(contentBackup)
                 }
-                ToastUtils.showShortToast(activity, "Settings imported successfully")
-                inputStream.close()
-                fileOutputStream.close()
-                DialogUtils.showRestartAppDialog(activity)
+                return "SUCCESS"
             } catch (e: Exception) {
-                ToastUtils.showShortToast(activity, "Error: Could not import developer mode settings")
+                return e.message
+            } finally {
+                try {
+                    osw?.close()
+                    fileOutputStream?.close()
+                } catch (e: IOException) {
+                    return e.message
+                }
             }
+
         }
 
         fun copyStream(fileInput: File?, fileOutput: File?) {

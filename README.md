@@ -15,7 +15,7 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
 
 <hr>
 
-**Recommended Instagram version:** [`376.0.0.0.42 alpha`](https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-376-0-0-0-42-release/instagram-376-0-0-0-42-4-android-apk-download/)
+**Recommended Instagram version:** [`380.0.0.0.0 alpha`](https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-380-0-0-0-0-release/instagram-380-0-0-0-0-4-android-apk-download/)
 
 <details>
 <summary><h3>Features</h3></summary>
@@ -57,7 +57,7 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
 1. **Compile the project** using **Android Studio**.
 2. From the generated APK, use **MT Manager "Dex Redivide"** function to merge all DEX files into a **single DEX file**.
 3. **Transfer the generated DEX file** to the **Instagram application**.
-4. **Add the function calls** from the `KotlinInvoker` class.
+4. **Add the function calls** from the `InstagramInjectionManager` class.
     - *(If unsure, refer to the sample APK provided in the channel.)*
 5. **Add the following permissions and activity** to `AndroidManifest.xml`:
    ```xml
@@ -73,3 +73,5 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
 ## Special Thanks
 - **Monserrat G**
 - [Revanced](https://github.com/revanced)
+- [mamiiblt - Instafel](https://github.com/mamiiblt)
+- [Marcos shiinaider - InstaFlow](https://github.com/Mshiinaider)
