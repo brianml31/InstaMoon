@@ -11,7 +11,7 @@ import android.os.Environment
 import android.widget.EditText
 import androidx.fragment.app.FragmentActivity
 import com.brianml31.insta_moon.Brian
-import com.brianml31.insta_moon.R
+import com.brianml31.instamoon.R
 import com.brianml31.insta_moon.ui.InstaMoonMenuBottomSheet
 import com.brianml31.insta_moon.ui.InstaMoonSettingsBottomSheet
 import com.brianml31.insta_moon.ui.MenuOption
