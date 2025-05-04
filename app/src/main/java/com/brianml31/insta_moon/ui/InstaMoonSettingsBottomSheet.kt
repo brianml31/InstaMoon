@@ -1,14 +1,16 @@
 package com.brianml31.insta_moon.ui
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.brianml31.insta_moon.R // R dosyasını import etmeyi unutma
+import com.brianml31.insta_moon.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 
@@ -25,15 +27,24 @@ class InstaMoonSettingsBottomSheet : BottomSheetDialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-         if (parentFragment is SettingsSaveListener) {
-            saveListener = parentFragment as SettingsSaveListener
-        } else if (context is SettingsSaveListener) {
-            saveListener = context as SettingsSaveListener
-        }
+
     }
 
     fun setSettingsSaveListener(listener: SettingsSaveListener) {
         this.saveListener = listener
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            title = it.getString(ARG_TITLE) ?: "Settings"
+            initialOptions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                it.getParcelableArrayList(ARG_OPTIONS, SettingOption::class.java) ?: listOf()
+            } else {
+                @Suppress("DEPRECATION")
+                it.getParcelableArrayList(ARG_OPTIONS) ?: listOf()
+            }
+        }
     }
 
 
@@ -41,11 +52,6 @@ class InstaMoonSettingsBottomSheet : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Retrieve arguments
-        title = arguments?.getString(ARG_TITLE) ?: "Settings"
-        // Retrieve options (assuming they are passed correctly, e.g., via ViewModel or static workaround)
-        // initialOptions = arguments?.getParcelableArrayList(ARG_OPTIONS) ?: listOf()
-
         return inflater.inflate(R.layout.bottom_sheet_instamoon_settings, container, false)
     }
 
@@ -59,7 +65,6 @@ class InstaMoonSettingsBottomSheet : BottomSheetDialogFragment() {
 
         titleTextView.text = title
 
-        // Create a mutable copy for the adapter
         val mutableOptions = initialOptions.map { it.copy() }.toMutableList()
         settingsAdapter = SettingsOptionsAdapter(mutableOptions)
 
@@ -80,28 +85,13 @@ class InstaMoonSettingsBottomSheet : BottomSheetDialogFragment() {
         private const val ARG_TITLE = "title"
         private const val ARG_OPTIONS = "options"
 
-        // Need a reliable way to pass options (ViewModel preferred)
-        private var tempOptions: List<SettingOption> = listOf()
-
         fun newInstance(title: String, options: List<SettingOption>): InstaMoonSettingsBottomSheet {
-             val fragment = InstaMoonSettingsBottomSheet()
-             val args = Bundle()
-             args.putString(ARG_TITLE, title)
-             // Parcelable/Serializable or ViewModel needed here for proper argument passing
-             tempOptions = options // Temporary workaround
-             fragment.arguments = args
-             return fragment
+            val fragment = InstaMoonSettingsBottomSheet()
+            val args = Bundle()
+            args.putString(ARG_TITLE, title)
+            args.putParcelableArrayList(ARG_OPTIONS, ArrayList(options))
+            fragment.arguments = args
+            return fragment
         }
-
-         fun getTempOptions(): List<SettingOption> {
-            return tempOptions
-        }
-    }
-     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Retrieve options using the temporary workaround
-         if (initialOptions.isEmpty()) {
-             initialOptions = getTempOptions()
-         }
     }
 }
