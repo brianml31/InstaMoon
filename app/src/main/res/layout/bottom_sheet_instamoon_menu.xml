@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/bottom_sheet_padding_vertical"
+    android:background="?attr/colorSurface">
+
+    <TextView
+        android:id="@+id/bottom_sheet_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/InstaMoon.TextView.Title"
+        android:text="INSTAMOON" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_options"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_menu_option"
+        tools:itemCount="8"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="@dimen/divider_margin_horizontal"
+        android:layout_marginEnd="@dimen/divider_margin_horizontal"/>
+
+     <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_close"
+        style="@style/InstaMoon.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/button_negative_text"
+        android:text="CLOSE" />
+
+</LinearLayout>
