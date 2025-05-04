@@ -18,12 +18,16 @@ import java.io.OutputStreamWriter
 
 class FileUtils {
     companion object{
-        fun exportBackup(ctx: Context) {
+        fun exportJsonBackup(ctx: Context) {
             if (!PermissionsUtils.checkPermission(ctx)) {
                 PermissionsUtils.requestPermission(ctx)
             } else {
                 try {
-                    val fileMCOverrides = File(ctx.filesDir, "mobileconfig" + File.separator + "mc_overrides.json")
+                    val mobileConfigDir = File(ctx.filesDir, "mobileconfig")
+                    if (!mobileConfigDir.exists()) {
+                        mobileConfigDir.mkdirs()
+                    }
+                    val fileMCOverrides = File(mobileConfigDir, "mc_overrides.json")
                     if (fileMCOverrides.exists()) {
                         DialogUtils.showFileNameDialog(ctx, fileMCOverrides)
                     } else {
@@ -31,6 +35,52 @@ class FileUtils {
                     }
                 } catch (e: Exception) {
                     ToastUtils.showShortToast(ctx, "Error: Could not export developer mode settings")
+                }
+            }
+        }
+
+        fun readFile(fileInput: File): String? {
+            val stringBuilder = StringBuilder()
+            var fileInputStream: FileInputStream? = null
+            var reader: BufferedReader? = null
+            try {
+                fileInputStream = FileInputStream(fileInput)
+                val isr = InputStreamReader(fileInputStream)
+                reader = BufferedReader(isr)
+                var line: String?
+                while (reader.readLine().also { line = it } != null) {
+                    stringBuilder.append(line)
+                }
+                return stringBuilder.toString()
+            } catch (fileNotFoundException: FileNotFoundException) {
+                return null
+            } catch (e: Exception) {
+                return null
+            } finally {
+                try {
+                    reader?.close()
+                    fileInputStream?.close()
+                } catch (e: IOException) {
+                }
+            }
+        }
+
+        fun writeContent(content: String, fileOutput: File): String? {
+            var fileOutputStream: FileOutputStream? = null
+            var osw: OutputStreamWriter? = null
+            try {
+                fileOutputStream = FileOutputStream(fileOutput)
+                osw = OutputStreamWriter(fileOutputStream)
+                osw.write(content)
+                return "SUCCESS"
+            } catch (e: Exception) {
+                return e.message
+            } finally {
+                try {
+                    osw?.close()
+                    fileOutputStream?.close()
+                } catch (e: IOException) {
+                    return e.message
                 }
             }
         }
@@ -71,7 +121,8 @@ class FileUtils {
             var reader: BufferedReader? = null
             try {
                 inputStream = activity.contentResolver.openInputStream(uri!!)
-                reader = BufferedReader(InputStreamReader(inputStream))
+                val isr = InputStreamReader(inputStream)
+                reader = BufferedReader(isr)
                 var line: String?
                 while (reader.readLine().also { line = it } != null) {
                     stringBuilder.append(line)
@@ -91,10 +142,14 @@ class FileUtils {
         }
 
         private fun writeBackupContent(activity: Activity, contentBackup: String, isIbackup: Boolean): String? {
-            val fileMCOverrides = File(activity.filesDir, "mobileconfig" + File.separator + "mc_overrides.json")
             var fileOutputStream: FileOutputStream? = null
             var osw: OutputStreamWriter? = null
             try {
+                val mobileConfigDir = File(activity.filesDir, "mobileconfig")
+                if (!mobileConfigDir.exists()) {
+                    mobileConfigDir.mkdirs()
+                }
+                val fileMCOverrides = File(mobileConfigDir, "mc_overrides.json")
                 if (!fileMCOverrides.exists()) {
                     fileMCOverrides.createNewFile()
                 }
@@ -121,7 +176,6 @@ class FileUtils {
                     return e.message
                 }
             }
-
         }
 
         fun copyStream(fileInput: File?, fileOutput: File?) {

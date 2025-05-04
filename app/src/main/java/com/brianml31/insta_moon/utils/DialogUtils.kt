@@ -25,15 +25,15 @@ class DialogUtils {
         }
 
         fun showInstaMoonOptionsDialog(ctx: Context, instagramMainActivity: InstagramMainActivity) {
-            val alertDialog = buildAlertDialog(ctx, "INSTA MOON \uD83C\uDF19")
-            val options = arrayOf("Ghost mode", "Extra options", "Open developer mode", "Export backup", "Import backup", "Clear developer mode settings", "Save file (id_name_mapping.json)", "About the App")
+            val alertDialog = buildAlertDialog(ctx, "INSTAMOON \uD83C\uDF19")
+            val options = arrayOf("👻 Ghost mode", "⚙️ Extra options", "👨‍💻 Open developer mode", "📤 Export backup", "📥 Import backup", "🧹 Clear developer mode settings", "💾 Save file (id_name_mapping.json)", "ℹ️ About the App")
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     when (which) {
                         0 -> showGhostModeDialog(ctx)
                         1 -> showExtraOptionsDialog(ctx)
                         2 -> DeveloperUtils.openDeveloperMode(ctx, instagramMainActivity)
-                        3 -> FileUtils.exportBackup(ctx)
+                        3 -> FileUtils.exportJsonBackup(ctx)
                         4 -> showImportBackupDialog(ctx, instagramMainActivity)
                         5 -> {
                             if (FileUtils.deleteMCOverrides(ctx)) {
@@ -168,23 +168,28 @@ class DialogUtils {
             })
             alertDialog.setPositiveButton("OK", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
-                    try {
-                        var fileNameInput = input.text.toString()
-                        if(fileNameInput.isEmpty()){
-                            fileNameInput = outputFileName
+                    val content = FileUtils.readFile(fileMCOverrides)
+                    if(content!=null){
+                        var customOutputFileName = input.text.toString()
+                        if(customOutputFileName.isEmpty()){
+                            customOutputFileName = outputFileName
                         }
                         val directoryOutput = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Constants.BACKUPS_OUTPUT_FOLDER)
                         if (!directoryOutput.exists()) {
                             directoryOutput.mkdirs()
                         }
-                        val fileOutput = File(directoryOutput, fileNameInput+".json")
+                        val fileOutput = File(directoryOutput, customOutputFileName+".json")
                         if (!fileOutput.exists()) {
                             fileOutput.createNewFile()
                         }
-                        FileUtils.copyStream(fileMCOverrides, fileOutput)
-                        ToastUtils.showShortToast(ctx, "File exported in " + fileOutput.path)
-                    } catch (e: Exception) {
-                        ToastUtils.showShortToast(ctx, "Error: Could not export developer mode settings")
+                        val state = FileUtils.writeContent(content, fileOutput)
+                        if(state.equals("SUCCESS")){
+                            ToastUtils.showShortToast(ctx, "File exported in " + fileOutput.path)
+                        }else{
+                            ToastUtils.showShortToast(ctx, "Error: " + state)
+                        }
+                    } else {
+                        ToastUtils.showShortToast(ctx, "Failed to read file")
                     }
                 }
             })
@@ -194,7 +199,7 @@ class DialogUtils {
 
         private fun showAboutAppDialogDialog(ctx: Context) {
             val alertDialog = buildAlertDialog(ctx, "ABOUT THE APP \uD83D\uDCF1")
-            alertDialog.setMessage("InstaMoon \uD83C\uDF19 "+Constants.VERSION+"\n\n⭒Developed by brianml31⭒\n\nBased on version: "+Utils.getVersionName(ctx)+"\n\nThanks to:\n⋆ Monserrat G\n⋆ Revanced\n⋆ mamiiblt\nMarcos shiinaider")
+            alertDialog.setMessage("InstaMoon \uD83C\uDF19 "+Constants.VERSION+"\n\n⭒Developed by brianml31⭒\n\nBased on version: "+Utils.getVersionName(ctx)+"\n\nThanks to:\n⋆ Monserrat G\n⋆ Revanced\n⋆ mamiiblt\n⋆ Marcos shiinaider")
             alertDialog.setNeutralButton("CHECK UPDATE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     val updateTask = UpdateTask(ctx)
