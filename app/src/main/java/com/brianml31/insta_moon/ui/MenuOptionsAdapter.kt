@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.brianml31.insta_moon.R
+import com.brianml31.instamoon.R
 
 class MenuOptionsAdapter(
     private val options: List<MenuOption>,
