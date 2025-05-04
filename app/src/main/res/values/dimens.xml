@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_sheet_corner_radius">16dp</dimen>
+    <dimen name="bottom_sheet_padding_horizontal">16dp</dimen>
+    <dimen name="bottom_sheet_padding_vertical">8dp</dimen>
+    <dimen name="bottom_sheet_title_margin_bottom">12dp</dimen>
+    <dimen name="bottom_sheet_item_padding_vertical">14dp</dimen>
+    <dimen name="bottom_sheet_item_icon_size">24dp</dimen>
+    <dimen name="bottom_sheet_item_icon_margin_end">16dp</dimen>
+    <dimen name="bottom_sheet_item_text_size">16sp</dimen>
+    <dimen name="bottom_sheet_button_padding_vertical">16dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="divider_margin_horizontal">16dp</dimen>
+</resources>
