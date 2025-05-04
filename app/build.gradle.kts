@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.brianml31.insta_moon"
+    namespace = "com.brianml31.instamoon"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.brianml31.insta_moon"
+        applicationId = "com.brianml31.instamoon"
         minSdk = 26
         targetSdk = 35
         versionCode = 2
