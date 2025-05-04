@@ -9,7 +9,7 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.brianml31.instamoon"
+        applicationId = "com.brianml31.insta_moon"
         minSdk = 26
         targetSdk = 35
         versionCode = 2
