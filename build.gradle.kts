@@ -3,7 +3,3 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
 }
-
-dependencies {
-    implementation("com.google.android.material:material:1.12.0")
-}
