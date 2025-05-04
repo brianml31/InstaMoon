@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.brianml31.insta_moon.Brian;
 import com.brianml31.insta_moon.LongClickMenuHandler;
+import com.brianml31.insta_moon.utils.Constants;
 import com.brianml31.insta_moon.utils.ExtraOptionsUtils;
 import com.brianml31.insta_moon.utils.GhostModeUtils;
 import com.instagram.mainactivity.InstagramMainActivity;
@@ -28,6 +29,12 @@ public class InstagramInjectionManager {
     public static void setCtxKotlin(Application application){
         Brian.Companion.setCtx(application);
     }
+
+    public static int ExtendSnoozeWarningDuration(){
+        Log.i("","is_typing_indicator_enabled");
+        return Constants.EXTEND_SNOOZE_WARNING_DURATION;
+    }
+
 
     // Privacy
     public static void validateUriHostKotlin(URI uri){
