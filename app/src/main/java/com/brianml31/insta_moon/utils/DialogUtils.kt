@@ -155,7 +155,7 @@ class DialogUtils {
         fun showImportBackupDialog(ctx: Context, instagramActivity: InstagramMainActivity) {
              val activity = getActivityContext(ctx) ?: return
 
-            val alertDialog = buildAlertDialog(ctx, "IMPORT BACKUP")
+            val alertDialog = buildAlertDialog(ctx, "IMPORT BACKUP 📥")
             val options = arrayOf("Import from .JSON", "Import from .ibackup (instafel)")
             alertDialog.setItems(options) { dialog, which ->
                 when (which) {
