@@ -3,7 +3,7 @@ name: Android Build
 on:
   push:
     branches:
-      - InstaMoon
+      - InstaMoon_New_Design
   pull_request:
 
 jobs:
