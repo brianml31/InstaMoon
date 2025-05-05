@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/bottom_sheet_padding_horizontal"
+    android:paddingEnd="@dimen/bottom_sheet_padding_horizontal"
+    android:paddingTop="@dimen/bottom_sheet_item_padding_vertical"
+    android:paddingBottom="@dimen/bottom_sheet_item_padding_vertical"
+    android:background="@drawable/bg_bottom_sheet_item_ripple"
+    android:clickable="true"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/item_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/bottom_sheet_item_icon_size"
+        android:layout_marginEnd="@dimen/bottom_sheet_item_icon_margin_end"
+        tools:text="👻"/>
+
+    <TextView
+        android:id="@+id/item_text"
+        style="@style/InstaMoon.TextView.Item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        tools:text="Ghost mode"/>
+
+</LinearLayout>

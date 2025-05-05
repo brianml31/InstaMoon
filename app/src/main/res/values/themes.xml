@@ -1,9 +1,65 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
     <style name="Base.Theme.InstaMoon" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/button_positive_text</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
     </style>
 
     <style name="Theme.InstaMoon" parent="Base.Theme.InstaMoon" />
+
+    <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/ModalBottomSheet</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarDividerColor" tools:targetApi="o_mr1">@android:color/transparent</item>
+    </style>
+
+    <style name="ModalBottomSheet" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="backgroundTint">@color/bottom_sheet_background</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.LargeComponent</item>
+    </style>
+
+     <style name="ModalBottomSheet.Dark" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="backgroundTint">@color/bottom_sheet_background_dark</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.App.LargeComponent</item>
+    </style>
+
+    <style name="ShapeAppearance.App.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/bottom_sheet_corner_radius</item>
+        <item name="cornerSizeTopRight">@dimen/bottom_sheet_corner_radius</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="InstaMoon.TextView.Title" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:paddingStart">@dimen/bottom_sheet_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/bottom_sheet_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/bottom_sheet_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/bottom_sheet_title_margin_bottom</item>
+    </style>
+
+     <style name="InstaMoon.TextView.Item" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">@dimen/bottom_sheet_item_text_size</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="InstaMoon.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+         <item name="android:textColor">@color/button_positive_text</item>
+         <item name="android:textSize">16sp</item>
+         <item name="android:textAllCaps">true</item>
+         <item name="android:paddingTop">@dimen/bottom_sheet_button_padding_vertical</item>
+         <item name="android:paddingBottom">@dimen/bottom_sheet_button_padding_vertical</item>
+    </style>
+
+     <style name="InstaMoon.Switch" parent="Widget.Material3.CompoundButton.Switch">
+        <item name="thumbTint">@color/switch_thumb_selector</item>
+        <item name="trackTint">@color/switch_track_selector</item>
+    </style>
+
 </resources>
