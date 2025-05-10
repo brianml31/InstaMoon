@@ -32,7 +32,7 @@ public class InstagramInjectionManager {
 
     public static int ExtendSnoozeWarningDuration(){
         Log.i("","snooze_expiration_lockout_manager");
-        return Constants.Companion.EXTEND_SNOOZE_WARNING_DURATION;
+        return Constants.EXTEND_SNOOZE_WARNING_DURATION;
     }
 
 
