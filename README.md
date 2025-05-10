@@ -75,3 +75,4 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
 - [Revanced](https://github.com/revanced)
 - [mamiiblt - Instafel](https://github.com/mamiiblt)
 - [Marcos shiinaider - InstaFlow](https://github.com/Mshiinaider)
+- **Amàzing World**

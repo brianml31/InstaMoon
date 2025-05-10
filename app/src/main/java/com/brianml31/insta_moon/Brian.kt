@@ -3,7 +3,6 @@ package com.brianml31.insta_moon
 import android.app.Application
 import android.content.Context
 import android.util.Base64
-import android.util.Log
 import com.brianml31.insta_moon.utils.ExtraOptionsUtils
 import com.brianml31.insta_moon.utils.GhostModeUtils
 import java.io.IOException
