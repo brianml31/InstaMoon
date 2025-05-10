@@ -31,8 +31,8 @@ public class InstagramInjectionManager {
     }
 
     public static int ExtendSnoozeWarningDuration(){
-        Log.i("","is_typing_indicator_enabled");
-        return Constants.EXTEND_SNOOZE_WARNING_DURATION;
+        Log.i("","snooze_expiration_lockout_manager");
+        return Constants.Companion.EXTEND_SNOOZE_WARNING_DURATION;
     }
 
 
