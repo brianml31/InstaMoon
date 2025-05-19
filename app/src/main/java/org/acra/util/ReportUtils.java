@@ -11,6 +11,7 @@ import org.acra.ACRA;
 import android.content.Context;
 import android.os.Environment;
 import android.os.StatFs;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.SparseArray;
@@ -59,8 +60,7 @@ public final class ReportUtils {
      */
     public static String getDeviceId(Context context) {
         try {
-            final TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            return tm.getDeviceId();
+            return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         } catch (RuntimeException e) {
             Log.w(ACRA.LOG_TAG, "Couldn't retrieve DeviceId for : " + context.getPackageName(), e);
             return null;
