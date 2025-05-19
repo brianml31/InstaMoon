@@ -11,8 +11,8 @@ android {
         applicationId = "com.brianml31.instamoon"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "2.0"
+        versionCode = 4
+        versionName = "4.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,6 +42,8 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.core.ktx)
+    implementation(files("libs\\apache-httpcomponents-httpclient.jar"))
+    implementation(files("libs\\apache-httpcomponents-httpcore.jar"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

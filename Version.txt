@@ -1,1 +1,1 @@
-{'ver1':'3', 'ver2':'00', 'url':'https://t.me/instamoon_channel'}
+{'ver1':'4', 'ver2':'00', 'url':'https://t.me/instamoon_channel'}

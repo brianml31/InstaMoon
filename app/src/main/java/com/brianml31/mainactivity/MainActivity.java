@@ -1,18 +1,16 @@
 package com.brianml31.mainactivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.brianml31.insta_moon.utils.DialogUtils;
+import com.brianml31.insta_moon.LongClickMenuHandler;
 import com.brianml31.instamoon.R;
 import com.instagram.mainactivity.InstagramMainActivity;
 
@@ -24,11 +22,6 @@ public class MainActivity extends InstagramMainActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("InstaMoon");
-
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -37,11 +30,14 @@ public class MainActivity extends InstagramMainActivity {
 
         //Open menu
         Button btnOpenMenu = findViewById(R.id.btnOpenMenu);
-        btnOpenMenu.setOnClickListener(new View.OnClickListener() {
+        LongClickMenuHandler.Companion.setLongClickMenuHandler(MainActivity.this, btnOpenMenu);
+
+        //Crash
+        Button btnForceCrash = findViewById(R.id.btnForceCrash);
+        btnForceCrash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context ctx = v.getContext();
-                DialogUtils.Companion.showInstaMoonOptionsDialog(ctx, MainActivity.this);
+                throw new RuntimeException("This is a test crash for ACRA");
             }
         });
     }

@@ -5,8 +5,10 @@ import android.content.Context
 import android.util.Base64
 import com.brianml31.insta_moon.utils.ExtraOptionsUtils
 import com.brianml31.insta_moon.utils.GhostModeUtils
+import org.acra.ACRA
 import java.io.IOException
 import java.net.URI
+
 
 class Brian {
     companion object {
@@ -16,7 +18,8 @@ class Brian {
             return ctx
         }
 
-        fun setCtx(application: Application) {
+        fun after_onCreate(application: Application) {
+            ACRA.init(application)
             ctx = application.applicationContext
         }
 

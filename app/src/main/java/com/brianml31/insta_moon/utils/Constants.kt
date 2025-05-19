@@ -4,7 +4,7 @@ import java.io.File
 
 class Constants {
     companion object{
-        const val VERSION = "3.00"
+        const val VERSION = "4.00"
         const val VERSION_CHECK_URL = "aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2JyaWFubWwzMS9JbnN0YU1vb24vSW5zdGFNb29uL1ZlcnNpb24udHh0"
         const val GITHUB_URL = "aHR0cHM6Ly9naXRodWIuY29tL2JyaWFubWwzMQ=="
         const val EXTEND_SNOOZE_WARNING_DURATION = 2048

@@ -10,35 +10,50 @@
 
     <!-- TOOLBAR -->
     <androidx.appcompat.widget.Toolbar
+        style="@style/ToolbarStyle.WhiteTitle"
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:titleTextColor="@android:color/white"
+        app:title="InstaMoon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- BOTÓN -->
+    <!-- OPEN MENU -->
     <Button
         android:id="@+id/btnOpenMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Open menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Long press to open menu"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"/>
 
-    <!-- TEXTO -->
+    <!-- FORCE CRASH -->
+    <Button
+        android:id="@+id/btnForceCrash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Force crash"
+        app:layout_constraintTop_toBottomOf="@id/btnOpenMenu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"/>
+
+    <!-- CREATED WITH -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="584dp"
         android:text="Created with ❤️ by brianml31"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="25dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

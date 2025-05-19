@@ -26,8 +26,8 @@ public class InstagramInjectionManager {
         LongClickMenuHandler.Companion.setLongClickMenuHandler(instagramMainActivity, v);
     }
 
-    public static void setCtxKotlin(Application application){
-        Brian.Companion.setCtx(application);
+    public static void setonCreate(Application application){
+        Brian.Companion.after_onCreate(application);
     }
 
     public static int ExtendSnoozeWarningDuration(){
