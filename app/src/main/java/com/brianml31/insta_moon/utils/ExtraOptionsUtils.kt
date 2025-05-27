@@ -13,5 +13,9 @@ class ExtraOptionsUtils {
         fun disableVideoAutoplay(): Boolean {
             return PrefsUtils.getBoolean(PrefsUtils.arrayExtraOptionsKeys[2], false)
         }
+
+        fun disableDoubleTapLike(): Boolean {
+            return PrefsUtils.getBoolean(PrefsUtils.arrayExtraOptionsKeys[3], false)
+        }
     }
 }

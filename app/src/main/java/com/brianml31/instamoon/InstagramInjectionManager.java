@@ -36,7 +36,7 @@ public class InstagramInjectionManager {
     }
 
 
-    // Privacy
+    // Ghost mode
     public static void validateUriHostKotlin(URI uri){
         Brian.Companion.validateUriHost(uri);
     }
@@ -73,6 +73,14 @@ public class InstagramInjectionManager {
         }else{
             Log.i("","ig_disable_video_autoplay");
             return false;
+        }
+    }
+
+    public static void disableDoubleTapLike(){
+        if(ExtraOptionsUtils.Companion.disableDoubleTapLike()){
+            return;
+        }else{
+            Log.i("","double_tap_media");
         }
     }
 

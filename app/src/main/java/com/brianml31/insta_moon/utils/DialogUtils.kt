@@ -81,7 +81,7 @@ class DialogUtils {
         }
 
         fun showExtraOptionsDialog(ctx: Context) {
-            val items = arrayOf("Disable ads", "Disable analytics", "Disable video autoplay")
+            val items = arrayOf("Disable ads", "Disable analytics", "Disable video autoplay", "Disable 'Like' with double tap")
             val checkedItems = PrefsUtils.loadPreferencesExtraOptions(ctx)
             val alertDialog = buildAlertDialog(ctx, "EXTRA OPTIONS ⚙\uFE0F")
             alertDialog.setMultiChoiceItems(items, checkedItems, object : DialogInterface.OnMultiChoiceClickListener {
