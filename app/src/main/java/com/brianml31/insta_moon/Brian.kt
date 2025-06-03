@@ -2,10 +2,10 @@ package com.brianml31.insta_moon
 
 import android.app.Application
 import android.content.Context
-import android.util.Base64
 import com.brianml31.insta_moon.utils.ExtraOptionsUtils
 import com.brianml31.insta_moon.utils.GhostModeUtils
 import org.acra.ACRA
+import org.json.JSONObject
 import java.io.IOException
 import java.net.URI
 
@@ -23,9 +23,40 @@ class Brian {
             ctx = application.applicationContext
         }
 
-        fun decodeBase64(encodedString: String): String {
-            return String(Base64.decode(encodedString, Base64.DEFAULT))
+        fun textToHex(text: String): String {
+            val hex = StringBuilder()
+            val chars = text.toCharArray()
+            for (i in chars.indices) {
+                val c = chars[i]
+                hex.append(String.format("%02x", c.code))
+            }
+            return hex.toString()
         }
+
+        fun hexToText(hex: String): String {
+            val text = StringBuilder()
+            var i = 0
+            while (i < hex.length) {
+                val part = hex.substring(i, i + 2)
+                val charCode = part.toInt(16)
+                text.append(charCode.toChar())
+                i += 2
+            }
+            return text.toString()
+        }
+
+        fun isIgMoonBackup(jsonString: String?): Boolean {
+            try {
+                val json = JSONObject(jsonString)
+                if (!json.has("isInstaMoon") || !json.getBoolean("isInstaMoon")) {
+                    return false
+                }
+                return json.has("version_InstaMoon") && json.has("version_Instagram") && json.has("InstaMoon_Backup")
+            } catch (e: Exception) {
+                return false
+            }
+        }
+
 
         fun validateUriHost(uri: URI) {
             if(uri!=null){

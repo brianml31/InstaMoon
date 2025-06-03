@@ -9,6 +9,7 @@ import android.os.Environment
 import android.widget.EditText
 import com.brianml31.insta_moon.Brian
 import com.instagram.mainactivity.InstagramMainActivity
+import org.json.JSONObject
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -109,12 +110,12 @@ class DialogUtils {
 
         fun showImportBackupDialog(ctx: Context, instagramMainActivity: InstagramMainActivity) {
             val alertDialog = buildAlertDialog(ctx, "IMPORT BACKUP 📥")
-            val options = arrayOf("Import from .JSON", "Import from .ibackup (instafel)")
+            val options = arrayOf("Import from .JSON", "Import from .igmoon (InstaMoon)")
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     when (which) {
                         0 -> com.brianml31.insta_moon.InstagramMainActivity.requestFileJsonToRestore(instagramMainActivity)
-                        1 -> com.brianml31.insta_moon.InstagramMainActivity.requestFileIbackupToRestore(instagramMainActivity)
+                        1 -> com.brianml31.insta_moon.InstagramMainActivity.requestFileIgMoonToRestore(instagramMainActivity)
                     }
                 }
             })
@@ -178,11 +179,16 @@ class DialogUtils {
                         if (!directoryOutput.exists()) {
                             directoryOutput.mkdirs()
                         }
-                        val fileOutput = File(directoryOutput, customOutputFileName+".json")
+                        val fileOutput = File(directoryOutput, customOutputFileName+".igmoon")
                         if (!fileOutput.exists()) {
                             fileOutput.createNewFile()
                         }
-                        val state = FileUtils.writeContent(content, fileOutput)
+                        val jsonIgMoon = JSONObject()
+                        jsonIgMoon.put("version_InstaMoon", Constants.VERSION)
+                        jsonIgMoon.put("version_Instagram", Utils.getVersionName(ctx))
+                        jsonIgMoon.put("isInstaMoon", true)
+                        jsonIgMoon.put("InstaMoon_Backup", Brian.textToHex(content))
+                        val state = FileUtils.writeContent(jsonIgMoon.toString(), fileOutput)
                         if(state.equals("SUCCESS")){
                             ToastUtils.showShortToast(ctx, "File exported in " + fileOutput.path)
                         }else{
@@ -203,12 +209,12 @@ class DialogUtils {
             alertDialog.setNeutralButton("CHECK UPDATE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     val updateTask = UpdateTask(ctx)
-                    updateTask.execute(Brian.decodeBase64(Constants.VERSION_CHECK_URL))
+                    updateTask.execute(Brian.hexToText(Constants.VERSION_CHECK_URL))
                 }
             })
             alertDialog.setNegativeButton("GITHUB", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
-                    Utils.openLink(ctx, Brian.decodeBase64(Constants.GITHUB_URL))
+                    Utils.openLink(ctx, Brian.hexToText(Constants.GITHUB_URL))
                 }
             })
             alertDialog.setPositiveButton("CLOSE", object : DialogInterface.OnClickListener {

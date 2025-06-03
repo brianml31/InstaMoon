@@ -80,7 +80,7 @@ public class InstagramInjectionManager {
         if(ExtraOptionsUtils.Companion.disableDoubleTapLike()){
             return;
         }else{
-            Log.i("","double_tap_media");
+            Log.i("","like_media");
         }
     }
 

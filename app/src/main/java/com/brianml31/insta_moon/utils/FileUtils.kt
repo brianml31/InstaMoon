@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
+import com.brianml31.insta_moon.Brian
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.File
@@ -100,7 +101,7 @@ class FileUtils {
             }
         }
 
-        fun importIbackupBackup(activity: Activity, uri: Uri?){
+        fun importIgMoonBackup(activity: Activity, uri: Uri?){
             val contentBackup = readBackupFile(activity, uri)
             if(contentBackup!=null){
                 val state = writeBackupContent(activity, contentBackup, true)
@@ -141,7 +142,7 @@ class FileUtils {
             }
         }
 
-        private fun writeBackupContent(activity: Activity, contentBackup: String, isIbackup: Boolean): String? {
+        private fun writeBackupContent(activity: Activity, contentBackup: String, isIgMoonBackup: Boolean): String? {
             var fileOutputStream: FileOutputStream? = null
             var osw: OutputStreamWriter? = null
             try {
@@ -155,11 +156,11 @@ class FileUtils {
                 }
                 fileOutputStream = FileOutputStream(fileMCOverrides)
                 osw = OutputStreamWriter(fileOutputStream)
-                if(isIbackup) {
-                    val jsonBackupObject = JSONObject(contentBackup)
-                    if (jsonBackupObject.has("backup")) {
-                        osw.write(jsonBackupObject.getJSONObject("backup").toString())
-                    } else {
+                if(isIgMoonBackup) {
+                    if(Brian.isIgMoonBackup(contentBackup)){
+                        val backup = JSONObject(contentBackup).getJSONObject("InstaMoon_Backup").toString()
+                        osw.write(Brian.hexToText(backup))
+                    }else{
                         return "Incompatible backup"
                     }
                 }else{
