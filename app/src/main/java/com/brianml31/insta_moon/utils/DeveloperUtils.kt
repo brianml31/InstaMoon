@@ -9,7 +9,6 @@ class DeveloperUtils {
     companion object {
         fun openDeveloperMode(ctx: Context, instagramMainActivity: InstagramMainActivity) {
             DeveloperOptionsLauncher.INSTANCE.loadAndLaunchDeveloperOptions(ctx, instagramMainActivity, instagramMainActivity.A05)
-            //DeveloperOptionsLauncher.INSTANCE.loadAndLaunchDeveloperOptions(ctx, instagramMainActivity.BIK(), instagramMainActivity, instagramMainActivity.A05)
         }
     }
 }
