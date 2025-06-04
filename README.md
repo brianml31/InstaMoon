@@ -13,6 +13,7 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
 > [!WARNING]  
 > This project is strictly for personal use and is not affiliated, endorsed, or certified by Instagram in any way. Use at your own risk.
 
+> **Note:** If you use any of the materials in this repository, please give proper credit by mentioning **Instamoon**. A simple mention or link is appreciated!
 <hr>
 
 <!-- **Recommended Instagram version:** [`380.0.0.0.0 alpha`](https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-380-0-0-0-0-release/instagram-380-0-0-0-0-4-android-apk-download/) -->
