@@ -158,7 +158,7 @@ class FileUtils {
                 osw = OutputStreamWriter(fileOutputStream)
                 if(isIgMoonBackup) {
                     if(Brian.isIgMoonBackup(contentBackup)){
-                        val backup = JSONObject(contentBackup).getJSONObject("InstaMoon_Backup").toString()
+                        val backup = JSONObject(contentBackup).getString("InstaMoon_Backup")
                         osw.write(Brian.hexToText(backup))
                     }else{
                         return "Incompatible backup"
