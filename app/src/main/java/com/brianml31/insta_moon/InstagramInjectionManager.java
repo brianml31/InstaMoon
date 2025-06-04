@@ -1,4 +1,4 @@
-package com.brianml31.instamoon;
+package com.brianml31.insta_moon;
 
 import android.app.Activity;
 import android.app.Application;
@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 
-import com.brianml31.insta_moon.Brian;
-import com.brianml31.insta_moon.LongClickMenuHandler;
-import com.brianml31.insta_moon.utils.Constants;
-import com.brianml31.insta_moon.utils.ExtraOptionsUtils;
-import com.brianml31.insta_moon.utils.GhostModeUtils;
+import com.brianml31.instamoon.Brian;
+import com.brianml31.instamoon.LongClickMenuHandler;
+import com.brianml31.instamoon.utils.Constants;
+import com.brianml31.instamoon.utils.ExtraOptionsUtils;
+import com.brianml31.instamoon.utils.GhostModeUtils;
 import com.instagram.mainactivity.InstagramMainActivity;
 
 import java.net.URI;
@@ -19,7 +19,7 @@ public class InstagramInjectionManager {
     //In this class are the invocation lines for InstaMoon functions.
 
     public static void after_onActivityResultKotlin(Activity activity, int requestCode, int resultCode, Intent data){
-        com.brianml31.insta_moon.InstagramMainActivity.Companion.after_onActivityResult(activity, requestCode, resultCode, data);
+        com.brianml31.instamoon.InstagramMainActivity.Companion.after_onActivityResult(activity, requestCode, resultCode, data);
     }
 
     public static void setLongClickMenuHandlerKotlin(InstagramMainActivity instagramMainActivity, View v){

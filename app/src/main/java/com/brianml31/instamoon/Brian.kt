@@ -1,9 +1,9 @@
-package com.brianml31.insta_moon
+package com.brianml31.instamoon
 
 import android.app.Application
 import android.content.Context
-import com.brianml31.insta_moon.utils.ExtraOptionsUtils
-import com.brianml31.insta_moon.utils.GhostModeUtils
+import com.brianml31.instamoon.utils.ExtraOptionsUtils
+import com.brianml31.instamoon.utils.GhostModeUtils
 import org.acra.ACRA
 import org.json.JSONObject
 import java.io.IOException

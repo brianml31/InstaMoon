@@ -1,4 +1,4 @@
-package com.brianml31.insta_moon.utils
+package com.brianml31.instamoon.utils
 
 class GhostModeUtils {
     companion object {

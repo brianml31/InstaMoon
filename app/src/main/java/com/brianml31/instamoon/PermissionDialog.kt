@@ -1,4 +1,4 @@
-package com.brianml31.insta_moon
+package com.brianml31.instamoon
 
 import android.Manifest
 import android.app.Activity
@@ -9,7 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
-import com.brianml31.insta_moon.utils.ToastUtils
+import com.brianml31.instamoon.utils.ToastUtils
 
 class PermissionDialog : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {

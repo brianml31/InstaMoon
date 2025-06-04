@@ -1,10 +1,10 @@
-package com.brianml31.insta_moon.utils
+package com.brianml31.instamoon.utils
 
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
-import com.brianml31.insta_moon.Brian
+import com.brianml31.instamoon.Brian
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.File

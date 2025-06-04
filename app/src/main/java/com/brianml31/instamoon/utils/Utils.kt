@@ -1,4 +1,4 @@
-package com.brianml31.insta_moon.utils
+package com.brianml31.instamoon.utils
 
 import android.content.Context
 import android.content.Intent

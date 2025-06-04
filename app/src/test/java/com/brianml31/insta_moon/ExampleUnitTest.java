@@ -1,4 +1,4 @@
-package com.brianml31.instamoon;
+package com.brianml31.insta_moon;
 
 import org.junit.Test;
 

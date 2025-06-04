@@ -1,4 +1,4 @@
-package com.brianml31.insta_moon.utils
+package com.brianml31.instamoon.utils
 
 import android.app.AlarmManager
 import android.app.AlertDialog
@@ -7,7 +7,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Environment
 import android.widget.EditText
-import com.brianml31.insta_moon.Brian
+import com.brianml31.instamoon.Brian
 import com.instagram.mainactivity.InstagramMainActivity
 import org.json.JSONObject
 import java.io.File
@@ -114,8 +114,8 @@ class DialogUtils {
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     when (which) {
-                        0 -> com.brianml31.insta_moon.InstagramMainActivity.requestFileJsonToRestore(instagramMainActivity)
-                        1 -> com.brianml31.insta_moon.InstagramMainActivity.requestFileIgMoonToRestore(instagramMainActivity)
+                        0 -> com.brianml31.instamoon.InstagramMainActivity.requestFileJsonToRestore(instagramMainActivity)
+                        1 -> com.brianml31.instamoon.InstagramMainActivity.requestFileIgMoonToRestore(instagramMainActivity)
                     }
                 }
             })

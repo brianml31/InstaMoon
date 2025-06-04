@@ -2,7 +2,7 @@ package com.brianml31.mainactivity;
 
 import android.app.Application;
 
-import com.brianml31.insta_moon.Brian;
+import com.brianml31.instamoon.Brian;
 
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;

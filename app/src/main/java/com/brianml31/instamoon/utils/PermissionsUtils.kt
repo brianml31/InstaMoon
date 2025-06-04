@@ -1,4 +1,4 @@
-package com.brianml31.insta_moon.utils
+package com.brianml31.instamoon.utils
 
 import android.Manifest
 import android.content.Context
@@ -6,7 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Environment
-import com.brianml31.insta_moon.PermissionDialog
+import com.brianml31.instamoon.PermissionDialog
 
 class PermissionsUtils {
     companion object {

@@ -1,9 +1,9 @@
-package com.brianml31.insta_moon
+package com.brianml31.instamoon
 
 import android.app.Activity
 import android.content.Intent
-import com.brianml31.insta_moon.utils.FileUtils
-import com.brianml31.insta_moon.utils.PermissionsUtils
+import com.brianml31.instamoon.utils.FileUtils
+import com.brianml31.instamoon.utils.PermissionsUtils
 import com.instagram.mainactivity.InstagramMainActivity
 
 class InstagramMainActivity {

@@ -1,8 +1,8 @@
-package com.brianml31.insta_moon
+package com.brianml31.instamoon
 
 import android.content.Context
 import android.view.View
-import com.brianml31.insta_moon.utils.DialogUtils
+import com.brianml31.instamoon.utils.DialogUtils
 import com.instagram.mainactivity.InstagramMainActivity
 
 class LongClickMenuHandler : View.OnLongClickListener {

@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:theme="@android:style/Theme.DeviceDefault.Dialog" android:name="com.brianml31.insta_moon.PermissionDialog"/>
+        <activity android:theme="@android:style/Theme.DeviceDefault.Dialog" android:name="com.brianml31.instamoon.PermissionDialog"/>
     </application>
 
 </manifest>

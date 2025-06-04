@@ -1,4 +1,4 @@
-package com.brianml31.instamoon;
+package com.brianml31.insta_moon;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.brianml31.instamoon", appContext.getPackageName());
+        assertEquals("com.brianml31.insta_moon", appContext.getPackageName());
     }
 }
