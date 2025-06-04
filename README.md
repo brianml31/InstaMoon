@@ -44,7 +44,11 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
 </details>
 
 <details>
-<summary><h3>Screenshots</h3></summary>
+  <summary><h3>Screenshots</h3></summary>
+  <p>
+    <img src="https://github.com/brianml31/InstaMoon/blob/InstaMoon/assets/1.png" width="200">
+    <img src="https://github.com/brianml31/InstaMoon/blob/InstaMoon/assets/2.png" width="200" style="margin-right:10px;">
+  </p>
 </details>
 
 <details>

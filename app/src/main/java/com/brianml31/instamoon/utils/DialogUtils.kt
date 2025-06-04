@@ -110,7 +110,7 @@ class DialogUtils {
 
         fun showImportBackupDialog(ctx: Context, instagramMainActivity: InstagramMainActivity) {
             val alertDialog = buildAlertDialog(ctx, "IMPORT BACKUP 📥")
-            val options = arrayOf("Import from .JSON", "Import from .igmoon (InstaMoon)")
+            val options = arrayOf("Import from .Json", "Import from .igmoon (InstaMoon)")
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     when (which) {
