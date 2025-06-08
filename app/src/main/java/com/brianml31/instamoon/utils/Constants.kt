@@ -3,8 +3,8 @@ package com.brianml31.instamoon.utils
 import java.io.File
 
 class Constants {
-    companion object{
-        const val VERSION = "6.00"
+    companion object {
+        const val VERSION = "6.10"
         const val VERSION_CHECK_URL = "68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f627269616e6d6c33312f496e7374614d6f6f6e2f496e7374614d6f6f6e2f56657273696f6e2e747874"
         const val GITHUB_URL = "68747470733a2f2f6769746875622e636f6d2f627269616e6d6c3331"
         const val EXTEND_SNOOZE_WARNING_DURATION = 2048
