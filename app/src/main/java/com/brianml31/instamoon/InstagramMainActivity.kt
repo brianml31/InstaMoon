@@ -2,9 +2,15 @@ package com.brianml31.instamoon
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
+import com.brianml31.instamoon.utils.AESUtils
+import com.brianml31.instamoon.utils.BackupUtils
+import com.brianml31.instamoon.utils.DialogUtils
 import com.brianml31.instamoon.utils.FileUtils
 import com.brianml31.instamoon.utils.PermissionsUtils
+import com.brianml31.instamoon.utils.ToastUtils
 import com.instagram.mainactivity.InstagramMainActivity
+import org.json.JSONObject
 
 class InstagramMainActivity {
     companion object {
@@ -14,10 +20,10 @@ class InstagramMainActivity {
         fun after_onActivityResult(activity: Activity, requestCode: Int, resultCode: Int, data: Intent?) {
             if (data != null) {
                 if (requestCode == REQUEST_CODE_JSON_RESTORE && data.data != null && resultCode == -1) {
-                    FileUtils.importJsonBackup(activity, data.data)
+                    importBackup(activity, data.data, false)
                 }
                 if (requestCode == REQUEST_CODE_IGMOON_RESTORE && data.data != null && resultCode == -1) {
-                    FileUtils.importIgMoonBackup(activity, data.data)
+                    importBackup(activity, data.data, true)
                 }
             }
         }
@@ -44,6 +50,40 @@ class InstagramMainActivity {
             }
         }
 
+        fun importBackup(activity: Activity, data: Uri?, isIgMoon: Boolean){
+            val contentBackup = BackupUtils.readBackupToImport(activity, data)
+            if(contentBackup!=null){
+                if(isIgMoon){
+                    if(BackupUtils.isInstamoonBackup(contentBackup)){
+                        if(BackupUtils.hasPasswordInBackup(contentBackup)){
+                            DialogUtils.showPasswordDialog(activity, contentBackup)
+                        }else{
+                            val mc_overrides = FileUtils.loadMCOverridesFile(activity)
+                            val instamoon_backup_content = JSONObject(contentBackup).getString("instamoon_backup_content")
+                            val state = FileUtils.writeContent(mc_overrides, AESUtils.decrypt(instamoon_backup_content, ""))
+                            if(state.equals("SUCCESS")){
+                                ToastUtils.showShortToast(activity, "The backup was imported successfully")
+                                DialogUtils.showRestartAppDialog(activity)
+                            }else{
+                                ToastUtils.showShortToast(activity, "Error: " + state)
+                            }
+                        }
+                    }else{
+                        ToastUtils.showShortToast(activity, "Error: Incompatible backup")
+                    }
+                }else{
+                    val mc_overrides = FileUtils.loadMCOverridesFile(activity)
+                    val state = FileUtils.writeContent(mc_overrides, contentBackup)
+                    if(state.equals("SUCCESS")){
+                        ToastUtils.showShortToast(activity, "The backup was imported successfully")
+                        DialogUtils.showRestartAppDialog(activity)
+                    }else{
+                        ToastUtils.showShortToast(activity, "Error: " + state)
+                    }
+                }
+            } else {
+                ToastUtils.showShortToast(activity, "Error: Failed to read backup file")
+            }
+        }
     }
-
 }

@@ -17,5 +17,14 @@ class ExtraOptionsUtils {
         fun disableDoubleTapLike(): Boolean {
             return PrefsUtils.getBoolean(PrefsUtils.arrayExtraOptionsKeys[3], false)
         }
+
+        fun hideSuggestedReels(z: Boolean): Boolean {
+            if(PrefsUtils.getBoolean(PrefsUtils.arrayExtraOptionsKeys[4], false)){
+                return false
+            }else{
+                return z
+            }
+
+        }
     }
 }

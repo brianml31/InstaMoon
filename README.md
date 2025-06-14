@@ -59,18 +59,24 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
 
 #### **Steps to Follow:**
 
-1. **Compile the project** using **Android Studio**.
-2. From the generated APK, use **MT Manager "Dex Redivide"** function to merge all DEX files into a **single DEX file**.
-3. **Transfer the generated DEX file** to the **Instagram application**.
-4. **Add the function calls** from the `InstagramInjectionManager` class.
-    - *(If unsure, refer to the sample APK provided in the channel.)*
-5. **Add the following permissions and activity** to `AndroidManifest.xml`:
-   ```xml
-   <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-   <activity 
-       android:theme="@android:style/Theme.DeviceDefault.Dialog" 
-       android:name="com.brianml31.instamoon.PermissionDialog" />
-   
+1. **Compile the project** using **Android Studio** to generate the APK.
+2. **Decompile the generated APK** to extract:
+   - **Smali code**
+3. **Merge the extracted files** with the original Instagram APK, making sure to include:
+   - Smali classes (especially the `InstagramInjectionManager` class)
+5. **Modify Instagram’s `AndroidManifest.xml`**:
+   - Add the following permission:
+     ```xml
+     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+     ```
+   - Declare the required activity:
+     ```xml
+     <activity 
+         android:theme="@android:style/Theme.DeviceDefault.Dialog" 
+         android:name="com.brianml31.instamoon.PermissionDialog" />
+     ```
+
+6. **Insert the required function calls** from the `InstagramInjectionManager` class into Instagram's execution flow.
 </details>
 
 <hr>

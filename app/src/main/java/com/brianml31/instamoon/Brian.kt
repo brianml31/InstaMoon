@@ -23,7 +23,7 @@ class Brian {
             ctx = application.applicationContext
         }
 
-        fun textToHex(text: String): String {
+        /*fun textToHex(text: String): String {
             val hex = StringBuilder()
             val chars = text.toCharArray()
             for (i in chars.indices) {
@@ -31,7 +31,7 @@ class Brian {
                 hex.append(String.format("%02x", c.code))
             }
             return hex.toString()
-        }
+        }*/
 
         fun hexToText(hex: String): String {
             val text = StringBuilder()
@@ -44,19 +44,6 @@ class Brian {
             }
             return text.toString()
         }
-
-        fun isIgMoonBackup(jsonString: String?): Boolean {
-            try {
-                val json = JSONObject(jsonString)
-                if (!json.has("isInstaMoon") || !json.getBoolean("isInstaMoon")) {
-                    return false
-                }
-                return json.has("version_InstaMoon") && json.has("version_Instagram") && json.has("InstaMoon_Backup")
-            } catch (e: Exception) {
-                return false
-            }
-        }
-
 
         fun validateUriHost(uri: URI) {
             if(uri!=null){

@@ -84,6 +84,9 @@ public class InstagramInjectionManager {
         }
     }
 
-
+    public static boolean hideSuggestedReels(boolean z){
+        Log.i("clips_netego", "FeedItem");
+        return ExtraOptionsUtils.Companion.hideSuggestedReels(z);
+    }
 
 }
