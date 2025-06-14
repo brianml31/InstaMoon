@@ -177,7 +177,7 @@ class DialogUtils {
             layout.addView(inputFileName)
 
             val inputPassword = EditText(ctx)
-            inputPassword.hint = "Enter password"
+            inputPassword.hint = "Enter password (Optional)"
             inputPassword.setTextSize(16f)
             layout.addView(inputPassword)
 
