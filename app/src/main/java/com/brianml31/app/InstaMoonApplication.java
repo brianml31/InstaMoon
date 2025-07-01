@@ -1,4 +1,4 @@
-package com.brianml31.mainactivity;
+package com.brianml31.app;
 
 import android.app.Application;
 

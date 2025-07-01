@@ -44,13 +44,7 @@ class DialogUtils {
                         2 -> DeveloperUtils.openDeveloperMode(ctx, instagramMainActivity)
                         3 -> FileUtils.exportJsonBackup(ctx)
                         4 -> showImportBackupDialog(ctx, instagramMainActivity)
-                        5 -> {
-                            if (FileUtils.deleteMCOverrides(ctx)) {
-                                ToastUtils.showShortToast(ctx, "Developer mode settings successfully cleared")
-                            } else {
-                                ToastUtils.showShortToast(ctx, "Error clearing commands")
-                            }
-                        }
+                        5 -> showDeveloperModeResetConfirmation(ctx)
                         6 -> FileUtils.saveFileIdNameMapping(ctx)
                         7 -> showAboutAppDialogDialog(ctx)
                     }
@@ -136,6 +130,26 @@ class DialogUtils {
                 }
             })
             alertDialog.create()
+            alertDialog.show()
+        }
+
+        private fun showDeveloperModeResetConfirmation(ctx: Context) {
+            val alertDialog = buildAlertDialog(ctx, "CONFIRMATION", "Do you want to proceed to clear the developer mode settings?", null)
+            alertDialog.setNegativeButton("YES", object : DialogInterface.OnClickListener {
+                override fun onClick(dialog: DialogInterface, which: Int) {
+                    if (FileUtils.deleteMCOverrides(ctx)) {
+                        ToastUtils.showShortToast(ctx, "Developer mode settings successfully cleared")
+                    } else {
+                        ToastUtils.showShortToast(ctx, "Error clearing commands")
+                    }
+                    dialog.dismiss()
+                }
+            })
+            alertDialog.setPositiveButton("NO", object : DialogInterface.OnClickListener {
+                override fun onClick(dialog: DialogInterface, which: Int) {
+                    dialog.dismiss()
+                }
+            })
             alertDialog.show()
         }
 
