@@ -1,8 +1,7 @@
 package com.brianml31.app;
 
 import android.app.Application;
-
-import com.brianml31.instamoon.Brian;
+import com.brianml31.instamoon.utils.AppContext;
 
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
@@ -12,6 +11,6 @@ public class InstaMoonApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Brian.Companion.after_onCreate(InstaMoonApplication.this);
+        AppContext.Companion.setContext(InstaMoonApplication.this);
     }
 }

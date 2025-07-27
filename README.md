@@ -16,32 +16,39 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
 > **Note:** If you use any of the materials in this repository, please give proper credit by mentioning **Instamoon**. A simple mention or link is appreciated!
 <hr>
 
-<!-- **Recommended Instagram version:** [`380.0.0.0.0 alpha`](https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-380-0-0-0-0-release/instagram-380-0-0-0-0-4-android-apk-download/) -->
+**Recommended Instagram version:** [`392-0-0-0-4 alpha`](https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-392-0-0-0-4-release/instagram-392-0-0-0-4-2-android-apk-download/)
 
 <details>
 <summary><h3>Features</h3></summary>
 
-### Ghost Mode
-- Stay anonymous by watching Stories, Messages, and live videos.
+### 👻 Ghost Mode
+- Hide (Seen) in stories
+- Hide (Seen) in DM
+- Hide (Typing) in DM
+- Hide (You took a screenshot) in DM
+- Hide (Opened) in media
+- Hide (Replayed) in media
+- Hide (Seen) in live videos
 
-### Remove Ads
-- Remove ads from feed, stories, reels, explore. (Thanks to revanced)
+### ⚙️ Extra options
+- Disable ads
+- Disable analytics
+- Disable video autoplay
+- Disable 'Like' with double tap
+- Hide suggested reels
 
-### Remove Analytics
-- Block Instagram's tracking and analytics to protect your privacy.
-
-### Developer Mode
+### 🧪 Developer Mode
 - Access to instagram's in-development features.
 
-### Export Developer Mode Settings
+### 📤 Export Developer Mode Settings
 - Export your developer mode configurations
 
-### Import Developer Mode Settings
+### 📥 Import Developer Mode Settings
 - Import your developer mode configurations
 
-### Clear Developer Mode Settings
+### 🧹 Clear Developer Mode Settings
 
-### Save File (id_name_mapping.json)
+### 💾 Save File (id_name_mapping.json)
 </details>
 
 <details>
@@ -71,7 +78,7 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
      ```xml
      <activity 
          android:theme="@android:style/Theme.DeviceDefault.Dialog" 
-         android:name="com.brianml31.instamoon.PermissionDialog" />
+         android:name="com.brianml31.instamoon.permissions.StoragePermissionActivity" />
      ```
 
 6. **Insert the required function calls** from the `InstagramInjectionManager` class into Instagram's execution flow.

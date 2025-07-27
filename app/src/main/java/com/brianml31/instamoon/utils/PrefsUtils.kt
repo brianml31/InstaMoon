@@ -2,7 +2,6 @@ package com.brianml31.instamoon.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.brianml31.instamoon.Brian
 
 class PrefsUtils {
     companion object{
@@ -10,7 +9,7 @@ class PrefsUtils {
         val arrayExtraOptionsKeys = arrayOf("disableAds", "disableAnalytics", "disableVideoAutoplay", "disableDoubleTapLike", "hideSuggestedReels")
 
         fun getBoolean(key: String?, defValue: Boolean): Boolean {
-            return getSharedPreferences(Brian.getCtx()!!).getBoolean(key, defValue)
+            return getSharedPreferences(AppContext.getContext()!!).getBoolean(key, defValue)
         }
 
         private fun getSharedPreferences(context: Context): SharedPreferences {

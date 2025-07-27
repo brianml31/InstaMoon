@@ -1,4 +1,4 @@
-package com.brianml31.instamoon
+package com.brianml31.instamoon.permissions
 
 import android.Manifest
 import android.app.Activity
@@ -11,7 +11,7 @@ import android.os.Environment
 import android.provider.Settings
 import com.brianml31.instamoon.utils.ToastUtils
 
-class PermissionDialog : Activity() {
+class StoragePermissionActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(1)

@@ -2,6 +2,7 @@ package com.brianml31.instamoon.utils
 
 import android.app.Activity
 import android.content.Context
+import android.net.Uri
 import android.os.Environment
 import java.io.BufferedReader
 import java.io.File
@@ -9,29 +10,35 @@ import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
 
 class FileUtils {
     companion object{
-        fun exportJsonBackup(ctx: Context) {
-            if (!PermissionsUtils.checkPermission(ctx)) {
-                PermissionsUtils.requestPermission(ctx)
-            } else {
+        fun readFileFromUri(context: Context, data: Uri?): String? {
+            val stringBuilder = StringBuilder()
+            var inputStream: InputStream? = null
+            var reader: BufferedReader? = null
+            try {
+                inputStream = context.contentResolver.openInputStream(data!!)
+                val isr = InputStreamReader(inputStream)
+                reader = BufferedReader(isr)
+                var line: String?
+                while (reader.readLine().also { line = it } != null) {
+                    stringBuilder.append(line)
+                }
+                return stringBuilder.toString()
+            } catch (fileNotFoundException: FileNotFoundException) {
+                return null
+            } catch (e: Exception) {
+                return null
+            } finally {
                 try {
-                    val mobileConfigDir = File(ctx.filesDir, "mobileconfig")
-                    if (!mobileConfigDir.exists()) {
-                        mobileConfigDir.mkdirs()
-                    }
-                    val fileMCOverrides = File(mobileConfigDir, "mc_overrides.json")
-                    if (fileMCOverrides.exists()) {
-                        DialogUtils.showFileNameDialog(ctx, fileMCOverrides)
-                    } else {
-                        ToastUtils.showShortToast(ctx, "There is no configuration file to export")
-                    }
-                } catch (e: Exception) {
-                    ToastUtils.showShortToast(ctx, "Error: Could not export developer mode settings")
+                    reader?.close()
+                    inputStream?.close()
+                } catch (e: IOException) {
                 }
             }
         }
@@ -76,7 +83,7 @@ class FileUtils {
             }
         }
 
-        fun readFile(fileInput: File): String? {
+        fun readTextFromFile(fileInput: File): String? {
             val stringBuilder = StringBuilder()
             var fileInputStream: FileInputStream? = null
             var reader: BufferedReader? = null

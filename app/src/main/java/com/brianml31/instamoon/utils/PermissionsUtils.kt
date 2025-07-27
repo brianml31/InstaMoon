@@ -6,7 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Environment
-import com.brianml31.instamoon.PermissionDialog
+import com.brianml31.instamoon.permissions.StoragePermissionActivity
 
 class PermissionsUtils {
     companion object {
@@ -19,7 +19,7 @@ class PermissionsUtils {
         }
 
         fun requestPermission(ctx: Context) {
-            val intentPermission = Intent(ctx, PermissionDialog::class.java)
+            val intentPermission = Intent(ctx, StoragePermissionActivity::class.java)
             intentPermission.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             ctx.startActivity(intentPermission)
         }

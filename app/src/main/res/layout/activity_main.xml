@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- OPEN MENU -->
+    <!-- BUTTON OPEN MENU -->
     <Button
         android:id="@+id/btnOpenMenu"
         android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp"/>
 
-    <!-- FORCE CRASH -->
+    <!-- BUTTON FORCE CRASH -->
     <Button
         android:id="@+id/btnForceCrash"
         android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="40dp"/>
 
-    <!-- CREATED WITH -->
+    <!-- TEXT "CREATED WITH" -->
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

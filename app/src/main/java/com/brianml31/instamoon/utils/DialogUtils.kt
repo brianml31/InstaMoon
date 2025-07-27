@@ -10,7 +10,7 @@ import android.os.Environment
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
-import com.brianml31.instamoon.Brian
+
 import com.instagram.mainactivity.InstagramMainActivity
 import org.json.JSONObject
 import java.io.File
@@ -42,9 +42,9 @@ class DialogUtils {
                         0 -> showGhostModeDialog(ctx)
                         1 -> showExtraOptionsDialog(ctx)
                         2 -> DeveloperUtils.openDeveloperMode(ctx, instagramMainActivity)
-                        3 -> FileUtils.exportJsonBackup(ctx)
+                        3 -> BackupUtils.exportBackup(ctx)
                         4 -> showImportBackupDialog(ctx, instagramMainActivity)
-                        5 -> showDeveloperModeResetConfirmation(ctx)
+                        5 -> showClearDeveloperModeSettingsDialog(ctx)
                         6 -> FileUtils.saveFileIdNameMapping(ctx)
                         7 -> showAboutAppDialogDialog(ctx)
                     }
@@ -93,9 +93,6 @@ class DialogUtils {
                     if (which == 0 && isChecked) {
                         showMessageDialog(ctx, "WARNING", "Hides ads in stories, discover, profile, etc. An ad can still appear once when refreshing the home feed")
                     }
-                    if (which == 4 && isChecked) {
-                        showMessageDialog(ctx, "EXPERIMENTAL FEATURE", "This feature is still experimental and may not work as expected")
-                    }
                 }
             })
             alertDialog.setNegativeButton("CLOSE", object : DialogInterface.OnClickListener {
@@ -119,8 +116,8 @@ class DialogUtils {
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     when (which) {
-                        0 -> com.brianml31.instamoon.InstagramMainActivity.requestFileJsonToRestore(instagramMainActivity)
-                        1 -> com.brianml31.instamoon.InstagramMainActivity.requestFileIgMoonToRestore(instagramMainActivity)
+                        0 -> BackupManager.requestFileJsonToRestore(instagramMainActivity)
+                        1 -> BackupManager.requestFileIgMoonToRestore(instagramMainActivity)
                     }
                 }
             })
@@ -133,7 +130,7 @@ class DialogUtils {
             alertDialog.show()
         }
 
-        private fun showDeveloperModeResetConfirmation(ctx: Context) {
+        private fun showClearDeveloperModeSettingsDialog(ctx: Context) {
             val alertDialog = buildAlertDialog(ctx, "CONFIRMATION", "Do you want to proceed to clear the developer mode settings?", null)
             alertDialog.setNegativeButton("YES", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
@@ -182,14 +179,14 @@ class DialogUtils {
             val layout = LinearLayout(ctx)
             layout.orientation = LinearLayout.VERTICAL
             layout.setPadding(48, 32, 48, 4)
-
+            //Input file name
             val inputFileName = EditText(ctx)
             val defaultFileName = "InstaMoon_Backup_" + SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(Date())
             inputFileName.setText(defaultFileName)
             inputFileName.hint = "Enter file name"
             inputFileName.setTextSize(16f)
             layout.addView(inputFileName)
-
+            //Input password
             val inputPassword = EditText(ctx)
             inputPassword.hint = "Enter password (Optional)"
             inputPassword.setTextSize(16f)
@@ -203,7 +200,7 @@ class DialogUtils {
             })
             alertDialog.setPositiveButton("OK", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
-                    val content = FileUtils.readFile(fileMCOverrides)
+                    val content = FileUtils.readTextFromFile(fileMCOverrides)
                     if(content!=null){
                         var customOutputFileName = inputFileName.text.toString()
                         if (customOutputFileName.isEmpty()) {
@@ -239,6 +236,7 @@ class DialogUtils {
             layout.orientation = LinearLayout.VERTICAL
             layout.setPadding(48, 32, 48, 4)
 
+            //Input password
             val inputPassword = EditText(activity)
             inputPassword.hint = "Enter password"
             inputPassword.setTextSize(16f)
@@ -252,21 +250,13 @@ class DialogUtils {
             })
             alertDialog.setPositiveButton("OK", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
-                    val mc_overrides = FileUtils.loadMCOverridesFile(activity)
                     val instamoon_backup_content = JSONObject(contentBackup).getString("instamoon_backup_content")
-                    val instamoon_backup_content_decrypted = AESUtils.decrypt(instamoon_backup_content, inputPassword.text.toString())
+                    val instamoon_backup_content_decrypted = AESUtils.decryptTextWithPassword(instamoon_backup_content, inputPassword.text.toString())
                     if(instamoon_backup_content_decrypted!=null){
-                        val state = FileUtils.writeContent(mc_overrides, instamoon_backup_content_decrypted)
-                        if(state.equals("SUCCESS")){
-                            ToastUtils.showShortToast(activity, "The backup was imported successfully")
-                            showRestartAppDialog(activity)
-                        }else{
-                            ToastUtils.showShortToast(activity, "Error: " + state)
-                        }
+                        BackupUtils.applyBackupToOverrides(activity, instamoon_backup_content_decrypted)
                     }else{
                         ToastUtils.showLongToast(activity, "Error: The password is incorrect or the data is corrupted")
                     }
-
                 }
             })
             alertDialog.create()
@@ -278,12 +268,12 @@ class DialogUtils {
             alertDialog.setNeutralButton("CHECK UPDATE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     val updateTask = UpdateTask(ctx)
-                    updateTask.execute(Brian.hexToText(Constants.VERSION_CHECK_URL))
+                    updateTask.execute(AESUtils.decryptTextWithPassword(Constants.VERSION_CHECK_URL, "InstaMoon"))
                 }
             })
             alertDialog.setNegativeButton("GITHUB", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
-                    Utils.openLink(ctx, Brian.hexToText(Constants.GITHUB_URL))
+                    Utils.openLink(ctx, AESUtils.decryptTextWithPassword(Constants.GITHUB_URL, "InstaMoon"))
                 }
             })
             alertDialog.setPositiveButton("CLOSE", object : DialogInterface.OnClickListener {

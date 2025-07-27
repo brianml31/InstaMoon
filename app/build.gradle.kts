@@ -11,8 +11,8 @@ android {
         applicationId = "com.brianml31.insta_moon"
         minSdk = 26
         targetSdk = 35
-        versionCode = 8
-        versionName = "8.0"
+        versionCode = 9
+        versionName = "9.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

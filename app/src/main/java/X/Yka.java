@@ -1,4 +1,4 @@
-package com.instagram.debug.devoptions.api;
+package X;
 
 import android.content.Context;
 
@@ -8,10 +8,10 @@ import com.brianml31.instamoon.utils.ToastUtils;
 import com.instagram.common.session.UserSession;
 
 
-public class DeveloperOptionsLauncher {
-    public static final DeveloperOptionsLauncher INSTANCE = new DeveloperOptionsLauncher();
+public class Yka {
+    public static final Yka A00 = new Yka();
 
-    public final void loadAndLaunchDeveloperOptions(Context context, FragmentActivity fragmentActivity, UserSession userSession){
+    public final void A02(Context context, FragmentActivity fragmentActivity, UserSession userSession){
         ToastUtils.Companion.showShortToast(context, "Open developer options");
     }
 

@@ -83,6 +83,7 @@ jobs:
           if [ -d "$dir/com/brianml31/mainactivity" ]; then
             find "$dir/com/brianml31/mainactivity" -type f -name "MainActivity*.smali" -delete
           fi
+          rm -rf "$dir/X"
         done
         
     - name: Unify smali into a single folder

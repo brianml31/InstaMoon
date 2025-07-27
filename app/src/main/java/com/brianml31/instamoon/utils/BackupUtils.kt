@@ -2,38 +2,28 @@ package com.brianml31.instamoon.utils
 
 import android.app.Activity
 import android.content.Context
-import android.net.Uri
 import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.FileNotFoundException
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
+import java.io.File
 
 class BackupUtils {
     companion object {
-        fun readBackupToImport(activity: Activity, data: Uri?): String? {
-            val stringBuilder = StringBuilder()
-            var inputStream: InputStream? = null
-            var reader: BufferedReader? = null
-            try {
-                inputStream = activity.contentResolver.openInputStream(data!!)
-                val isr = InputStreamReader(inputStream)
-                reader = BufferedReader(isr)
-                var line: String?
-                while (reader.readLine().also { line = it } != null) {
-                    stringBuilder.append(line)
-                }
-                return stringBuilder.toString()
-            } catch (fileNotFoundException: FileNotFoundException) {
-                return null
-            } catch (e: Exception) {
-                return null
-            } finally {
+        fun exportBackup(context: Context) {
+            if (!PermissionsUtils.checkPermission(context)) {
+                PermissionsUtils.requestPermission(context)
+            } else {
                 try {
-                    reader?.close()
-                    inputStream?.close()
-                } catch (e: IOException) {
+                    val mobileConfigDir = File(context.filesDir, "mobileconfig")
+                    if (!mobileConfigDir.exists()) {
+                        mobileConfigDir.mkdirs()
+                    }
+                    val fileMCOverrides = File(mobileConfigDir, "mc_overrides.json")
+                    if (fileMCOverrides.exists()) {
+                        DialogUtils.showFileNameDialog(context, fileMCOverrides)
+                    } else {
+                        ToastUtils.showShortToast(context, "There is no configuration file to export")
+                    }
+                } catch (e: Exception) {
+                    ToastUtils.showShortToast(context, "Error: Could not export developer mode settings")
                 }
             }
         }
@@ -62,6 +52,17 @@ class BackupUtils {
             }
         }
 
+        fun applyBackupToOverrides(activity: Activity, content: String?) {
+            val mc_overrides = FileUtils.loadMCOverridesFile(activity)
+            val state = FileUtils.writeContent(mc_overrides, content)
+            if(state.equals("SUCCESS")){
+                ToastUtils.showShortToast(activity, "The backup was imported successfully")
+                DialogUtils.showRestartAppDialog(activity)
+            }else{
+                ToastUtils.showShortToast(activity, "Error: " + state)
+            }
+        }
+
         fun createInstamoonBackupJson(ctx: Context, hasPassword: Boolean, instamoonBackupContent: String, password: String): JSONObject {
             val backupInfo = JSONObject()
             backupInfo.put("backup_version", 1)
@@ -72,9 +73,10 @@ class BackupUtils {
 
             val fullJson = JSONObject()
             fullJson.put("backup_info", backupInfo)
-            fullJson.put("instamoon_backup_content", AESUtils.encrypt(instamoonBackupContent, password))
+            fullJson.put("instamoon_backup_content", AESUtils.encryptTextWithPassword(instamoonBackupContent, password))
 
             return fullJson
         }
+
     }
 }

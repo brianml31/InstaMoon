@@ -20,21 +20,21 @@ class AESUtils {
             return SecretKeySpec(keyShort, "AES")
         }
 
-        fun encrypt(data: String, password: String): String {
+        fun encryptTextWithPassword(text: String, password: String): String {
             val key = getSecretKey(password)
             val cipher = Cipher.getInstance(ALGORITHM)
             val iv = ByteArray(16)
             SecureRandom().nextBytes(iv)
             val ivSpec = IvParameterSpec(iv)
             cipher.init(Cipher.ENCRYPT_MODE, key, ivSpec)
-            val encrypted = cipher.doFinal(data.toByteArray(StandardCharsets.UTF_8))
+            val encrypted = cipher.doFinal(text.toByteArray(StandardCharsets.UTF_8))
             val combined = ByteArray(iv.size + encrypted.size)
             System.arraycopy(iv, 0, combined, 0, iv.size)
             System.arraycopy(encrypted, 0, combined, iv.size, encrypted.size)
             return Base64.encodeToString(combined, Base64.NO_WRAP)
         }
 
-        fun decrypt(encryptedData: String, password: String): String? {
+        fun decryptTextWithPassword(encryptedData: String, password: String): String? {
             try{
                 val combined = Base64.decode(encryptedData, Base64.NO_WRAP)
                 val iv = combined.copyOfRange(0, 16)
