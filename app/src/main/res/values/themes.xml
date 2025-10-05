@@ -2,7 +2,12 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.InstaMoon" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+    </style>
+
+    <style name="ToolbarStyle.WhiteTitle" parent="Widget.Material3.Toolbar">
+        <item name="titleTextColor">@android:color/white</item>
     </style>
 
     <style name="Theme.InstaMoon" parent="Base.Theme.InstaMoon" />
