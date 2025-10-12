@@ -134,12 +134,21 @@ class DialogUtils {
             val alertDialog = buildAlertDialog(ctx, "CONFIRMATION", "Do you want to proceed to clear the developer mode settings?", null)
             alertDialog.setNegativeButton("YES", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
-                    if (FileUtils.deleteMCOverrides(ctx)) {
-                        ToastUtils.showShortToast(ctx, "Developer mode settings successfully cleared")
-                    } else {
-                        ToastUtils.showShortToast(ctx, "Error clearing commands")
+                    val state = FileUtils.deleteMCOverrides(ctx)
+                    when (state) {
+                        "SUCCESS" -> {
+                            ToastUtils.showShortToast(ctx, "Developer mode settings successfully cleared")
+                        }
+                        "ERROR" -> {
+                            ToastUtils.showShortToast(ctx, "Error clearing commands")
+                        }
+                        "NO_FILE" -> {
+                            ToastUtils.showShortToast(ctx, "The file \"mc_overrides\" does not exist to delete it")
+                        }
+                        else -> {
+                            ToastUtils.showShortToast(ctx, "Error: "+state)
+                        }
                     }
-                    dialog.dismiss()
                 }
             })
             alertDialog.setPositiveButton("NO", object : DialogInterface.OnClickListener {

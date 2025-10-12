@@ -124,15 +124,19 @@ class FileUtils {
             }
         }
 
-        fun deleteMCOverrides(ctx: Context): Boolean {
+        fun deleteMCOverrides(ctx: Context): String? {
             try {
                 val file_mc_overrides = File(ctx.filesDir, "mobileconfig" + File.separator + "mc_overrides.json")
-                if (file_mc_overrides.exists()) {
-                    return file_mc_overrides.delete()
+                if(file_mc_overrides.exists()){
+                    if(file_mc_overrides.delete()){
+                        return "SUCCESS"
+                    }else{
+                        return "ERROR"
+                    }
                 }
-                return false
+                return "NO_FILE"
             } catch (e: Exception) {
-                return false
+                return e.message
             }
         }
 

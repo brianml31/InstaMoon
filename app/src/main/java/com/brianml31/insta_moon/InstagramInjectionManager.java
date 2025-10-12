@@ -9,7 +9,6 @@ import android.view.View;
 import com.brianml31.instamoon.handlers.LongClickMenuHandler;
 import com.brianml31.instamoon.utils.AppContext;
 import com.brianml31.instamoon.utils.BackupManager;
-import com.brianml31.instamoon.utils.Constants;
 import com.brianml31.instamoon.utils.ExtraOptionsUtils;
 import com.brianml31.instamoon.utils.GhostModeUtils;
 import com.instagram.mainactivity.InstagramMainActivity;
@@ -33,12 +32,6 @@ public class InstagramInjectionManager {
         AppContext.Companion.setContext(application);
         Log.i("InstagramAppShell","Landroid/app/Application;->onCreate()V");
     }
-
-    static int ExtendSnoozeWarningDuration(){
-        Log.i("X","snooze_expiration_lockout_manager");
-        return Constants.EXTEND_SNOOZE_WARNING_DURATION;
-    }
-
 
     // Ghost mode
     static void validateUriHostKotlin(URI uri){
