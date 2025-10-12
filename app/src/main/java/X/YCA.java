@@ -8,8 +8,8 @@ import com.brianml31.instamoon.utils.ToastUtils;
 import com.instagram.common.session.UserSession;
 
 
-public class Ygy {
-    public static final Ygy A00 = new Ygy();
+public class YCA {
+    public static final YCA A00 = new YCA();
 
     public final void A02(Context context, FragmentActivity fragmentActivity, UserSession userSession){
         ToastUtils.Companion.showShortToast(context, "Open developer options");

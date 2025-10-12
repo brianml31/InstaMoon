@@ -1,14 +1,15 @@
 package com.brianml31.instamoon.utils
 
 import android.content.Context
-import X.Ygy
+import X.YCA
 import com.instagram.mainactivity.InstagramMainActivity
 
 
 class DeveloperUtils {
     companion object {
         fun openDeveloperMode(ctx: Context, instagramMainActivity: InstagramMainActivity) {
-            Ygy.A00.A02(ctx, instagramMainActivity, instagramMainActivity.A06)
+            //"settings_devoptions"
+            YCA.A00.A02(ctx, instagramMainActivity, instagramMainActivity.A04)
         }
     }
 }
