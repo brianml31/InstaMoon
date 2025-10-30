@@ -35,18 +35,19 @@ class DialogUtils {
 
         fun showInstaMoonOptionsDialog(ctx: Context, instagramMainActivity: InstagramMainActivity) {
             val alertDialog = buildAlertDialog(ctx, "INSTAMOON \uD83C\uDF19", null, null)
-            val options = arrayOf("👻 Ghost mode", "⚙️ Extra options", "👨‍💻 Open developer mode", "📤 Export backup", "📥 Import backup", "🧹 Clear developer mode settings", "💾 Save file (id_name_mapping.json)", "ℹ️ About the App")
+            val options = arrayOf("👻 Ghost mode", "⚙️ Extra options", "🅰️ App font", "👨‍💻 Open developer mode", "📤 Export backup", "📥 Import backup", "🧹 Clear developer mode settings", "💾 Save file (id_name_mapping.json)", "ℹ️ About the App")
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     when (which) {
                         0 -> showGhostModeDialog(ctx)
                         1 -> showExtraOptionsDialog(ctx)
-                        2 -> DeveloperUtils.openDeveloperMode(ctx, instagramMainActivity)
-                        3 -> BackupUtils.exportBackup(ctx)
-                        4 -> showImportBackupDialog(ctx, instagramMainActivity)
-                        5 -> showClearDeveloperModeSettingsDialog(ctx)
-                        6 -> FileUtils.saveFileIdNameMapping(ctx)
-                        7 -> showAboutAppDialogDialog(ctx)
+                        2 -> showAppFontDialog(ctx)
+                        3 -> DeveloperUtils.openDeveloperMode(ctx, instagramMainActivity)
+                        4 -> BackupUtils.exportBackup(ctx)
+                        5 -> showImportBackupDialog(ctx, instagramMainActivity)
+                        6 -> showClearDeveloperModeSettingsDialog(ctx)
+                        7 -> FileUtils.saveFileIdNameMapping(ctx)
+                        8 -> showAboutAppDialogDialog(ctx)
                     }
                 }
             })
@@ -104,6 +105,23 @@ class DialogUtils {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     PrefsUtils.savePreferencesExtraOptions(ctx, checkedItems)
                     showRestartAppDialog(ctx)
+                }
+            })
+            alertDialog.create()
+            alertDialog.show()
+        }
+
+        fun showAppFontDialog(ctx: Context) {
+            val options = arrayOf("Select custom font", "Clear selected font", "Emoji IOS 18", "Emoji IOS 18.4", "Emoji WhatsApp", "Emoji Facebook")
+            val alertDialog = buildAlertDialog(ctx, "CUSTOM APP FONT 🔤", null, null)
+            alertDialog.setItems(options, object : DialogInterface.OnClickListener {
+                override fun onClick(dialog: DialogInterface, which: Int) {
+
+                }
+            })
+            alertDialog.setPositiveButton("CLOSE", object : DialogInterface.OnClickListener {
+                override fun onClick(dialog: DialogInterface, which: Int) {
+                    dialog.dismiss()
                 }
             })
             alertDialog.create()
