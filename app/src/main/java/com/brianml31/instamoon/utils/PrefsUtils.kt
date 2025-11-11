@@ -8,12 +8,16 @@ class PrefsUtils {
         val arrayGhostModeKeys = arrayOf("hideSeenStories", "hideSeenDM", "hideTypingDM", "hideTookScreenshot", "hideOpenedMedia", "hideReplayedMedia", "hideSeenLiveVideos")
         val arrayExtraOptionsKeys = arrayOf("disableAds", "disableAnalytics", "disableVideoAutoplay", "disableDoubleTapLike", "hideSuggestedReels")
 
+        private fun getSharedPreferences(context: Context): SharedPreferences {
+            return context.getSharedPreferences(context.packageName + "_brianml31", 0)
+        }
+
         fun getBoolean(key: String?, defValue: Boolean): Boolean {
             return getSharedPreferences(AppContext.getContext()!!).getBoolean(key, defValue)
         }
 
-        private fun getSharedPreferences(context: Context): SharedPreferences {
-            return context.getSharedPreferences(context.packageName + "_brianml31", 0)
+        fun getString(key: String?, defValue: String?): String? {
+            return getSharedPreferences(AppContext.getContext()!!).getString(key, defValue)
         }
 
         fun savePreferencesGhostMode(ctx: Context, checkedItems: BooleanArray) {
@@ -51,5 +55,20 @@ class PrefsUtils {
             }
             return checkedItems
         }
+
+        fun saveString(ctx: Context, key: String, value: String?) {
+            val preferences = getSharedPreferences(ctx)
+            val editor = preferences.edit()
+            editor.putString(key, value)
+            editor.apply()
+        }
+
+        fun removeString(ctx: Context, key: String) {
+            val preferences = getSharedPreferences(ctx)
+            val editor = preferences.edit()
+            editor.remove(key)
+            editor.apply()
+        }
+
     }
 }

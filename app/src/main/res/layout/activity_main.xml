@@ -42,6 +42,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="40dp"/>
 
+    <!-- EDITTEXT CUSTOM FONT -->
+    <EditText
+        android:id="@+id/editTextCustomFont"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Test custom font app"
+        app:layout_constraintTop_toBottomOf="@id/btnForceCrash"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:minHeight="48dp"
+        android:padding="12dp"
+        android:layout_marginTop="48dp"/>
+
     <!-- TEXT "CREATED WITH" -->
     <TextView
         android:id="@+id/textView"
@@ -54,6 +67,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="25dp"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

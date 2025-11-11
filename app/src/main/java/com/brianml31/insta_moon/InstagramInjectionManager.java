@@ -3,6 +3,7 @@ package com.brianml31.insta_moon;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.View;
 
@@ -10,6 +11,7 @@ import com.brianml31.instamoon.handlers.LongClickMenuHandler;
 import com.brianml31.instamoon.utils.AppContext;
 import com.brianml31.instamoon.utils.BackupManager;
 import com.brianml31.instamoon.utils.ExtraOptionsUtils;
+import com.brianml31.instamoon.utils.FontUtils;
 import com.brianml31.instamoon.utils.GhostModeUtils;
 import com.instagram.mainactivity.InstagramMainActivity;
 
@@ -85,6 +87,13 @@ public class InstagramInjectionManager {
     static boolean hideSuggestedReels(boolean z){
         Log.i("clips_netego", "FeedItem");
         return ExtraOptionsUtils.Companion.hideSuggestedReels(z);
+    }
+
+    //App font
+
+    public static Typeface getCustomFont(Typeface typeface){
+        Log.i(", does not have a backing source. You need to provide either a systemFontName, assetFontName, or a fileDescriptor.","Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
+        return FontUtils.Companion.getCustomFont(typeface);
     }
 
 }

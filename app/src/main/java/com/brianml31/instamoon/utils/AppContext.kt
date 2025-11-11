@@ -15,6 +15,7 @@ class AppContext {
         fun setContext(application: Application){
             ACRA.init(application)
             context = application.applicationContext
+            FontUtils.onCreateFont()
         }
     }
 }

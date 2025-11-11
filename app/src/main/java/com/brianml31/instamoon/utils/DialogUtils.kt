@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Environment
 import android.view.View
 import android.widget.EditText
@@ -41,7 +42,7 @@ class DialogUtils {
                     when (which) {
                         0 -> showGhostModeDialog(ctx)
                         1 -> showExtraOptionsDialog(ctx)
-                        2 -> showAppFontDialog(ctx)
+                        2 -> showAppFontDialog(ctx, instagramMainActivity)
                         3 -> DeveloperUtils.openDeveloperMode(ctx, instagramMainActivity)
                         4 -> BackupUtils.exportBackup(ctx)
                         5 -> showImportBackupDialog(ctx, instagramMainActivity)
@@ -111,11 +112,19 @@ class DialogUtils {
             alertDialog.show()
         }
 
-        fun showAppFontDialog(ctx: Context) {
+        fun showAppFontDialog(ctx: Context, instagramMainActivity: InstagramMainActivity) {
             val options = arrayOf("Select custom font", "Clear selected font", "Emoji IOS 18", "Emoji IOS 18.4", "Emoji WhatsApp", "Emoji Facebook")
-            val alertDialog = buildAlertDialog(ctx, "CUSTOM APP FONT 🔤", null, null)
+            val alertDialog = buildAlertDialog(ctx, "APP FONT 🅰️", null, null)
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
+                    when (which) {
+                        0 -> {
+                            FontUtils.requestFontFileToApply(instagramMainActivity)
+                        }
+                        1 -> {
+                            FontUtils.clearFont(ctx)
+                        }
+                    }
 
                 }
             })

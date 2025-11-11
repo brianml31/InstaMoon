@@ -1,9 +1,11 @@
 package com.brianml31.mainactivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -13,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.brianml31.instamoon.handlers.LongClickMenuHandler;
 import com.brianml31.insta_moon.R;
 import com.brianml31.instamoon.utils.BackupManager;
+import com.brianml31.instamoon.utils.FontUtils;
 import com.instagram.mainactivity.InstagramMainActivity;
 
 public class MainActivity extends InstagramMainActivity {
@@ -41,6 +44,11 @@ public class MainActivity extends InstagramMainActivity {
                 throw new RuntimeException("This is a test crash for ACRA");
             }
         });
+
+        //Edittext custom font
+        EditText editTextCustomFont = findViewById(R.id.editTextCustomFont);
+        Typeface font = FontUtils.Companion.getCustomFont(Typeface.DEFAULT);
+        editTextCustomFont.setTypeface(font);
     }
 
     @Override

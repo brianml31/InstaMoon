@@ -19,6 +19,7 @@ class BackupManager {
                 if (requestCode == REQUEST_CODE_IGMOON_RESTORE && data.data != null && resultCode == -1) {
                     importBackup(activity, data.data, ".json")
                 }
+                FontUtils.onActivityResult(activity, requestCode, resultCode, data)
             }
         }
 
