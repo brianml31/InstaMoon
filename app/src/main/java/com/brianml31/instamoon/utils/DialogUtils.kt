@@ -124,8 +124,19 @@ class DialogUtils {
                         1 -> {
                             FontUtils.clearFont(ctx)
                         }
+                        2 -> {
+                            FontUtils.downloadFont(ctx, "Emoji_iOS_18.ttf", Constants.FONT_IOS_18)
+                        }
+                        3 -> {
+                            FontUtils.downloadFont(ctx, "Emoji_iOS_18_4.ttf", Constants.FONT_IOS_18_4)
+                        }
+                        4 -> {
+                            FontUtils.downloadFont(ctx, "Emoji_WhatsApp.ttf", Constants.FONT_WHATSAPP)
+                        }
+                        5 -> {
+                            FontUtils.downloadFont(ctx, "Emoji_Facebook.ttf", Constants.FONT_FACEBOOK);
+                        }
                     }
-
                 }
             })
             alertDialog.setPositiveButton("CLOSE", object : DialogInterface.OnClickListener {
@@ -304,7 +315,7 @@ class DialogUtils {
             alertDialog.setNeutralButton("CHECK UPDATE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     val updateTask = UpdateTask(ctx)
-                    updateTask.execute(AESUtils.decryptTextWithPassword(Constants.VERSION_CHECK_URL, "InstaMoon"))
+                    updateTask.execute(AESUtils.decryptTextWithPassword(Constants.VERSION_CHECK, "InstaMoon"))
                 }
             })
             alertDialog.setNegativeButton("GITHUB", object : DialogInterface.OnClickListener {

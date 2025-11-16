@@ -4,8 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
+import android.os.Environment
 import com.hippo.unifile.UniFile
 import com.instagram.mainactivity.InstagramMainActivity
+import java.io.File
 
 class FontUtils {
 
@@ -61,9 +63,27 @@ class FontUtils {
             DialogUtils.showRestartAppDialog(ctx)
         }
 
-
-
+        fun downloadFont(context: Context, fontName: String, urlFont: String) {
+            if (!PermissionsUtils.checkPermission(context)) {
+                PermissionsUtils.requestPermission(context)
+            } else {
+                val dirFonts = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Constants.FONTS_OUTPUT_FOLDER)
+                if (!dirFonts.exists()) {
+                    dirFonts.mkdirs();
+                }
+                val fontFile = File(dirFonts, fontName)
+                if (fontFile.exists()) {
+                    PrefsUtils.saveString(context, "fontPath", fontFile.absolutePath)
+                    ToastUtils.showShortToast(context, "Font Applied")
+                    DialogUtils.showRestartAppDialog(context)
+                } else {
+                    if (NetworkUtils.isInternetAvailable(context)) {
+                        DownloadFontTask(context, fontName).execute(urlFont)
+                    } else {
+                        ToastUtils.showShortToast(context, "No internet connection")
+                    }
+                }
+            }
+        }
     }
-
-
 }

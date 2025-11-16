@@ -45,7 +45,7 @@ public class MainActivity extends InstagramMainActivity {
             }
         });
 
-        //Edittext custom font
+        //EditText custom font
         EditText editTextCustomFont = findViewById(R.id.editTextCustomFont);
         Typeface font = FontUtils.Companion.getCustomFont(Typeface.DEFAULT);
         editTextCustomFont.setTypeface(font);
