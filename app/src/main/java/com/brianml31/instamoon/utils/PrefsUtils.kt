@@ -20,8 +20,8 @@ class PrefsUtils {
             return getSharedPreferences(AppContext.getContext()!!).getString(key, defValue)
         }
 
-        fun savePreferencesGhostMode(ctx: Context, checkedItems: BooleanArray) {
-            val preferences = getSharedPreferences(ctx)
+        fun savePreferencesGhostMode(context: Context, checkedItems: BooleanArray) {
+            val preferences = getSharedPreferences(context)
             val editor = preferences.edit()
             for (i in checkedItems.indices) {
                 editor.putBoolean(arrayGhostModeKeys[i], checkedItems[i])
@@ -29,8 +29,8 @@ class PrefsUtils {
             editor.apply()
         }
 
-        fun savePreferencesExtraOptions(ctx: Context, checkedItems: BooleanArray) {
-            val preferences = getSharedPreferences(ctx)
+        fun savePreferencesExtraOptions(context: Context, checkedItems: BooleanArray) {
+            val preferences = getSharedPreferences(context)
             val editor = preferences.edit()
             for (i in checkedItems.indices) {
                 editor.putBoolean(arrayExtraOptionsKeys[i], checkedItems[i])
@@ -38,33 +38,33 @@ class PrefsUtils {
             editor.apply()
         }
 
-        fun loadPreferencesGhostMode(ctx: Context): BooleanArray {
+        fun loadPreferencesGhostMode(context: Context): BooleanArray {
             val checkedItems = booleanArrayOf(false, false, false, false, false, false, false)
-            val preferences = getSharedPreferences(ctx)
+            val preferences = getSharedPreferences(context)
             for (i in checkedItems.indices) {
                 checkedItems[i] = preferences.getBoolean(arrayGhostModeKeys[i], false)
             }
             return checkedItems
         }
 
-        fun loadPreferencesExtraOptions(ctx: Context): BooleanArray {
+        fun loadPreferencesExtraOptions(context: Context): BooleanArray {
             val checkedItems = booleanArrayOf(false, false, false, false, false)
-            val preferences = getSharedPreferences(ctx)
+            val preferences = getSharedPreferences(context)
             for (i in checkedItems.indices) {
                 checkedItems[i] = preferences.getBoolean(arrayExtraOptionsKeys[i], false)
             }
             return checkedItems
         }
 
-        fun saveString(ctx: Context, key: String, value: String?) {
-            val preferences = getSharedPreferences(ctx)
+        fun saveString(context: Context, key: String, value: String?) {
+            val preferences = getSharedPreferences(context)
             val editor = preferences.edit()
             editor.putString(key, value)
             editor.apply()
         }
 
-        fun removeString(ctx: Context, key: String) {
-            val preferences = getSharedPreferences(ctx)
+        fun removeString(context: Context, key: String) {
+            val preferences = getSharedPreferences(context)
             val editor = preferences.edit()
             editor.remove(key)
             editor.apply()

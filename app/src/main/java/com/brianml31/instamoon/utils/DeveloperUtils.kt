@@ -7,9 +7,9 @@ import com.instagram.mainactivity.InstagramMainActivity
 
 class DeveloperUtils {
     companion object {
-        fun openDeveloperMode(ctx: Context, instagramMainActivity: InstagramMainActivity) {
+        fun openDeveloperMode(context: Context, instagramMainActivity: InstagramMainActivity) {
             //"settings_devoptions"
-            YCA.A00.A02(ctx, instagramMainActivity, instagramMainActivity.A04)
+            YCA.A00.A02(context, instagramMainActivity, instagramMainActivity.A04)
         }
     }
 }

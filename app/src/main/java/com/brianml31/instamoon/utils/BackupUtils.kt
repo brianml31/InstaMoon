@@ -63,11 +63,11 @@ class BackupUtils {
             }
         }
 
-        fun createInstamoonBackupJson(ctx: Context, hasPassword: Boolean, instamoonBackupContent: String, password: String): JSONObject {
+        fun createInstamoonBackupJson(context: Context, hasPassword: Boolean, instamoonBackupContent: String, password: String): JSONObject {
             val backupInfo = JSONObject()
             backupInfo.put("backup_version", 1)
             backupInfo.put("instamoon_version", Constants.VERSION)
-            backupInfo.put("instagram_version", Utils.getVersionName(ctx))
+            backupInfo.put("instagram_version", Utils.getVersionName(context))
             backupInfo.put("is_instamoon", true)
             backupInfo.put("has_password", hasPassword)
 

@@ -124,9 +124,9 @@ class FileUtils {
             }
         }
 
-        fun deleteMCOverrides(ctx: Context): String? {
+        fun deleteMCOverrides(context: Context): String? {
             try {
-                val file_mc_overrides = File(ctx.filesDir, "mobileconfig" + File.separator + "mc_overrides.json")
+                val file_mc_overrides = File(context.filesDir, "mobileconfig" + File.separator + "mc_overrides.json")
                 if(file_mc_overrides.exists()){
                     if(file_mc_overrides.delete()){
                         return "SUCCESS"
@@ -140,28 +140,28 @@ class FileUtils {
             }
         }
 
-        fun saveFileIdNameMapping(ctx: Context) {
-            if (!PermissionsUtils.checkPermission(ctx)) {
-                PermissionsUtils.requestPermission(ctx)
+        fun saveFileIdNameMapping(context: Context) {
+            if (!PermissionsUtils.checkPermission(context)) {
+                PermissionsUtils.requestPermission(context)
             } else {
                 try {
-                    val fileIdNameMapping = File(ctx.filesDir, "mobileconfig" + File.separator + "id_name_mapping.json")
+                    val fileIdNameMapping = File(context.filesDir, "mobileconfig" + File.separator + "id_name_mapping.json")
                     if (fileIdNameMapping.exists()) {
                         val directoryOutput = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Constants.ID_NAME_MAPPING_OUTPUT_FOLDER)
                         if (!directoryOutput.exists()) {
                             directoryOutput.mkdirs()
                         }
-                        val fileOutput = File(directoryOutput, "id_name_mapping_" + Utils.getVersionName(ctx) + ".json")
+                        val fileOutput = File(directoryOutput, "id_name_mapping_" + Utils.getVersionName(context) + ".json")
                         if (!fileOutput.exists()) {
                             fileOutput.createNewFile()
                         }
                         copyStream(fileIdNameMapping, fileOutput)
-                        ToastUtils.showShortToast(ctx, "File saved in" + fileOutput.path)
+                        ToastUtils.showShortToast(context, "File saved in" + fileOutput.path)
                     } else {
-                        ToastUtils.showShortToast(ctx, "The file (id_name_mapping.json) does not exist")
+                        ToastUtils.showShortToast(context, "The file (id_name_mapping.json) does not exist")
                     }
                 } catch (e: Exception) {
-                    ToastUtils.showShortToast(ctx, "An error occurred while importing the file \"id name mapping.json\"")
+                    ToastUtils.showShortToast(context, "An error occurred while importing the file \"id name mapping.json\"")
                 }
             }
         }

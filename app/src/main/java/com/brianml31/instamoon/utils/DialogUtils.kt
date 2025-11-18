@@ -20,10 +20,10 @@ import java.util.Date
 
 class DialogUtils {
     companion object {
-        private fun buildAlertDialog(ctx: Context, title: String, message: String?, view: View?): AlertDialog.Builder {
-            val builder = AlertDialog.Builder(ctx)
+        private fun buildAlertDialog(context: Context, title: String, message: String?, view: View?): AlertDialog.Builder {
+            val builder = AlertDialog.Builder(context)
             builder.setCancelable(false)
-            builder.setIcon(Utils.getAppIcon(ctx))
+            builder.setIcon(Utils.getAppIcon(context))
             builder.setTitle(title)
             if(message!=null){
                 builder.setMessage(message)
@@ -34,21 +34,21 @@ class DialogUtils {
             return builder
         }
 
-        fun showInstaMoonOptionsDialog(ctx: Context, instagramMainActivity: InstagramMainActivity) {
-            val alertDialog = buildAlertDialog(ctx, "INSTAMOON \uD83C\uDF19", null, null)
+        fun showInstaMoonOptionsDialog(context: Context, instagramMainActivity: InstagramMainActivity) {
+            val alertDialog = buildAlertDialog(context, "INSTAMOON \uD83C\uDF19", null, null)
             val options = arrayOf("👻 Ghost mode", "⚙️ Extra options", "🅰️ App font", "👨‍💻 Open developer mode", "📤 Export backup", "📥 Import backup", "🧹 Clear developer mode settings", "💾 Save file (id_name_mapping.json)", "ℹ️ About the App")
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     when (which) {
-                        0 -> showGhostModeDialog(ctx)
-                        1 -> showExtraOptionsDialog(ctx)
-                        2 -> showAppFontDialog(ctx, instagramMainActivity)
-                        3 -> DeveloperUtils.openDeveloperMode(ctx, instagramMainActivity)
-                        4 -> BackupUtils.exportBackup(ctx)
-                        5 -> showImportBackupDialog(ctx, instagramMainActivity)
-                        6 -> showClearDeveloperModeSettingsDialog(ctx)
-                        7 -> FileUtils.saveFileIdNameMapping(ctx)
-                        8 -> showAboutAppDialogDialog(ctx)
+                        0 -> showGhostModeDialog(context)
+                        1 -> showExtraOptionsDialog(context)
+                        2 -> showAppFontDialog(context, instagramMainActivity)
+                        3 -> DeveloperUtils.openDeveloperMode(context, instagramMainActivity)
+                        4 -> BackupUtils.exportBackup(context)
+                        5 -> showImportBackupDialog(context, instagramMainActivity)
+                        6 -> showClearDeveloperModeSettingsDialog(context)
+                        7 -> FileUtils.saveFileIdNameMapping(context)
+                        8 -> showAboutAppDialogDialog(context)
                     }
                 }
             })
@@ -61,10 +61,10 @@ class DialogUtils {
             alertDialog.show()
         }
 
-        fun showGhostModeDialog(ctx: Context) {
+        fun showGhostModeDialog(context: Context) {
             val items = arrayOf("Hide (Seen) in stories", "Hide (Seen) in DM", "Hide (Typing) in DM", "Hide (You took a screenshot) in DM", "Hide (Opened) in media", "Hide (Replayed) in media", "Hide (Seen) in live videos")
-            val checkedItems = PrefsUtils.loadPreferencesGhostMode(ctx)
-            val alertDialog = buildAlertDialog(ctx, "GHOST MODE 👻", null, null)
+            val checkedItems = PrefsUtils.loadPreferencesGhostMode(context)
+            val alertDialog = buildAlertDialog(context, "GHOST MODE 👻", null, null)
             alertDialog.setMultiChoiceItems(items, checkedItems, object : DialogInterface.OnMultiChoiceClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int, isChecked: Boolean) {
                     checkedItems[which] = isChecked
@@ -77,23 +77,23 @@ class DialogUtils {
             })
             alertDialog.setPositiveButton("SAVE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
-                    PrefsUtils.savePreferencesGhostMode(ctx, checkedItems)
-                    showRestartAppDialog(ctx)
+                    PrefsUtils.savePreferencesGhostMode(context, checkedItems)
+                    showRestartAppDialog(context)
                 }
             })
             alertDialog.create()
             alertDialog.show()
         }
 
-        fun showExtraOptionsDialog(ctx: Context) {
+        fun showExtraOptionsDialog(context: Context) {
             val items = arrayOf("Disable ads", "Disable analytics", "Disable video autoplay", "Disable 'Like' with double tap", "Hide suggested reels")
-            val checkedItems = PrefsUtils.loadPreferencesExtraOptions(ctx)
-            val alertDialog = buildAlertDialog(ctx, "EXTRA OPTIONS ⚙\uFE0F", null, null)
+            val checkedItems = PrefsUtils.loadPreferencesExtraOptions(context)
+            val alertDialog = buildAlertDialog(context, "EXTRA OPTIONS ⚙\uFE0F", null, null)
             alertDialog.setMultiChoiceItems(items, checkedItems, object : DialogInterface.OnMultiChoiceClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int, isChecked: Boolean) {
                     checkedItems[which] = isChecked
                     if (which == 0 && isChecked) {
-                        showMessageDialog(ctx, "WARNING", "Hides ads in stories, discover, profile, etc. An ad can still appear once when refreshing the home feed")
+                        showMessageDialog(context, "WARNING", "Hides ads in stories, discover, profile, etc. An ad can still appear once when refreshing the home feed")
                     }
                 }
             })
@@ -104,17 +104,17 @@ class DialogUtils {
             })
             alertDialog.setPositiveButton("SAVE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
-                    PrefsUtils.savePreferencesExtraOptions(ctx, checkedItems)
-                    showRestartAppDialog(ctx)
+                    PrefsUtils.savePreferencesExtraOptions(context, checkedItems)
+                    showRestartAppDialog(context)
                 }
             })
             alertDialog.create()
             alertDialog.show()
         }
 
-        fun showAppFontDialog(ctx: Context, instagramMainActivity: InstagramMainActivity) {
+        fun showAppFontDialog(context: Context, instagramMainActivity: InstagramMainActivity) {
             val options = arrayOf("Select custom font", "Clear selected font", "Emoji IOS 18", "Emoji IOS 18.4", "Emoji WhatsApp", "Emoji Facebook")
-            val alertDialog = buildAlertDialog(ctx, "APP FONT 🅰️", null, null)
+            val alertDialog = buildAlertDialog(context, "APP FONT 🅰️", null, null)
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     when (which) {
@@ -122,19 +122,19 @@ class DialogUtils {
                             FontUtils.requestFontFileToApply(instagramMainActivity)
                         }
                         1 -> {
-                            FontUtils.clearFont(ctx)
+                            FontUtils.clearFont(context)
                         }
                         2 -> {
-                            FontUtils.downloadFont(ctx, "Emoji_iOS_18.ttf", Constants.FONT_IOS_18)
+                            FontUtils.downloadFont(context, "Emoji_iOS_18.ttf", Constants.FONT_IOS_18)
                         }
                         3 -> {
-                            FontUtils.downloadFont(ctx, "Emoji_iOS_18_4.ttf", Constants.FONT_IOS_18_4)
+                            FontUtils.downloadFont(context, "Emoji_iOS_18_4.ttf", Constants.FONT_IOS_18_4)
                         }
                         4 -> {
-                            FontUtils.downloadFont(ctx, "Emoji_WhatsApp.ttf", Constants.FONT_WHATSAPP)
+                            FontUtils.downloadFont(context, "Emoji_WhatsApp.ttf", Constants.FONT_WHATSAPP)
                         }
                         5 -> {
-                            FontUtils.downloadFont(ctx, "Emoji_Facebook.ttf", Constants.FONT_FACEBOOK);
+                            FontUtils.downloadFont(context, "Emoji_Facebook.ttf", Constants.FONT_FACEBOOK);
                         }
                     }
                 }
@@ -148,8 +148,8 @@ class DialogUtils {
             alertDialog.show()
         }
 
-        fun showImportBackupDialog(ctx: Context, instagramMainActivity: InstagramMainActivity) {
-            val alertDialog = buildAlertDialog(ctx, "IMPORT BACKUP 📥", null, null)
+        fun showImportBackupDialog(context: Context, instagramMainActivity: InstagramMainActivity) {
+            val alertDialog = buildAlertDialog(context, "IMPORT BACKUP 📥", null, null)
             val options = arrayOf("Import from .Json", "Import from .igmoon (InstaMoon)")
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
@@ -168,23 +168,23 @@ class DialogUtils {
             alertDialog.show()
         }
 
-        private fun showClearDeveloperModeSettingsDialog(ctx: Context) {
-            val alertDialog = buildAlertDialog(ctx, "CONFIRMATION", "Do you want to proceed to clear the developer mode settings?", null)
+        private fun showClearDeveloperModeSettingsDialog(context: Context) {
+            val alertDialog = buildAlertDialog(context, "CONFIRMATION", "Do you want to proceed to clear the developer mode settings?", null)
             alertDialog.setNegativeButton("YES", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
-                    val state = FileUtils.deleteMCOverrides(ctx)
+                    val state = FileUtils.deleteMCOverrides(context)
                     when (state) {
                         "SUCCESS" -> {
-                            ToastUtils.showShortToast(ctx, "Developer mode settings successfully cleared")
+                            ToastUtils.showShortToast(context, "Developer mode settings successfully cleared")
                         }
                         "ERROR" -> {
-                            ToastUtils.showShortToast(ctx, "Error clearing commands")
+                            ToastUtils.showShortToast(context, "Error clearing commands")
                         }
                         "NO_FILE" -> {
-                            ToastUtils.showShortToast(ctx, "The file \"mc_overrides\" does not exist to delete it")
+                            ToastUtils.showShortToast(context, "The file \"mc_overrides\" does not exist to delete it")
                         }
                         else -> {
-                            ToastUtils.showShortToast(ctx, "Error: "+state)
+                            ToastUtils.showShortToast(context, "Error: "+state)
                         }
                     }
                 }
@@ -197,8 +197,8 @@ class DialogUtils {
             alertDialog.show()
         }
 
-        fun showMessageDialog(ctx: Context, title: String, message: String){
-            buildAlertDialog(ctx, title, message, null)
+        fun showMessageDialog(context: Context, title: String, message: String){
+            buildAlertDialog(context, title, message, null)
                 .setPositiveButton("CLOSE", object : DialogInterface.OnClickListener {
                     override fun onClick(dialog: DialogInterface, which: Int) {
                         dialog.dismiss()
@@ -207,13 +207,13 @@ class DialogUtils {
                 .show()
         }
 
-        fun showRestartAppDialog(ctx: Context) {
-            val alertDialog = buildAlertDialog(ctx, "RESTART APP", "to apply the new changes the app needs to be restarted, press RESTART to restart", null)
+        fun showRestartAppDialog(context: Context) {
+            val alertDialog = buildAlertDialog(context, "RESTART APP", "to apply the new changes the app needs to be restarted, press RESTART to restart", null)
             alertDialog.setPositiveButton("RESTART", object : DialogInterface.OnClickListener {
                 override fun onClick(dialogInterface: DialogInterface, i: Int) {
-                    val alarmManager = ctx.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                    val intent = ctx.packageManager.getLaunchIntentForPackage(ctx.packageName)
-                    val pendingIntent = PendingIntent.getActivity(ctx, 123456, intent, PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+                    val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                    val intent = context.packageManager.getLaunchIntentForPackage(context.packageName)
+                    val pendingIntent = PendingIntent.getActivity(context, 123456, intent, PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE)
                     alarmManager.set(AlarmManager.RTC, 100L + System.currentTimeMillis(), pendingIntent)
                     System.exit(0)
                 }
@@ -222,24 +222,24 @@ class DialogUtils {
             alertDialog.show()
         }
 
-        fun showFileNameDialog(ctx: Context, fileMCOverrides: File) {
-            val layout = LinearLayout(ctx)
+        fun showFileNameDialog(context: Context, fileMCOverrides: File) {
+            val layout = LinearLayout(context)
             layout.orientation = LinearLayout.VERTICAL
             layout.setPadding(48, 32, 48, 4)
             //Input file name
-            val inputFileName = EditText(ctx)
+            val inputFileName = EditText(context)
             val defaultFileName = "InstaMoon_Backup_" + SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(Date())
             inputFileName.setText(defaultFileName)
             inputFileName.hint = "Enter file name"
             inputFileName.setTextSize(16f)
             layout.addView(inputFileName)
             //Input password
-            val inputPassword = EditText(ctx)
+            val inputPassword = EditText(context)
             inputPassword.hint = "Enter password (Optional)"
             inputPassword.setTextSize(16f)
             layout.addView(inputPassword)
 
-            val alertDialog = buildAlertDialog(ctx, "File name and password:", null, layout)
+            val alertDialog = buildAlertDialog(context, "File name and password:", null, layout)
             alertDialog.setNegativeButton("CLOSE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     dialog.dismiss()
@@ -262,15 +262,15 @@ class DialogUtils {
                             fileOutput.createNewFile()
                         }
                         val hasPassword = if (inputPassword.text.toString().isEmpty()) false else true
-                        val InstamoonBackupJson = BackupUtils.createInstamoonBackupJson(ctx, hasPassword, content, inputPassword.text.toString())
+                        val InstamoonBackupJson = BackupUtils.createInstamoonBackupJson(context, hasPassword, content, inputPassword.text.toString())
                         val state = FileUtils.writeContent(fileOutput, InstamoonBackupJson.toString())
                         if(state.equals("SUCCESS")){
-                            ToastUtils.showShortToast(ctx, "File exported in " + fileOutput.path)
+                            ToastUtils.showShortToast(context, "File exported in " + fileOutput.path)
                         }else{
-                            ToastUtils.showShortToast(ctx, "Error: " + state)
+                            ToastUtils.showShortToast(context, "Error: " + state)
                         }
                     } else {
-                        ToastUtils.showShortToast(ctx, "Failed to read file")
+                        ToastUtils.showShortToast(context, "Failed to read file")
                     }
                 }
             })
@@ -310,17 +310,17 @@ class DialogUtils {
             alertDialog.show()
         }
 
-        private fun showAboutAppDialogDialog(ctx: Context) {
-            val alertDialog = buildAlertDialog(ctx, "ABOUT THE APP ℹ️", "InstaMoon \uD83C\uDF19 "+Constants.VERSION+"\n\n⭒Developed by brianml31⭒\n\nBased on version: "+Utils.getVersionName(ctx)+"\n\nThanks to:\n⋆ Monserrat G\n⋆ Revanced\n⋆ Marcos shiinaider\n⋆ Amàzing World", null)
+        private fun showAboutAppDialogDialog(context: Context) {
+            val alertDialog = buildAlertDialog(context, "ABOUT THE APP ℹ️", "InstaMoon \uD83C\uDF19 "+Constants.VERSION+"\n\n⭒Developed by brianml31⭒\n\nBased on version: "+Utils.getVersionName(context)+"\n\nThanks to:\n⋆ Monserrat G\n⋆ Revanced\n⋆ Marcos shiinaider\n⋆ Amàzing World", null)
             alertDialog.setNeutralButton("CHECK UPDATE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
-                    val updateTask = UpdateTask(ctx)
+                    val updateTask = UpdateTask(context)
                     updateTask.execute(AESUtils.decryptTextWithPassword(Constants.VERSION_CHECK, "InstaMoon"))
                 }
             })
             alertDialog.setNegativeButton("GITHUB", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
-                    Utils.openLink(ctx, AESUtils.decryptTextWithPassword(Constants.GITHUB_URL, "InstaMoon"))
+                    Utils.openLink(context, AESUtils.decryptTextWithPassword(Constants.GITHUB_URL, "InstaMoon"))
                 }
             })
             alertDialog.setPositiveButton("CLOSE", object : DialogInterface.OnClickListener {
@@ -332,12 +332,12 @@ class DialogUtils {
             alertDialog.show()
         }
 
-        fun showUpdateDialog(ctx: Context, title: String, message: String, isError: Boolean, url: String) {
-            val alertDialog = buildAlertDialog(ctx, title, message, null)
+        fun showUpdateDialog(context: Context, title: String, message: String, isError: Boolean, url: String) {
+            val alertDialog = buildAlertDialog(context, title, message, null)
             if (!isError) {
                 alertDialog.setNegativeButton("UPDATE", object : DialogInterface.OnClickListener {
                     override fun onClick(dialog: DialogInterface, which: Int) {
-                        Utils.openLink(ctx, url)
+                        Utils.openLink(context, url)
                     }
                 })
             }

@@ -20,9 +20,9 @@ class LongClickMenuHandler : View.OnLongClickListener {
     }
 
     override fun onLongClick(v: View?): Boolean {
-        val ctx: Context = v!!.context
+        val context: Context = v!!.context
         val instagramMainActivity: InstagramMainActivity = this.mainActivity
-        DialogUtils.showInstaMoonOptionsDialog(ctx, instagramMainActivity)
+        DialogUtils.showInstaMoonOptionsDialog(context, instagramMainActivity)
         return true
     }
 

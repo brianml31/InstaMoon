@@ -8,10 +8,10 @@ import android.net.Uri
 
 class Utils {
     companion object{
-        fun getVersionName(ctx: Context): String {
+        fun getVersionName(context: Context): String {
             try {
-                val packageManager = ctx.packageManager
-                val packageName = ctx.packageName
+                val packageManager = context.packageManager
+                val packageName = context.packageName
                 val packageInfo = packageManager.getPackageInfo(packageName, 0)
                 return packageInfo.versionName ?: ""
             } catch (e: PackageManager.NameNotFoundException) {
@@ -19,16 +19,16 @@ class Utils {
             }
         }
 
-        fun getAppIcon(ctx: Context): Drawable {
-            val packageManager = ctx.packageManager
-            val applicationInfo = ctx.applicationInfo
+        fun getAppIcon(context: Context): Drawable {
+            val packageManager = context.packageManager
+            val applicationInfo = context.applicationInfo
             return applicationInfo.loadIcon(packageManager)
         }
 
-        fun openLink(ctx: Context, url: String?) {
+        fun openLink(context: Context, url: String?) {
             try {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                ctx.startActivity(intent)
+                context.startActivity(intent)
             } catch (e: Exception) {
             }
         }

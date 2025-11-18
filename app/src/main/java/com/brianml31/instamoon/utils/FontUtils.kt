@@ -57,10 +57,10 @@ class FontUtils {
             }
         }
 
-        fun clearFont(ctx: Context) {
-            PrefsUtils.removeString(ctx, "fontPath")
-            ToastUtils.showShortToast(ctx, "Font Cleaned")
-            DialogUtils.showRestartAppDialog(ctx)
+        fun clearFont(context: Context) {
+            PrefsUtils.removeString(context, "fontPath")
+            ToastUtils.showShortToast(context, "Font Cleaned")
+            DialogUtils.showRestartAppDialog(context)
         }
 
         fun downloadFont(context: Context, fontName: String, urlFont: String) {
