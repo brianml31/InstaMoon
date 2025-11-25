@@ -125,16 +125,16 @@ class DialogUtils {
                             FontUtils.clearFont(context)
                         }
                         2 -> {
-                            FontUtils.downloadFont(context, "Emoji_iOS_18.ttf", Constants.FONT_IOS_18)
+                            FontUtils.downloadFont(context, "Emoji_iOS_18.ttf", UrlUtils.FONT_IOS_18)
                         }
                         3 -> {
-                            FontUtils.downloadFont(context, "Emoji_iOS_18_4.ttf", Constants.FONT_IOS_18_4)
+                            FontUtils.downloadFont(context, "Emoji_iOS_18_4.ttf", UrlUtils.FONT_IOS_18_4)
                         }
                         4 -> {
-                            FontUtils.downloadFont(context, "Emoji_WhatsApp.ttf", Constants.FONT_WHATSAPP)
+                            FontUtils.downloadFont(context, "Emoji_WhatsApp.ttf", UrlUtils.FONT_WHATSAPP)
                         }
                         5 -> {
-                            FontUtils.downloadFont(context, "Emoji_Facebook.ttf", Constants.FONT_FACEBOOK);
+                            FontUtils.downloadFont(context, "Emoji_Facebook.ttf", UrlUtils.FONT_FACEBOOK);
                         }
                     }
                 }
@@ -315,7 +315,7 @@ class DialogUtils {
             alertDialog.setNeutralButton("CHECK UPDATE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     val updateTask = UpdateTask(context)
-                    updateTask.execute(AESUtils.decryptTextWithPassword(Constants.VERSION_CHECK, "InstaMoon"))
+                    updateTask.execute(UrlUtils.CHECK_VERSION)
                 }
             })
             alertDialog.setNegativeButton("GITHUB", object : DialogInterface.OnClickListener {

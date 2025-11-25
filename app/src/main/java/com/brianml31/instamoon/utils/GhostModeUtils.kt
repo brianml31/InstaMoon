@@ -1,5 +1,6 @@
 package com.brianml31.instamoon.utils
 
+import android.util.Log
 import java.io.IOException
 import java.net.URI
 
@@ -9,6 +10,7 @@ class GhostModeUtils {
         fun validateUriHost(uri: URI) {
             if(uri!=null){
                 var uriPath: String = uri.path
+                Log.i("DEBUG | Uri host",uriPath)
                 if(uriPath.contains("/v2/media/seen/")){
                     if (hideSeenStories()) {
                         throw IOException("URL has no host")

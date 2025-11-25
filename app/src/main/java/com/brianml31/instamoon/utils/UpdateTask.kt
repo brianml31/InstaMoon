@@ -5,6 +5,8 @@ import android.content.Context
 import android.os.AsyncTask
 import org.json.JSONObject
 import java.io.DataInputStream
+import java.io.IOException
+import java.net.HttpURLConnection
 import java.net.URL
 
 class UpdateTask : AsyncTask<String, String, String> {
@@ -23,19 +25,38 @@ class UpdateTask : AsyncTask<String, String, String> {
         progressDialog!!.show()
     }
 
-    override fun doInBackground(vararg strings: String): String? {
+    override fun doInBackground(vararg urls: String): String? {
+        var connection: HttpURLConnection? = null
+        var dataInputStream: DataInputStream? = null
         try {
-            val url = URL(strings[0])
-            val inputStream = url.openStream()
-            val dataInputStream = DataInputStream(inputStream)
-            val stringBuilder = StringBuilder()
-            var readLine: String?
-            while ((dataInputStream.readLine().also { readLine = it }) != null) {
-                stringBuilder.append(readLine)
+            val decryptedUrl = UrlUtils.buildUrl(urls[0])
+            val url = URL(decryptedUrl)
+            connection = url.openConnection() as HttpURLConnection
+            connection.connect()
+            if(connection.getResponseCode() == HttpURLConnection.HTTP_OK){
+                val inputStream = connection.inputStream
+                dataInputStream = DataInputStream(inputStream)
+                val stringBuilder = StringBuilder()
+                var readLine: String?
+                while ((dataInputStream.readLine().also { readLine = it }) != null) {
+                    stringBuilder.append(readLine)
+                }
+                return stringBuilder.toString()
             }
-            return stringBuilder.toString()
+            return "?"
         } catch (e: Exception) {
             return "?"
+        } finally {
+            try {
+                if (dataInputStream != null) {
+                    dataInputStream.close();
+                }
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            } catch (e: IOException) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -51,7 +72,7 @@ class UpdateTask : AsyncTask<String, String, String> {
                     if (versionJson == Constants.VERSION) {
                         ToastUtils.showShortToast(context, "The latest version is already installed.")
                     } else {
-                        DialogUtils.showUpdateDialog(context, "Latest version", "Last version: $versionJson", false, jsonObject.getString("url"))
+                        DialogUtils.showUpdateDialog(context, "Latest version", "Last version: "+versionJson, false, jsonObject.getString("url"))
                     }
                 } catch (e: Exception) {
                 }

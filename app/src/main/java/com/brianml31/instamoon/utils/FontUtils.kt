@@ -13,25 +13,25 @@ class FontUtils {
 
     companion object{
         private const val REQUEST_CODE_PICK_FONT = 74567
-        private var customFont: Typeface? = null
+        private var appTypeFace: Typeface? = null
 
         fun getCustomFont(typeface: Typeface): Typeface {
-            if (customFont != null) {
-                return customFont!!
+            if (appTypeFace != null) {
+                return appTypeFace!!
             } else {
                 return typeface
             }
         }
 
-        fun onCreateFont() {
+        fun initFont() {
             try {
-                customFont = null
-                val string: String? = PrefsUtils.getString("fontPath", null)
+                appTypeFace = null
+                val string: String? = PrefsUtils.getString("appFontPath", null)
                 if (string != null) {
-                    customFont = Typeface.createFromFile(string)
+                    appTypeFace = Typeface.createFromFile(string)
                 }
             } catch (e: Exception) {
-                customFont = null
+                appTypeFace = null
             }
         }
 
@@ -50,15 +50,15 @@ class FontUtils {
 
         fun onActivityResult(activity: Activity, requestCode: Int, resultCode: Int, data: Intent){
             if (requestCode == REQUEST_CODE_PICK_FONT && data.data != null && resultCode == -1) {
-                val fontPath = UniFile.fromUri(activity, data.data!!).filePath
-                PrefsUtils.saveString(activity, "fontPath", fontPath)
+                val appFontPath = UniFile.fromUri(activity, data.data!!).filePath
+                PrefsUtils.saveString(activity, "appFontPath", appFontPath)
                 ToastUtils.showShortToast(activity, "Done")
                 DialogUtils.showRestartAppDialog(activity)
             }
         }
 
         fun clearFont(context: Context) {
-            PrefsUtils.removeString(context, "fontPath")
+            PrefsUtils.removeString(context, "appFontPath")
             ToastUtils.showShortToast(context, "Font Cleaned")
             DialogUtils.showRestartAppDialog(context)
         }
@@ -73,7 +73,7 @@ class FontUtils {
                 }
                 val fontFile = File(dirFonts, fontName)
                 if (fontFile.exists()) {
-                    PrefsUtils.saveString(context, "fontPath", fontFile.absolutePath)
+                    PrefsUtils.saveString(context, "appFontPath", fontFile.absolutePath)
                     ToastUtils.showShortToast(context, "Font Applied")
                     DialogUtils.showRestartAppDialog(context)
                 } else {

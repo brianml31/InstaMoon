@@ -7,8 +7,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Environment
-import com.brianml31.instamoon.utils.DialogUtils.Companion.showRestartAppDialog
-import com.brianml31.instamoon.utils.ToastUtils.Companion.showShortToast
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -38,7 +36,6 @@ class DownloadFontTask : AsyncTask<String, Int, String> {
         progressDialog!!.setMax(100);
         progressDialog!!.setProgress(0);
         progressDialog!!.setButton(DialogInterface.BUTTON_NEGATIVE, "CANCEL", object : DialogInterface.OnClickListener {
-
             override fun onClick(dialog: DialogInterface, which: Int) {
                 cancel(true);
                 dialog.dismiss();
@@ -49,7 +46,7 @@ class DownloadFontTask : AsyncTask<String, Int, String> {
     }
 
     override fun doInBackground(vararg urls: String): String? {
-        val urlFont: String? = AESUtils.decryptTextWithPassword(urls[0], "InstaMoon")
+        val urlFont = UrlUtils.buildUrl(urls[0])
         val dirFonts = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Constants.FONTS_OUTPUT_FOLDER)
         if (!dirFonts.exists()) {
             dirFonts.mkdirs()
@@ -82,10 +79,12 @@ class DownloadFontTask : AsyncTask<String, Int, String> {
                 intent.setData(Uri.fromFile(fontFile))
                 context.sendBroadcast(intent)
                 return fontFile!!.path
-            } else {
-                return null
             }
+            return null
         } catch (e: Exception) {
+            if (this.fontFile != null && fontFile!!.exists()) {
+                fontFile!!.delete()
+            }
             return "ERROR"
         } finally {
             try {
@@ -114,11 +113,11 @@ class DownloadFontTask : AsyncTask<String, Int, String> {
         progressDialog!!.dismiss()
         if (response != null) {
             if (response == "ERROR") {
-                showShortToast(this.context, "Error downloading the file")
+                ToastUtils.showShortToast(this.context, "Error downloading the file")
             } else {
-                PrefsUtils.saveString(this.context, "fontPath", response)
-                showShortToast(this.context, "Font Applied")
-                showRestartAppDialog(this.context)
+                PrefsUtils.saveString(this.context, "appFontPath", response)
+                ToastUtils.showShortToast(this.context, "Font Applied")
+                DialogUtils.showRestartAppDialog(this.context)
             }
         }
     }
@@ -129,7 +128,7 @@ class DownloadFontTask : AsyncTask<String, Int, String> {
         if (this.fontFile != null && fontFile!!.exists()) {
             fontFile!!.delete()
         }
-        showShortToast(this.context, "Download cancelled")
+        ToastUtils.showShortToast(this.context, "Download cancelled")
     }
 
 }
