@@ -7,7 +7,7 @@ import com.instagram.common.session.UserSession;
 
 public class InstagramMainActivity extends AppCompatActivity {
 
-    public UserSession A04;
+    public UserSession A05;
 
 
 }
