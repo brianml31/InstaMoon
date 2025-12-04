@@ -90,10 +90,14 @@ public class InstagramInjectionManager {
     }
 
     //App font
-
     public static Typeface getCustomFont(Typeface typeface){
         Log.i(", does not have a backing source. You need to provide either a systemFontName, assetFontName, or a fileDescriptor.","Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
         return FontUtils.Companion.getCustomFont(typeface);
+    }
+
+    //Remove snooze warning
+    public static void removeSnoozeWarning(){
+        Log.i("invoke-direct\\s*\\{\\s*v\\d+\\s*,\\s*v\\d+\\s*\\},\\s*Lcom/instagram/release/lockout/DogfoodingEligibilityApi;-><init>", "const/4 vX, 0x0");
     }
 
 }

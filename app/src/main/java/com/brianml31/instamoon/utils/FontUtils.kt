@@ -51,9 +51,13 @@ class FontUtils {
         fun onActivityResult(activity: Activity, requestCode: Int, resultCode: Int, data: Intent){
             if (requestCode == REQUEST_CODE_PICK_FONT && data.data != null && resultCode == -1) {
                 val appFontPath = UniFile.fromUri(activity, data.data!!).filePath
-                PrefsUtils.saveString(activity, "appFontPath", appFontPath)
-                ToastUtils.showShortToast(activity, "Done")
-                DialogUtils.showRestartAppDialog(activity)
+                if(appFontPath!!.lowercase().endsWith(".ttf")){
+                    PrefsUtils.saveString(activity, "appFontPath", appFontPath)
+                    ToastUtils.showShortToast(activity, "Done")
+                    DialogUtils.showRestartAppDialog(activity)
+                }else{
+                    ToastUtils.showShortToast(activity, "Selected file is not a .ttf font")
+                }
             }
         }
 

@@ -16,7 +16,7 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
 > **Note:** If you use any of the materials in this repository, please give proper credit by mentioning **Instamoon**. A simple mention or link is appreciated!
 <hr>
 
-**Recommended Instagram version:** [`403.0.0.0.0 alpha`](https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-403-0-0-0-0-release/instagram-403-0-0-0-0-2-android-apk-download/)
+**Recommended Instagram version:** [`409.0.0.0.157 alpha`](https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-409-0-0-0-157-release/instagram-409-0-0-0-157-2-android-apk-download/)
 
 <details>
 <summary><h3>Features</h3></summary>
@@ -37,8 +37,11 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
 - Disable 'Like' with double tap
 - Hide suggested reels
 
+### 🅰️ App font
+- Set a custom font for the app
+
 ### 🧪 Developer Mode
-- Access to instagram's in-development features.
+- Access to instagram's in-development features
 
 ### 📤 Export Developer Mode Settings
 - Export your developer mode configurations
@@ -91,3 +94,5 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
 - [Revanced](https://github.com/revanced)
 - [Marcos shiinaider - InstaFlow](https://github.com/Mshiinaider)
 - **Amàzing World**
+- [seven332 - library (UniFile)](https://github.com/seven332/UniFile)
+- [ACRA](https://github.com/ACRA/acra)

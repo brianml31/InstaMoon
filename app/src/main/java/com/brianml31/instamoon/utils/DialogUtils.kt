@@ -311,7 +311,7 @@ class DialogUtils {
         }
 
         private fun showAboutAppDialogDialog(context: Context) {
-            val alertDialog = buildAlertDialog(context, "ABOUT THE APP ℹ️", "InstaMoon \uD83C\uDF19 "+Constants.VERSION+"\n\n⭒Developed by brianml31⭒\n\nBased on version: "+Utils.getVersionName(context)+"\n\nThanks to:\n⋆ Monserrat G\n⋆ Revanced\n⋆ Marcos shiinaider\n⋆ Amàzing World", null)
+            val alertDialog = buildAlertDialog(context, "ABOUT THE APP ℹ️", "InstaMoon \uD83C\uDF19 "+Constants.VERSION+"\n\n⭒Developed by brianml31⭒\n\nBased on version: "+Utils.getVersionName(context)+"\n\nThanks to:\n⋆ Monserrat G\n⋆ Revanced\n⋆ Marcos shiinaider\n⋆ Amàzing World\n⋆ seven332 (library - UniFile)\n⋆ ACRA", null)
             alertDialog.setNeutralButton("CHECK UPDATE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     val updateTask = UpdateTask(context)
