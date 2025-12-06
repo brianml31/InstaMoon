@@ -14,10 +14,10 @@ class BackupManager {
         fun after_onActivityResult(activity: Activity, requestCode: Int, resultCode: Int, data: Intent?) {
             if (data != null) {
                 if (requestCode == REQUEST_CODE_JSON_RESTORE && data.data != null && resultCode == -1) {
-                    importBackup(activity, data.data, ".igmoon")
+                    importBackup(activity, data.data, ".json")
                 }
                 if (requestCode == REQUEST_CODE_IGMOON_RESTORE && data.data != null && resultCode == -1) {
-                    importBackup(activity, data.data, ".json")
+                    importBackup(activity, data.data, ".igmoon")
                 }
                 FontUtils.onActivityResult(activity, requestCode, resultCode, data)
             }
