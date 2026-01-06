@@ -8,8 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.brianml31.instamoon.handlers.LongClickMenuHandler;
-import com.brianml31.instamoon.utils.AppContext;
-import com.brianml31.instamoon.utils.BackupManager;
+import com.brianml31.instamoon.app.AppContext;
 import com.brianml31.instamoon.utils.ExtraOptionsUtils;
 import com.brianml31.instamoon.utils.FontUtils;
 import com.brianml31.instamoon.utils.GhostModeUtils;
@@ -21,7 +20,7 @@ public class InstagramInjectionManager {
     //Invocations
 
     static void after_onActivityResultKotlin(Activity activity, int requestCode, int resultCode, Intent data){
-        BackupManager.Companion.after_onActivityResult(activity, requestCode, resultCode, data);
+
         Log.i("InstagramMainActivity","onActivityResult(IILandroid/content/Intent;)V");
     }
 

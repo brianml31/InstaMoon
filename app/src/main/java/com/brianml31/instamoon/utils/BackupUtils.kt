@@ -1,24 +1,21 @@
 package com.brianml31.instamoon.utils
 
-import android.app.Activity
 import android.content.Context
+import android.os.Environment
+import android.widget.EditText
 import org.json.JSONObject
 import java.io.File
 
 class BackupUtils {
     companion object {
-        fun exportBackup(context: Context) {
+        fun exportOverridesBackup(context: Context) {
             if (!PermissionsUtils.checkPermission(context)) {
                 PermissionsUtils.requestPermission(context)
             } else {
                 try {
-                    val mobileConfigDir = File(context.filesDir, "mobileconfig")
-                    if (!mobileConfigDir.exists()) {
-                        mobileConfigDir.mkdirs()
-                    }
-                    val fileMCOverrides = File(mobileConfigDir, "mc_overrides.json")
-                    if (fileMCOverrides.exists()) {
-                        DialogUtils.showFileNameDialog(context, fileMCOverrides)
+                    val fileMCOverrides: File? = FileUtils.loadMCOverridesFile(context)
+                    if (fileMCOverrides!!.exists()) {
+                        DialogUtils.showBackupExportDialog(context, fileMCOverrides)
                     } else {
                         ToastUtils.showShortToast(context, "There is no configuration file to export")
                     }
@@ -28,54 +25,81 @@ class BackupUtils {
             }
         }
 
-        fun isInstamoonBackup(jsonString: String?): Boolean {
+        fun isInstamoonBackup(contentFile: String): Boolean {
             try {
-                val json = JSONObject(jsonString)
-                if (!json.has("backup_info") || !json.has("instamoon_backup_content")) {
+                val backupJson: JSONObject = JSONObject(contentFile)
+                if (!backupJson.has("backupInfo") || !backupJson.has("backupContent")) {
                     return false
                 }
-                val backupInfo = json.getJSONObject("backup_info")
-
-                return backupInfo.has("backup_version") && backupInfo.has("instamoon_version") && backupInfo.has("instagram_version") && backupInfo.has("is_instamoon") && backupInfo.getBoolean("is_instamoon")
+                val backupInfo: JSONObject = backupJson.getJSONObject("backupInfo")
+                return backupInfo.has("backupVersion") &&
+                        backupInfo.has("instamoonVersion") &&
+                        backupInfo.has("instagramVersion") &&
+                        backupInfo.has("isInstamoon") &&
+                        backupInfo.getBoolean("isInstamoon")
             } catch (e: Exception) {
                 return false
             }
         }
 
-        fun hasPasswordInBackup(jsonString: String?): Boolean {
+        fun hasPasswordInBackup(contentFile: String): Boolean {
             try {
-                val json = JSONObject(jsonString)
-                val backupInfo = json.getJSONObject("backup_info")
-                return backupInfo.getBoolean("has_password")
+                val backupJson: JSONObject = JSONObject(contentFile)
+                val backupInfo: JSONObject = backupJson.getJSONObject("backupInfo")
+                return backupInfo.getBoolean("hasPassword")
             } catch (e: Exception) {
                 return false
             }
         }
 
-        fun applyBackupToOverrides(activity: Activity, content: String?) {
-            val mc_overrides = FileUtils.loadMCOverridesFile(activity)
-            val state = FileUtils.writeContent(mc_overrides, content)
-            if(state.equals("SUCCESS")){
-                ToastUtils.showShortToast(activity, "The backup was imported successfully")
-                DialogUtils.showRestartAppDialog(activity)
-            }else{
-                ToastUtils.showShortToast(activity, "Error: " + state)
+        fun processBackupContent(context: Context, contentFile: String, password: String){
+            val backupJson: JSONObject = JSONObject(contentFile)
+            val encryptedBackupContent: String = backupJson.getString("backupContent")
+            val decryptedBackupContent: String? = AESUtils.decryptTextWithPassword(encryptedBackupContent, password)
+            if(decryptedBackupContent != null){
+                BackupManager.applyBackupToOverrides(context, decryptedBackupContent)
+            } else {
+                ToastUtils.showLongToast(context, "Error: The password is incorrect or the data is corrupted")
             }
         }
 
-        fun createInstamoonBackupJson(context: Context, hasPassword: Boolean, instamoonBackupContent: String, password: String): JSONObject {
-            val backupInfo = JSONObject()
-            backupInfo.put("backup_version", 1)
-            backupInfo.put("instamoon_version", Constants.VERSION)
-            backupInfo.put("instagram_version", Utils.getVersionName(context))
-            backupInfo.put("is_instamoon", true)
-            backupInfo.put("has_password", hasPassword)
+        fun exportInstaMoonBackup(
+            outputFileName: String,
+            inputPassword: EditText,
+            context: Context,
+            contentFile: String
+        ){
+            val directoryOutput: File = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Constants.BACKUPS_OUTPUT_FOLDER)
+            if (!directoryOutput.exists()) {
+                directoryOutput.mkdirs()
+            }
+            val fileOutput: File = File(directoryOutput, outputFileName + ".igmoon")
+            if (!fileOutput.exists()) {
+                fileOutput.createNewFile()
+            }
+            var hasPassword: Boolean = true
+            if(inputPassword.text.toString().isEmpty()){
+                hasPassword = false
+            }
+            val backupInfo: JSONObject = JSONObject()
+            backupInfo.put("backupVersion", 2)
+            backupInfo.put("instamoonVersion", Constants.VERSION)
+            backupInfo.put("instagramVersion", Utils.getVersionName(context))
+            backupInfo.put("isInstamoon", true)
+            backupInfo.put("hasPassword", hasPassword)
 
-            val fullJson = JSONObject()
-            fullJson.put("backup_info", backupInfo)
-            fullJson.put("instamoon_backup_content", AESUtils.encryptTextWithPassword(instamoonBackupContent, password))
+            val fullJson: JSONObject = JSONObject()
+            fullJson.put("backupInfo", backupInfo)
+            val backupContent: String = AESUtils.encryptTextWithPassword(contentFile, inputPassword.text.toString())
 
-            return fullJson
+            fullJson.put("backupContent", backupContent)
+
+            val state: String? = FileUtils.writeContent(fileOutput, fullJson.toString())
+            if(state.equals("SUCCESS")){
+                ToastUtils.showShortToast(context, "File exported in " + fileOutput.path)
+            }else {
+                ToastUtils.showShortToast(context, "Error: " + state)
+            }
         }
 
     }

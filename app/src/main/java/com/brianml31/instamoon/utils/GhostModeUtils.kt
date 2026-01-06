@@ -1,6 +1,5 @@
 package com.brianml31.instamoon.utils
 
-//import android.util.Log
 import java.io.IOException
 import java.net.URI
 

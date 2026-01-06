@@ -1,4 +1,4 @@
-package com.brianml31.instamoon.permissions
+package com.brianml31.instamoon.activity
 
 import android.Manifest
 import android.app.Activity
@@ -24,10 +24,10 @@ class StoragePermissionActivity : Activity() {
 
     private fun requestManageExternalStoragePermission() {
         try {
-            val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, Uri.parse("package:$packageName"))
+            val intent: Intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, Uri.parse("package:$packageName"))
             startActivityForResult(intent, PERMISSION_REQUEST_CODE)
         } catch (e: Exception) {
-            val intent = Intent()
+            val intent: Intent = Intent()
             intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
             startActivityForResult(intent, PERMISSION_REQUEST_CODE)
         }
@@ -65,7 +65,7 @@ class StoragePermissionActivity : Activity() {
     }
 
     companion object {
-        private const val PERMISSION_REQUEST_CODE = 74565
+        private const val PERMISSION_REQUEST_CODE: Int = 74565
     }
 }
 

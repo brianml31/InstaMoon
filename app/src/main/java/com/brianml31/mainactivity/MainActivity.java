@@ -12,9 +12,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.brianml31.instamoon.handlers.ActivityResultHandler;
 import com.brianml31.instamoon.handlers.LongClickMenuHandler;
 import com.brianml31.insta_moon.R;
-import com.brianml31.instamoon.utils.BackupManager;
 import com.brianml31.instamoon.utils.FontUtils;
 import com.instagram.mainactivity.InstagramMainActivity;
 
@@ -54,7 +54,7 @@ public class MainActivity extends InstagramMainActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        BackupManager.Companion.after_onActivityResult(this, requestCode, resultCode, data);
+        ActivityResultHandler.Companion.handleActivityResult(this, requestCode, resultCode, data);
 
     }
 }

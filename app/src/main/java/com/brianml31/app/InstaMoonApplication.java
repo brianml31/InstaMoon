@@ -1,7 +1,7 @@
 package com.brianml31.app;
 
 import android.app.Application;
-import com.brianml31.instamoon.utils.AppContext;
+import com.brianml31.instamoon.app.AppContext;
 
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;

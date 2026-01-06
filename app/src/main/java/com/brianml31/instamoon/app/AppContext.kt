@@ -1,7 +1,8 @@
-package com.brianml31.instamoon.utils
+package com.brianml31.instamoon.app
 
 import android.app.Application
 import android.content.Context
+import com.brianml31.instamoon.utils.FontUtils
 import org.acra.ACRA
 
 class AppContext {

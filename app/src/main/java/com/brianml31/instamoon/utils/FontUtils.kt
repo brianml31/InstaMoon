@@ -1,18 +1,18 @@
 package com.brianml31.instamoon.utils
 
-import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Environment
-import com.hippo.unifile.UniFile
+import com.brianml31.instamoon.handlers.ActivityResultHandler
+import com.brianml31.instamoon.tasks.DownloadFontTask
 import com.instagram.mainactivity.InstagramMainActivity
 import java.io.File
 
 class FontUtils {
 
     companion object{
-        private const val REQUEST_CODE_PICK_FONT = 74567
         private var appTypeFace: Typeface? = null
 
         fun getCustomFont(typeface: Typeface): Typeface {
@@ -25,68 +25,101 @@ class FontUtils {
 
         fun initFont() {
             try {
-                appTypeFace = null
-                val string: String? = PrefsUtils.getString("appFontPath", null)
-                if (string != null) {
-                    appTypeFace = Typeface.createFromFile(string)
+                val appFontSelectedItem: Int = PrefsUtils.getInt("appFontSelectedItem",0)
+                var fontPath: String? = null
+                if(appFontSelectedItem == 1){
+                    fontPath = PrefsUtils.getString("customFontPath", null)
+                }else if(appFontSelectedItem >= 2 && appFontSelectedItem <=5){
+                    fontPath = PrefsUtils.getString("fontPath", null)
                 }
+
+                if (fontPath != null) {
+                    appTypeFace = Typeface.createFromFile(fontPath)
+                }else{
+                    appTypeFace = null
+                }
+
             } catch (e: Exception) {
                 appTypeFace = null
             }
         }
 
+
         fun requestFontFileToApply(instagramMainActivity: InstagramMainActivity) {
             if (!PermissionsUtils.checkPermission(instagramMainActivity)) {
                 PermissionsUtils.requestPermission(instagramMainActivity);
             } else {
-                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                val intent: Intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                 intent.addCategory(Intent.CATEGORY_OPENABLE)
                 intent.setType("*/*")
-                val mimeTypes = arrayOf("font/ttf", "application/x-font-ttf", "application/octet-stream")
+                val mimeTypes: Array<String> = arrayOf(
+                    "font/ttf",
+                    "application/x-font-ttf",
+                    "application/octet-stream"
+                )
                 intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-                instagramMainActivity.startActivityForResult(intent, REQUEST_CODE_PICK_FONT)
+                instagramMainActivity.startActivityForResult(intent, ActivityResultHandler.REQUEST_CODE_PICK_FONT)
             }
         }
 
-        fun onActivityResult(activity: Activity, requestCode: Int, resultCode: Int, data: Intent){
-            if (requestCode == REQUEST_CODE_PICK_FONT && data.data != null && resultCode == -1) {
-                val appFontPath = UniFile.fromUri(activity, data.data!!).filePath
-                if(appFontPath!!.lowercase().endsWith(".ttf")){
-                    PrefsUtils.saveString(activity, "appFontPath", appFontPath)
-                    ToastUtils.showShortToast(activity, "Done")
-                    DialogUtils.showRestartAppDialog(activity)
-                }else{
-                    ToastUtils.showShortToast(activity, "Selected file is not a .ttf font")
-                }
-            }
-        }
-
-        fun clearFont(context: Context) {
-            PrefsUtils.removeString(context, "appFontPath")
-            ToastUtils.showShortToast(context, "Font Cleaned")
-            DialogUtils.showRestartAppDialog(context)
-        }
-
-        fun downloadFont(context: Context, fontName: String, urlFont: String) {
+        fun downloadFont(context: Context, fontName: String, fontEndpoint: String){
             if (!PermissionsUtils.checkPermission(context)) {
                 PermissionsUtils.requestPermission(context)
             } else {
-                val dirFonts = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Constants.FONTS_OUTPUT_FOLDER)
+                if(!isFontDownloaded(fontName)){
+                    DialogUtils.showDialog(
+                        context,
+                        "WARNING",
+                        "This font is not available on your device, Do you want to download it?",
+                        false,
+                        null,
+                        null,
+                        true,
+                        "NO",
+                        object : DialogInterface.OnClickListener {
+                            override fun onClick(dialog: DialogInterface, which: Int) {
+                                dialog.dismiss()
+                            }
+                        },
+                        true,
+                        "DOWNLOAD",
+                        object : DialogInterface.OnClickListener {
+                            override fun onClick(dialog: DialogInterface, which: Int) {
+                                if (NetworkUtils.isInternetAvailable(context)) {
+                                    val downloadFont: DownloadFontTask = DownloadFontTask(context,fontName)
+                                    downloadFont.execute(UrlUtils.buildUrl(fontEndpoint))
+                                } else {
+                                    ToastUtils.showShortToast(context, "No internet connection")
+                                }
+                            }
+                        }
+                    )
+                }
+            }
+        }
+
+        private fun isFontDownloaded(fontName: String): Boolean {
+            val dirFonts: File = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Constants.FONTS_OUTPUT_FOLDER)
+            if (!dirFonts.exists()) {
+                dirFonts.mkdirs();
+            }
+            val fontFile: File = File(dirFonts, fontName)
+            return fontFile.exists()
+        }
+
+        fun applyFont(context: Context, selectedItem: Int, fontName: String){
+            if(!isFontDownloaded(fontName)){
+                ToastUtils.showShortToast(context, "Please download the font")
+            } else {
+                PrefsUtils.saveInt(context, "appFontSelectedItem", selectedItem)
+                val dirFonts: File = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Constants.FONTS_OUTPUT_FOLDER)
                 if (!dirFonts.exists()) {
                     dirFonts.mkdirs();
                 }
-                val fontFile = File(dirFonts, fontName)
-                if (fontFile.exists()) {
-                    PrefsUtils.saveString(context, "appFontPath", fontFile.absolutePath)
-                    ToastUtils.showShortToast(context, "Font Applied")
-                    DialogUtils.showRestartAppDialog(context)
-                } else {
-                    if (NetworkUtils.isInternetAvailable(context)) {
-                        DownloadFontTask(context, fontName).execute(urlFont)
-                    } else {
-                        ToastUtils.showShortToast(context, "No internet connection")
-                    }
-                }
+                val fontFile: File = File(dirFonts, fontName)
+                PrefsUtils.saveString(context, "fontPath", fontFile.path)
+                ToastUtils.showShortToast(context, "Font applied")
+                DialogUtils.showRestartAppDialog(context)
             }
         }
     }
