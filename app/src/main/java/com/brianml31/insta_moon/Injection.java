@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.util.Log;
 import android.view.View;
 
+import com.brianml31.instamoon.handlers.ActivityResultHandler;
 import com.brianml31.instamoon.handlers.LongClickMenuHandler;
 import com.brianml31.instamoon.app.AppContext;
 import com.brianml31.instamoon.utils.ExtraOptionsUtils;
@@ -16,31 +17,30 @@ import com.instagram.mainactivity.InstagramMainActivity;
 
 import java.net.URI;
 
-public class InstagramInjectionManager {
-    //Invocations
+public class Injection {
 
-    static void after_onActivityResultKotlin(Activity activity, int requestCode, int resultCode, Intent data){
-
+    private static void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data){
+        ActivityResultHandler.Companion.handleActivityResult(activity, requestCode, resultCode, data);
         Log.i("InstagramMainActivity","onActivityResult(IILandroid/content/Intent;)V");
     }
 
-    static void setLongClickMenuHandler(InstagramMainActivity instagramMainActivity, View v){
+    private static void setLongClickMenuHandler(InstagramMainActivity instagramMainActivity, View v){
         LongClickMenuHandler.Companion.setLongClickMenuHandler(instagramMainActivity, v);
         Log.i("InstagramMainActivity","Landroid/view/ViewGroup;->addView(Landroid/view/View;)V");
     }
 
-    static void onCreate(Application application){
+    private static void onCreate(Application application){
         AppContext.Companion.setContext(application);
         Log.i("InstagramAppShell","Landroid/app/Application;->onCreate()V");
     }
 
     // Ghost mode
-    static void validateUriHostKotlin(URI uri){
+    private static void validateUriHost(URI uri){
         GhostModeUtils.Companion.validateUriHost(uri);
         Log.i("TigonServiceLayer","startRequest");
     }
 
-    static void hideSeenDM(){
+    private static void hideSeenDM(){
         if(GhostModeUtils.Companion.hideSeenDM()){
             return;
         }else{
@@ -48,7 +48,7 @@ public class InstagramInjectionManager {
         }
     }
 
-    static void hideTyping(){
+    private static void hideTypingDM(){
         if(GhostModeUtils.Companion.hideTypingDM()){
             return;
         }else{
@@ -57,7 +57,7 @@ public class InstagramInjectionManager {
     }
 
     //ExtraOptions
-    static boolean disableAds(){
+    private static boolean disableAds(){
         if(ExtraOptionsUtils.Companion.disableAds()){
             return false;
         }else{
@@ -66,7 +66,7 @@ public class InstagramInjectionManager {
         }
     }
 
-    static boolean disableVideoAutoplay(){
+    private static boolean disableVideoAutoplay(){
         if(ExtraOptionsUtils.Companion.disableVideoAutoplay()){
             return true;
         }else{
@@ -75,7 +75,7 @@ public class InstagramInjectionManager {
         }
     }
 
-    static void disableDoubleTapLike(){
+    private static void disableDoubleTapLike(){
         if(ExtraOptionsUtils.Companion.disableDoubleTapLike()){
             return;
         }else{
@@ -83,20 +83,20 @@ public class InstagramInjectionManager {
         }
     }
 
-    static boolean hideSuggestedReels(boolean z){
+    private static boolean hideSuggestedReels(boolean z){
         Log.i("clips_netego", "FeedItem");
         return ExtraOptionsUtils.Companion.hideSuggestedReels(z);
     }
 
     //App font
-    public static Typeface getCustomFont(Typeface typeface){
+    private static Typeface getCustomFont(Typeface typeface){
         Log.i(", does not have a backing source. You need to provide either a systemFontName, assetFontName, or a fileDescriptor.","Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
         return FontUtils.Companion.getCustomFont(typeface);
     }
 
     //Remove snooze warning
-    public static void removeSnoozeWarning(){
-        Log.i("invoke-direct\\s*\\{\\s*v\\d+\\s*,\\s*v\\d+\\s*\\},\\s*Lcom/instagram/release/lockout/DogfoodingEligibilityApi;-><init>", "const/4 vX, 0x0");
+    private static void removeSnoozeWarning(){
+        Log.i("Lcom/instagram/release/lockout/DogfoodingEligibilityApi;-><init>", "const/4 vX, 0x0");
     }
 
 }

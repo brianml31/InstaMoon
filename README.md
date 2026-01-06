@@ -81,10 +81,10 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
       ```xml
       <activity 
           android:theme="@android:style/Theme.DeviceDefault.Dialog" 
-          android:name="com.brianml31.instamoon_old.permissions.StoragePermissionActivity" />
+          android:name="com.brianml31.instamoon.permissions.StoragePermissionActivity" />
       ```
 
-6. **Insert the required function calls** from the `InstagramInjectionManager` class into Instagram's execution flow.
+6. **Insert the required function calls** from the `Injection` class into Instagram's execution flow.
 </details>
 
 <hr>
