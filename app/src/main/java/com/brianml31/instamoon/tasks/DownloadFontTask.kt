@@ -116,7 +116,7 @@ class DownloadFontTask : AsyncTask<String, Int, DownloadResult> {
         progressDialog!!.dismiss()
         when (result) {
             DownloadResult.SUCCESS -> {
-                ToastUtils.showShortToast(this.context, "Font "+ fontName +" downloaded successfully")
+                ToastUtils.showShortToast(this.context, "Font \""+ fontName +"\" downloaded successfully")
             }
             DownloadResult.HTTP_ERROR -> {
                 ToastUtils.showShortToast(this.context, "Network error while downloading font")

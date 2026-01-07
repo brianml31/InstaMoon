@@ -37,7 +37,7 @@ class DialogUtils {
                 "👻 Ghost mode",
                 "⚙️ Extra options",
                 "🅰️ App font",
-                "👨‍💻 developer mode",
+                "👨‍💻 Developer mode",
                 "ℹ️ About the App"
             )
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
@@ -219,7 +219,7 @@ class DialogUtils {
                             SgW.A00.A02(context, instagramMainActivity, instagramMainActivity.A05)
                         }
                         1 -> {
-                            BackupUtils.exportOverridesBackup(context)
+                            BackupUtils.exportDevSettings(context)
                         }
                         2 -> {
                             BackupManager.requestFileJsonToRestore(instagramMainActivity)
@@ -342,7 +342,7 @@ class DialogUtils {
             inputPassword.setTextSize(16f)
             layout.addView(inputPassword)
 
-            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "File name and password:", null, layout)
+            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "EXPORT DEV SETTINGS 📤", null, layout)
             alertDialog.setNegativeButton("CLOSE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     dialog.dismiss()
@@ -374,7 +374,7 @@ class DialogUtils {
             inputPassword.hint = "Enter password"
             inputPassword.setTextSize(16f)
             layout.addView(inputPassword)
-            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "PASSWORD", null, null)
+            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "PASSWORD 🔒", null, null)
             alertDialog.setNegativeButton("CLOSE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     dialog.dismiss()

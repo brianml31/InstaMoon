@@ -45,7 +45,7 @@ class StoragePermissionActivity : Activity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (grantResults.size <= 0 || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                ToastUtils.showShortToast(this, "Error! Please enable app permission to import and export backups.")
+                ToastUtils.showShortToast(this, "Error! Please enable app permission to import and export backups")
             }
             finish()
         }
@@ -57,7 +57,7 @@ class StoragePermissionActivity : Activity() {
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 if (!Environment.isExternalStorageManager()) {
-                    ToastUtils.showShortToast(this, "Error! Please enable app permission to import and export backups.")
+                    ToastUtils.showShortToast(this, "Error! Please enable app permission to import and export backups")
                 }
             }
             finish()

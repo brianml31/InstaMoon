@@ -8,7 +8,7 @@ import java.io.File
 
 class BackupUtils {
     companion object {
-        fun exportOverridesBackup(context: Context) {
+        fun exportDevSettings(context: Context) {
             if (!PermissionsUtils.checkPermission(context)) {
                 PermissionsUtils.requestPermission(context)
             } else {
