@@ -99,11 +99,11 @@ class FontUtils {
         }
 
         private fun isFontDownloaded(fontName: String): Boolean {
-            val dirFonts: File = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Constants.FONTS_OUTPUT_FOLDER)
-            if (!dirFonts.exists()) {
-                dirFonts.mkdirs();
+            val fontsDir: File = StoragePaths.fontsDir
+            if (!fontsDir.exists()) {
+                fontsDir.mkdirs();
             }
-            val fontFile: File = File(dirFonts, fontName)
+            val fontFile: File = File(fontsDir, fontName)
             return fontFile.exists()
         }
 
@@ -112,11 +112,11 @@ class FontUtils {
                 ToastUtils.showShortToast(context, "Please download the font")
             } else {
                 PrefsUtils.saveInt(context, "appFontSelectedItem", selectedItem)
-                val dirFonts: File = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Constants.FONTS_OUTPUT_FOLDER)
-                if (!dirFonts.exists()) {
-                    dirFonts.mkdirs();
+                val fontsDir: File = StoragePaths.fontsDir
+                if (!fontsDir.exists()) {
+                    fontsDir.mkdirs();
                 }
-                val fontFile: File = File(dirFonts, fontName)
+                val fontFile: File = File(fontsDir, fontName)
                 PrefsUtils.saveString(context, "fontPath", fontFile.path)
                 ToastUtils.showShortToast(context, "Font applied")
                 DialogUtils.showRestartAppDialog(context)

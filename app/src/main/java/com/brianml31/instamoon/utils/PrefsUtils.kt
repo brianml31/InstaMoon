@@ -24,7 +24,7 @@ class PrefsUtils {
             "hideSuggestedReels"
         )
 
-        private fun getSharedPreferences(context: Context): SharedPreferences {
+        private fun getSharedPreferences(context: Context, ): SharedPreferences {
             return context.getSharedPreferences(context.packageName + "_brianml31", Context.MODE_PRIVATE)
         }
 

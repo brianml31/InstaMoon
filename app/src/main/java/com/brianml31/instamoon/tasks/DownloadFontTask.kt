@@ -6,8 +6,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.AsyncTask
-import android.os.Environment
-import com.brianml31.instamoon.utils.Constants
+import com.brianml31.instamoon.utils.StoragePaths
 import com.brianml31.instamoon.utils.ToastUtils
 import java.io.File
 import java.io.FileOutputStream
@@ -49,11 +48,11 @@ class DownloadFontTask : AsyncTask<String, Int, DownloadResult> {
 
     override fun doInBackground(vararg urls: String): DownloadResult {
         val urlFont: String = urls[0]
-        val dirFonts: File = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Constants.FONTS_OUTPUT_FOLDER)
-        if (!dirFonts.exists()) {
-            dirFonts.mkdirs()
+        val fontsDir: File = StoragePaths.fontsDir
+        if (!fontsDir.exists()) {
+            fontsDir.mkdirs()
         }
-        fontFile = File(dirFonts, this.fontName)
+        fontFile = File(fontsDir, this.fontName)
         var connection: HttpURLConnection? = null
         var outputStream: FileOutputStream? = null
         var inputStream: InputStream? = null

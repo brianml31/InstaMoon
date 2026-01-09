@@ -1,13 +1,7 @@
 package com.brianml31.instamoon.utils
 
-import java.io.File
-
 class Constants {
     companion object {
-        const val VERSION = "10.10"
-        private const val INSTAMOON_FOLDER = "InstaMoon"
-        val FONTS_OUTPUT_FOLDER = INSTAMOON_FOLDER + File.separator + ".Fonts";
-        val ID_NAME_MAPPING_OUTPUT_FOLDER = INSTAMOON_FOLDER + File.separator + "id_name_mappings"
-        val BACKUPS_OUTPUT_FOLDER = INSTAMOON_FOLDER + File.separator + "Backups"
+        const val VERSION = "11"
     }
 }

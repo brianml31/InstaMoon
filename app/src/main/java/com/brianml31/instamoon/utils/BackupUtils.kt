@@ -1,7 +1,6 @@
 package com.brianml31.instamoon.utils
 
 import android.content.Context
-import android.os.Environment
 import android.widget.EditText
 import org.json.JSONObject
 import java.io.File
@@ -69,11 +68,11 @@ class BackupUtils {
             context: Context,
             contentFile: String
         ){
-            val directoryOutput: File = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), Constants.BACKUPS_OUTPUT_FOLDER)
-            if (!directoryOutput.exists()) {
-                directoryOutput.mkdirs()
+            val backupsDir: File = StoragePaths.backupsDir
+            if (!backupsDir.exists()) {
+                backupsDir.mkdirs()
             }
-            val fileOutput: File = File(directoryOutput, outputFileName + ".igmoon")
+            val fileOutput: File = File(backupsDir, outputFileName + ".igmoon")
             if (!fileOutput.exists()) {
                 fileOutput.createNewFile()
             }

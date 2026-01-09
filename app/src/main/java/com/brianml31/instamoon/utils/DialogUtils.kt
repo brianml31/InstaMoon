@@ -38,6 +38,7 @@ class DialogUtils {
                 "⚙️ Extra options",
                 "🅰️ App font",
                 "👨‍💻 Developer mode",
+                "🌗 App theme (" + ThemeManager.getThemeString(instagramMainActivity) + ")",
                 "ℹ️ About the App"
             )
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
@@ -47,7 +48,8 @@ class DialogUtils {
                         1 -> showExtraOptionsDialog(context)
                         2 -> showAppFontDialog(context, instagramMainActivity)
                         3 -> showDeveloperModeDialog(context, instagramMainActivity)
-                        4 -> showAboutAppDialog(context)
+                        4 -> ThemeManager.changeTheme(instagramMainActivity)
+                        5 -> showAboutAppDialog(context)
                     }
                 }
             })
