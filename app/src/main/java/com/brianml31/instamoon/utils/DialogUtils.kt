@@ -35,19 +35,19 @@ class DialogUtils {
             val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "INSTAMOON \uD83C\uDF19", null, null)
             val options: Array<String> = arrayOf(
                 "👻 Ghost mode",
-                "⚙️ Extra options",
+                "⚙️ Other options",
                 "🅰️ App font",
-                "👨‍💻 Developer mode",
+                "👨‍💻 Developer options",
                 "🌗 App theme (" + ThemeManager.getThemeString(instagramMainActivity) + ")",
-                "ℹ️ About the App"
+                "ℹ️ About the application"
             )
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     when (which) {
                         0 -> showGhostModeDialog(context)
-                        1 -> showExtraOptionsDialog(context)
+                        1 -> showOtherOptionsDialog(context)
                         2 -> showAppFontDialog(context, instagramMainActivity)
-                        3 -> showDeveloperModeDialog(context, instagramMainActivity)
+                        3 -> showDeveloperOptionsDialog(context, instagramMainActivity)
                         4 -> ThemeManager.changeTheme(instagramMainActivity)
                         5 -> showAboutAppDialog(context)
                     }
@@ -94,8 +94,8 @@ class DialogUtils {
             alertDialog.show()
         }
 
-        private fun showExtraOptionsDialog(context: Context) {
-            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "EXTRA OPTIONS ⚙️", null, null)
+        private fun showOtherOptionsDialog(context: Context) {
+            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "OTHER OPTIONS ⚙️", null, null)
             val options: Array<String> = arrayOf(
                 "Disable ads",
                 "Disable analytics",
@@ -204,15 +204,16 @@ class DialogUtils {
             alertDialog.show()
         }
 
-        private fun showDeveloperModeDialog(context: Context, instagramMainActivity: InstagramMainActivity) {
-            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "DEVELOPER MODE 👨‍💻", null, null)
+        private fun showDeveloperOptionsDialog(context: Context, instagramMainActivity: InstagramMainActivity) {
+            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "DEV OPTIONS 👨‍💻", null, null)
             val options: Array<String> = arrayOf(
                 "👨‍💻 Open developer mode",
                 "📤 Export dev settings",
                 "📥 Import dev settings (.json)",
                 "📥 Import dev settings (.igmoon)",
-                "💾 Save file (id_name_mapping.json)",
-                "🧹 Clear developer mode settings"
+                "💾 Save mapping file",
+                "📂 Import mapping file",
+                "🗑️ Reset dev settings"
             )
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
@@ -229,8 +230,21 @@ class DialogUtils {
                         3 -> {
                             BackupManager.requestFileIgMoonToRestore(instagramMainActivity)
                         }
+                        4 -> {
+                            FileUtils.saveMappingFile(context)
+                        }
                         5 -> {
-                            showClearDeveloperModeSettingsDialog(context)
+                            if (!PermissionsUtils.checkPermission(instagramMainActivity)) {
+                                PermissionsUtils.requestPermission(instagramMainActivity)
+                            } else {
+                                val intent: Intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                                intent.setType("*/*")
+                                instagramMainActivity.startActivityForResult(intent, requestCode)
+                            }
+                        }
+                        6 -> {
+                            showResetDevSettingsDialog(context)
                         }
                     }
                 }
@@ -391,7 +405,7 @@ class DialogUtils {
             alertDialog.show()
         }
 
-        private fun showClearDeveloperModeSettingsDialog(context: Context) {
+        private fun showResetDevSettingsDialog(context: Context) {
             showDialog(
                 context,
                 "CONFIRMATION",

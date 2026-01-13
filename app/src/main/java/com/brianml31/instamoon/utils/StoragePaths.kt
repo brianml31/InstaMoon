@@ -1,5 +1,6 @@
 package com.brianml31.instamoon.utils
 
+import android.content.Context
 import android.os.Environment
 import java.io.File
 
@@ -12,5 +13,9 @@ class StoragePaths {
         val fontsDir: File = File(instamoonDir, ".fonts")
         val backupsDir: File = File(instamoonDir, "backups")
         val mappingsDir: File = File(instamoonDir, "mappings")
+
+        fun mobileConfigDir(Context: Context): File {
+            return File(Context.filesDir, "mobileconfig")
+        }
     }
 }

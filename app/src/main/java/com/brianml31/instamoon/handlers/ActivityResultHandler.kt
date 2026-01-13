@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import com.brianml31.instamoon.utils.BackupManager
+import com.brianml31.instamoon.utils.FileUtils
 import com.brianml31.instamoon.utils.PrefsUtils
 import com.brianml31.instamoon.utils.ToastUtils
 import com.hippo.unifile.UniFile
@@ -13,6 +14,8 @@ class ActivityResultHandler {
         const val REQUEST_CODE_PICK_FONT: Int = 347
         const val REQUEST_CODE_JSON_RESTORE: Int = 348
         const val REQUEST_CODE_IGMOON_RESTORE: Int = 349
+        const val REQUEST_CODE_MAPPING_FILE_IMPORT: Int = 350
+        
 
         fun handleActivityResult(
             activity: Activity,
@@ -42,6 +45,12 @@ class ActivityResultHandler {
                 val uri: Uri? = data?.data
                 if (uri != null) {
                     BackupManager.importBackup(activity, uri, ".igmoon")
+                }
+            }
+            if (requestCode == REQUEST_CODE_MAPPING_FILE_IMPORT && resultCode == Activity.RESULT_OK) {
+                val uri: Uri? = data?.data
+                if (uri != null) {
+                    FileUtils.importMappingFile(activity, uri)
                 }
             }
         }

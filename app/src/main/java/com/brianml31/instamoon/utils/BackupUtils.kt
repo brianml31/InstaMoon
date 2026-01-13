@@ -12,8 +12,8 @@ class BackupUtils {
                 PermissionsUtils.requestPermission(context)
             } else {
                 try {
-                    val fileMCOverrides: File? = FileUtils.loadMCOverridesFile(context)
-                    if (fileMCOverrides!!.exists()) {
+                    val fileMCOverrides: File = FileUtils.loadMCOverridesFile(context)
+                    if (fileMCOverrides.exists()) {
                         DialogUtils.showBackupExportDialog(context, fileMCOverrides)
                     } else {
                         ToastUtils.showShortToast(context, "There is no configuration file to export")
