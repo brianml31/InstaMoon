@@ -10,6 +10,7 @@ import android.content.Intent
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
+import com.brianml31.instamoon.handlers.ActivityResultHandler
 import com.instagram.mainactivity.InstagramMainActivity
 import java.io.File
 import java.text.SimpleDateFormat
@@ -240,7 +241,7 @@ class DialogUtils {
                                 val intent: Intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
                                 intent.addCategory(Intent.CATEGORY_OPENABLE)
                                 intent.setType("*/*")
-                                instagramMainActivity.startActivityForResult(intent, requestCode)
+                                instagramMainActivity.startActivityForResult(intent, ActivityResultHandler.REQUEST_CODE_MAPPING_FILE_IMPORT)
                             }
                         }
                         6 -> {
