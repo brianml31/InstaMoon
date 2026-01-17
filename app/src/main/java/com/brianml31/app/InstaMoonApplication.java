@@ -11,6 +11,6 @@ public class InstaMoonApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        AppContext.Companion.setContext(InstaMoonApplication.this);
+        AppContext.setContext(InstaMoonApplication.this);
     }
 }

@@ -1,6 +1,6 @@
 package com.brianml31.instamoon.utils
 
-import X.SgW
+import X.VYl
 import android.app.AlarmManager
 import android.app.AlertDialog
 import android.app.PendingIntent
@@ -33,14 +33,15 @@ class DialogUtils {
         }
 
         fun showInstamoonOptionsDialog(context: Context, instagramMainActivity: InstagramMainActivity) {
-            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "INSTAMOON \uD83C\uDF19", null, null)
+            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "InstaMoon \uD83C\uDF19", null, null)
+            val isDarkMode = ThemeManager.isDarkModeEnabled(context)
             val options: Array<String> = arrayOf(
                 "👻 Ghost mode",
                 "⚙️ Other options",
                 "🅰️ App font",
                 "👨‍💻 Developer options",
-                "🌗 App theme (" + ThemeManager.getThemeString(instagramMainActivity) + ")",
-                "ℹ️ About the application"
+                "🌙 Dark mode (" + (if (isDarkMode) "Enabled" else "Disabled") + ")",
+                "ℹ️ About InstaMoon"
             )
             alertDialog.setItems(options, object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
@@ -64,7 +65,7 @@ class DialogUtils {
         }
 
         private fun showGhostModeDialog(context: Context) {
-            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "GHOST MODE 👻", null, null)
+            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "Ghost mode 👻", null, null)
             val options: Array<String> = arrayOf(
                 "Hide (Seen) in stories",
                 "Hide (Seen) in DM",
@@ -96,7 +97,7 @@ class DialogUtils {
         }
 
         private fun showOtherOptionsDialog(context: Context) {
-            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "OTHER OPTIONS ⚙️", null, null)
+            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "Other options ⚙️", null, null)
             val options: Array<String> = arrayOf(
                 "Disable ads",
                 "Disable analytics",
@@ -129,14 +130,14 @@ class DialogUtils {
         }
 
         private fun showAppFontDialog(context: Context, instagramMainActivity: InstagramMainActivity){
-            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "APP FONT 🅰️", null, null)
+            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "App font 🅰️", null, null)
             val options: Array<String> = arrayOf(
                 "Default",
                 "Custom (from storage)",
-                "Emoji IOS 18",
-                "Emoji IOS 18.4",
-                "Emoji WhatsApp",
-                "Emoji Facebook"
+                "Facebook Emoji",
+                "Ios Emoji",
+                "Joy Pixel Emoji",
+                "WhatsApp Emoji"
             )
             var selectedItem: Int = PrefsUtils.getInt("appFontSelectedItem",0)
             alertDialog.setSingleChoiceItems(options, selectedItem, object : DialogInterface.OnClickListener {
@@ -147,16 +148,16 @@ class DialogUtils {
                             FontUtils.requestFontFileToApply(instagramMainActivity)
                         }
                         2 -> {
-                            FontUtils.downloadFont(context, "Emoji_iOS_18.ttf", UrlUtils.FONT_IOS_18)
+                            FontUtils.downloadFont(context, "FacebookEmoji.ttf", UrlUtils.FACEBOOK_EMOJI)
                         }
                         3 -> {
-                            FontUtils.downloadFont(context, "Emoji_iOS_18_4.ttf", UrlUtils.FONT_IOS_18_4)
+                            FontUtils.downloadFont(context, "IosEmoji.ttf", UrlUtils.IOS_EMOJI)
                         }
                         4 -> {
-                            FontUtils.downloadFont(context, "Emoji_WhatsApp.ttf", UrlUtils.FONT_WHATSAPP)
+                            FontUtils.downloadFont(context, "JoyPixelEmoji.ttf", UrlUtils.JOY_PIXEL_EMOJI)
                         }
                         5 -> {
-                            FontUtils.downloadFont(context, "Emoji_Facebook.ttf", UrlUtils.FONT_FACEBOOK);
+                            FontUtils.downloadFont(context, "WhatsAppEmoji.ttf", UrlUtils.WHATSAPP_EMOJI);
                         }
                     }
                 }
@@ -186,16 +187,16 @@ class DialogUtils {
                             }
                         }
                         2 -> {
-                            FontUtils.applyFont(context, selectedItem, "Emoji_iOS_18.ttf")
+                            FontUtils.applyFont(context, selectedItem, "FacebookEmoji.ttf")
                         }
                         3 -> {
-                            FontUtils.applyFont(context, selectedItem, "Emoji_iOS_18_4.ttf")
+                            FontUtils.applyFont(context, selectedItem, "IosEmoji.ttf")
                         }
                         4 -> {
-                            FontUtils.applyFont(context, selectedItem, "Emoji_WhatsApp.ttf")
+                            FontUtils.applyFont(context, selectedItem, "JoyPixelEmoji.ttf")
                         }
                         5 -> {
-                            FontUtils.applyFont(context, selectedItem, "Emoji_Facebook.ttf")
+                            FontUtils.applyFont(context, selectedItem, "WhatsAppEmoji.ttf")
                         }
                     }
 
@@ -206,7 +207,7 @@ class DialogUtils {
         }
 
         private fun showDeveloperOptionsDialog(context: Context, instagramMainActivity: InstagramMainActivity) {
-            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "DEV OPTIONS 👨‍💻", null, null)
+            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "Dev. options 👨‍💻", null, null)
             val options: Array<String> = arrayOf(
                 "👨‍💻 Open developer mode",
                 "📤 Export dev settings",
@@ -220,7 +221,8 @@ class DialogUtils {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     when (which) {
                         0 -> {
-                            SgW.A00.A02(context, instagramMainActivity, instagramMainActivity.A05)
+                            //"settings_devoptions"
+                            VYl.A00.A02(context, instagramMainActivity, instagramMainActivity.A05)
                         }
                         1 -> {
                             BackupUtils.exportDevSettings(context)
@@ -262,7 +264,7 @@ class DialogUtils {
         private fun showAboutAppDialog(context: Context) {
             showDialog(
                 context,
-                "ABOUT THE APP ℹ️",
+                "About InstaMoon ℹ️",
                 "InstaMoon 🌙 " + Constants.VERSION + "\n\n" +
                         "⭒Developed by brianml31⭒\n\n" +
                         "Based on version: " + Utils.getVersionName(context) + "\n\n" +
@@ -325,8 +327,8 @@ class DialogUtils {
         fun showRestartAppDialog(context: Context) {
             val alertDialog: AlertDialog.Builder = builderAlertDialog(
                 context,
-                "RESTART APP",
-                "to apply the new changes the app needs to be restarted, press RESTART to restart",
+                "Restart application",
+                "To apply the new changes, the app needs to be restarted. Press RESTART to continue.",
                 null
             )
             alertDialog.setPositiveButton("RESTART", object : DialogInterface.OnClickListener {
@@ -359,7 +361,7 @@ class DialogUtils {
             inputPassword.setTextSize(16f)
             layout.addView(inputPassword)
 
-            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "EXPORT DEV SETTINGS 📤", null, layout)
+            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "Export dev settings 📤", null, layout)
             alertDialog.setNegativeButton("CLOSE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     dialog.dismiss()
@@ -391,7 +393,7 @@ class DialogUtils {
             inputPassword.hint = "Enter password"
             inputPassword.setTextSize(16f)
             layout.addView(inputPassword)
-            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "PASSWORD 🔒", null, null)
+            val alertDialog: AlertDialog.Builder = builderAlertDialog(context, "Password 🔒", null, layout)
             alertDialog.setNegativeButton("CLOSE", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     dialog.dismiss()
@@ -409,41 +411,42 @@ class DialogUtils {
         private fun showResetDevSettingsDialog(context: Context) {
             showDialog(
                 context,
-                "CONFIRMATION",
-                "Do you want to proceed to clear the developer mode settings?",
+                "Confirm action",
+                "Are you sure you want to reset the developer mode settings?",
                 false,
                 null,
                 null,
                 true,
-                "NO",
+                "Cancel",
                 object : DialogInterface.OnClickListener {
                     override fun onClick(dialog: DialogInterface, which: Int) {
                         dialog.dismiss()
                     }
                 },
                 true,
-                "YES",
+                "Confirm",
                 object : DialogInterface.OnClickListener {
                     override fun onClick(dialog: DialogInterface, which: Int) {
                         val state: String? = FileUtils.deleteMCOverrides(context)
                         when (state) {
                             "SUCCESS" -> {
-                                ToastUtils.showShortToast(context, "Developer mode settings successfully cleared")
+                                ToastUtils.showShortToast(context, "Developer mode settings have been reset successfully")
                             }
                             "ERROR" -> {
-                                ToastUtils.showShortToast(context, "Error clearing commands")
+                                ToastUtils.showShortToast(context, "An error occurred while resetting the settings")
                             }
                             "NO_FILE" -> {
-                                ToastUtils.showShortToast(context, "The file \"mc_overrides\" does not exist to delete it")
+                                ToastUtils.showShortToast(context, "No developer settings file was found to reset")
                             }
                             else -> {
-                                ToastUtils.showShortToast(context, "Error: "+state)
+                                ToastUtils.showShortToast(context, "Unexpected error: " + state)
                             }
                         }
                     }
                 }
             )
         }
+
 
     }
 }

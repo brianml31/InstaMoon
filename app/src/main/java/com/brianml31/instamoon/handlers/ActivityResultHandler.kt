@@ -15,8 +15,8 @@ class ActivityResultHandler {
         const val REQUEST_CODE_JSON_RESTORE: Int = 348
         const val REQUEST_CODE_IGMOON_RESTORE: Int = 349
         const val REQUEST_CODE_MAPPING_FILE_IMPORT: Int = 350
-        
 
+        @JvmStatic
         fun handleActivityResult(
             activity: Activity,
             requestCode: Int,
@@ -31,7 +31,7 @@ class ActivityResultHandler {
                         PrefsUtils.saveString(activity, "customFontPath", customFontPath)
                         ToastUtils.showShortToast(activity, "Font selected successfully")
                     } else {
-                        ToastUtils.showShortToast(activity, "Selected file is not a TTF font")
+                        ToastUtils.showShortToast(activity, "The selected file is not a valid TTF font")
                     }
                 }
             }
@@ -54,6 +54,7 @@ class ActivityResultHandler {
                 }
             }
         }
+
 
     }
 }

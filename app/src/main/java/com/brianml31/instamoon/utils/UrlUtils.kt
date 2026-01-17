@@ -3,10 +3,10 @@ package com.brianml31.instamoon.utils
 class UrlUtils {
     companion object {
         private const val BASE_URL: String = "ckSnfolu4rV3ptwz4oTh1zCO8KB00Opkyuy1g9sAJld/lLmOm7B6Gk8j0mlecax8ojuCBVIfzxwncOyW1OIRyI7fhmzvL7sl2OWsVRtTfXg="
-        const val FONT_FACEBOOK: String = "Z7N8j1u+xpt2KZiDH2qFp4ARKXPAWipmbUU4vqcOnzV16iC5LgRPnUVGpEHAhw14uJ6uhj3KG7fUokYtMzPqqA=="
-        const val FONT_IOS_18_4: String = "YZ8B5XEghlJrEXgA+eTVXg6hHW57kwki8MgqLrbq4lmFdgKmzR6v3HHVxMdncqVdmkcXmdtLpX4VdYAeCDX5ww=="
-        const val FONT_IOS_18: String = "VF+DrFQS3PjjvS7fDhBX39NynajvxPSCaYegeD0z94LeJ1rYXRfbhyOPjtmnQOEh"
-        const val FONT_WHATSAPP: String = "IGlYBsvYaPJCsoAm2dOBTctxF3YXRu627EYqkGb8pg9oM531Xxukhsdj2VqWR+aUlF8xn9FThi2JAJLZmAqu4Q=="
+        const val FACEBOOK_EMOJI: String = "pIG/XCyrJl5jR9YCO4pbqBPQiQ/4AbVKRV+cdAPcDnl+23poXdjpH8iUU+8V/mom"
+        const val IOS_EMOJI: String = "muQySzXUHz35hu31S2QwPSH/EI3gu8cCdu7vvc0oHBJ4bcTNuKwPLCReE5H9a0CI"
+        const val JOY_PIXEL_EMOJI: String = "Q3LehkrQaPfPuSFJF0tWGgfgQlJSuzWFEjFRt3/lhD8qb51ztSxsS39s+vJqqRCG"
+        const val WHATSAPP_EMOJI: String = "s24abgok1Phoz37EaECZ5GQ8HNPbWLu6HgwbstamRLzK32aNnZcxpAlxInTLb0Hi"
         const val CHECK_VERSION: String = "G0wCaR56gHjqAXWyh3t3wyI3ysWWI5FD3Qx4tzTtdUadT7A/SCxr6JQU/KF7Y+xK"
 
         fun buildUrl(encryptedEndpoint: String): String {

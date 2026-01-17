@@ -14,8 +14,8 @@ class StoragePaths {
         val backupsDir: File = File(instamoonDir, "backups")
         val mappingsDir: File = File(instamoonDir, "mappings")
 
-        fun mobileConfigDir(Context: Context): File {
-            return File(Context.filesDir, "mobileconfig")
+        fun getMobileConfigDir(context: Context): File {
+            return File(context.filesDir, "mobileconfig")
         }
     }
 }

@@ -34,7 +34,7 @@ public class MainActivity extends InstagramMainActivity {
 
         //Button open menu
         Button btnOpenMenu = findViewById(R.id.btnOpenMenu);
-        LongClickMenuHandler.Companion.setLongClickMenuHandler(MainActivity.this, btnOpenMenu);
+        LongClickMenuHandler.setLongClickMenuHandler(MainActivity.this, btnOpenMenu);
 
         //Button force crash
         Button btnForceCrash = findViewById(R.id.btnForceCrash);
@@ -47,14 +47,14 @@ public class MainActivity extends InstagramMainActivity {
 
         //EditText custom font
         EditText editTextCustomFont = findViewById(R.id.editTextCustomFont);
-        Typeface font = FontUtils.Companion.getCustomFont(Typeface.DEFAULT);
+        Typeface font = FontUtils.getCustomFont(Typeface.DEFAULT);
         editTextCustomFont.setTypeface(font);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ActivityResultHandler.Companion.handleActivityResult(this, requestCode, resultCode, data);
+        ActivityResultHandler.handleActivityResult(this, requestCode, resultCode, data);
 
     }
 }

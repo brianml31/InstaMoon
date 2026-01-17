@@ -14,6 +14,7 @@ class LongClickMenuHandler : View.OnLongClickListener {
     }
 
     companion object {
+        @JvmStatic
         fun setLongClickMenuHandler(instagramMainActivity: InstagramMainActivity, view: View) {
             view.setOnLongClickListener(LongClickMenuHandler(instagramMainActivity))
         }

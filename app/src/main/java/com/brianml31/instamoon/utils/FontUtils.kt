@@ -15,6 +15,7 @@ class FontUtils {
     companion object{
         private var appTypeFace: Typeface? = null
 
+        @JvmStatic
         fun getCustomFont(typeface: Typeface): Typeface {
             if (appTypeFace != null) {
                 return appTypeFace!!
@@ -69,27 +70,27 @@ class FontUtils {
                 if(!isFontDownloaded(fontName)){
                     DialogUtils.showDialog(
                         context,
-                        "WARNING",
-                        "This font is not available on your device, Do you want to download it?",
+                        "Font not found",
+                        "This font is not installed on your device. Would you like to download it now?",
                         false,
                         null,
                         null,
                         true,
-                        "NO",
+                        "Cancel",
                         object : DialogInterface.OnClickListener {
                             override fun onClick(dialog: DialogInterface, which: Int) {
                                 dialog.dismiss()
                             }
                         },
                         true,
-                        "DOWNLOAD",
+                        "Download",
                         object : DialogInterface.OnClickListener {
                             override fun onClick(dialog: DialogInterface, which: Int) {
                                 if (NetworkUtils.isInternetAvailable(context)) {
                                     val downloadFont: DownloadFontTask = DownloadFontTask(context,fontName)
                                     downloadFont.execute(UrlUtils.buildUrl(fontEndpoint))
                                 } else {
-                                    ToastUtils.showShortToast(context, "No internet connection")
+                                    ToastUtils.showShortToast(context, "No internet connection available")
                                 }
                             }
                         }
@@ -109,7 +110,7 @@ class FontUtils {
 
         fun applyFont(context: Context, selectedItem: Int, fontName: String){
             if(!isFontDownloaded(fontName)){
-                ToastUtils.showShortToast(context, "Please download the font")
+                ToastUtils.showShortToast(context, "Please download the font before applying it")
             } else {
                 PrefsUtils.saveInt(context, "appFontSelectedItem", selectedItem)
                 val fontsDir: File = StoragePaths.fontsDir
@@ -118,9 +119,10 @@ class FontUtils {
                 }
                 val fontFile: File = File(fontsDir, fontName)
                 PrefsUtils.saveString(context, "fontPath", fontFile.path)
-                ToastUtils.showShortToast(context, "Font applied")
+                ToastUtils.showShortToast(context, "Font applied successfully")
                 DialogUtils.showRestartAppDialog(context)
             }
         }
+
     }
 }

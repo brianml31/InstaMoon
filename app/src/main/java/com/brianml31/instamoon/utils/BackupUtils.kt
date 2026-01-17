@@ -16,10 +16,10 @@ class BackupUtils {
                     if (fileMCOverrides.exists()) {
                         DialogUtils.showBackupExportDialog(context, fileMCOverrides)
                     } else {
-                        ToastUtils.showShortToast(context, "There is no configuration file to export")
+                        ToastUtils.showShortToast(context, "No configuration file available to export")
                     }
                 } catch (e: Exception) {
-                    ToastUtils.showShortToast(context, "Error: Could not export developer mode settings")
+                    ToastUtils.showShortToast(context, "Unable to export developer mode settings")
                 }
             }
         }
@@ -58,7 +58,7 @@ class BackupUtils {
             if(decryptedBackupContent != null){
                 BackupManager.applyBackupToOverrides(context, decryptedBackupContent)
             } else {
-                ToastUtils.showLongToast(context, "Error: The password is incorrect or the data is corrupted")
+                ToastUtils.showLongToast(context, "Incorrect password or corrupted backup data")
             }
         }
 
@@ -97,7 +97,7 @@ class BackupUtils {
             if(state.equals("SUCCESS")){
                 ToastUtils.showShortToast(context, "File exported in " + fileOutput.path)
             }else {
-                ToastUtils.showShortToast(context, "Error: " + state)
+                ToastUtils.showShortToast(context, "An error occurred while exporting the backup: " + state)
             }
         }
 

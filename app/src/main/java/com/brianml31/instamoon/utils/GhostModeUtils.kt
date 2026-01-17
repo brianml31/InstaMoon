@@ -6,6 +6,7 @@ import java.net.URI
 class GhostModeUtils {
     companion object {
 
+        @JvmStatic
         fun validateUriHost(uri: URI) {
             if(uri!=null){
                 var uriPath: String = uri.path
@@ -47,10 +48,12 @@ class GhostModeUtils {
             return PrefsUtils.getBoolean(PrefsUtils.arrayGhostModeKeys[0], false)
         }
 
+        @JvmStatic
         fun hideSeenDM(): Boolean {
             return PrefsUtils.getBoolean(PrefsUtils.arrayGhostModeKeys[1], false)
         }
 
+        @JvmStatic
         fun hideTypingDM(): Boolean {
             return PrefsUtils.getBoolean(PrefsUtils.arrayGhostModeKeys[2], false)
         }

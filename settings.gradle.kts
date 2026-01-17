@@ -21,3 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "InstaMoon"
 include(":app")
+include(":UniFile")
+include(":ACRA")
+include(":Instagram")

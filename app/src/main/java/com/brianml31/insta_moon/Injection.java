@@ -20,28 +20,28 @@ import java.net.URI;
 public class Injection {
 
     private static void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data){
-        ActivityResultHandler.Companion.handleActivityResult(activity, requestCode, resultCode, data);
+        ActivityResultHandler.handleActivityResult(activity, requestCode, resultCode, data);
         Log.i("InstagramMainActivity","onActivityResult(IILandroid/content/Intent;)V");
     }
 
     private static void setLongClickMenuHandler(InstagramMainActivity instagramMainActivity, View v){
-        LongClickMenuHandler.Companion.setLongClickMenuHandler(instagramMainActivity, v);
+        LongClickMenuHandler.setLongClickMenuHandler(instagramMainActivity, v);
         Log.i("InstagramMainActivity","Landroid/view/ViewGroup;->addView(Landroid/view/View;)V");
     }
 
     private static void onCreate(Application application){
-        AppContext.Companion.setContext(application);
+        AppContext.setContext(application);
         Log.i("InstagramAppShell","Landroid/app/Application;->onCreate()V");
     }
 
     // Ghost mode
     private static void validateUriHost(URI uri){
-        GhostModeUtils.Companion.validateUriHost(uri);
+        GhostModeUtils.validateUriHost(uri);
         Log.i("TigonServiceLayer","startRequest");
     }
 
     private static void hideSeenDM(){
-        if(GhostModeUtils.Companion.hideSeenDM()){
+        if(GhostModeUtils.hideSeenDM()){
             return;
         }else{
             Log.i("X","mark_thread_seen-");
@@ -49,7 +49,7 @@ public class Injection {
     }
 
     private static void hideTypingDM(){
-        if(GhostModeUtils.Companion.hideTypingDM()){
+        if(GhostModeUtils.hideTypingDM()){
             return;
         }else{
             Log.i("X","is_typing_indicator_enabled");
@@ -58,7 +58,7 @@ public class Injection {
 
     //ExtraOptions
     private static boolean disableAds(){
-        if(ExtraOptionsUtils.Companion.disableAds()){
+        if(ExtraOptionsUtils.disableAds()){
             return false;
         }else{
             Log.i("X","SponsoredContentController.insertItem");
@@ -67,7 +67,7 @@ public class Injection {
     }
 
     private static boolean disableVideoAutoplay(){
-        if(ExtraOptionsUtils.Companion.disableVideoAutoplay()){
+        if(ExtraOptionsUtils.disableVideoAutoplay()){
             return true;
         }else{
             Log.i("X","ig_disable_video_autoplay");
@@ -76,7 +76,7 @@ public class Injection {
     }
 
     private static void disableDoubleTapLike(){
-        if(ExtraOptionsUtils.Companion.disableDoubleTapLike()){
+        if(ExtraOptionsUtils.disableDoubleTapLike()){
             return;
         }else{
             Log.i("X","like_media");
@@ -85,13 +85,13 @@ public class Injection {
 
     private static boolean hideSuggestedReels(boolean z){
         Log.i("clips_netego", "FeedItem");
-        return ExtraOptionsUtils.Companion.hideSuggestedReels(z);
+        return ExtraOptionsUtils.hideSuggestedReels(z);
     }
 
     //App font
     private static Typeface getCustomFont(Typeface typeface){
         Log.i(", does not have a backing source. You need to provide either a systemFontName, assetFontName, or a fileDescriptor.","Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");
-        return FontUtils.Companion.getCustomFont(typeface);
+        return FontUtils.getCustomFont(typeface);
     }
 
     //Remove snooze warning

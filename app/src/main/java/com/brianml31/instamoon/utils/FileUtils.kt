@@ -41,7 +41,7 @@ class FileUtils {
         }
 
         fun loadMCOverridesFile(context: Context): File {
-            val mobileConfigDir: File = File(context.filesDir, "mobileconfig")
+            val mobileConfigDir: File = StoragePaths.getMobileConfigDir(context)
             if (!mobileConfigDir.exists()) {
                 mobileConfigDir.mkdirs()
             }
@@ -101,7 +101,7 @@ class FileUtils {
 
         fun saveMappingFile(context: Context){
             if (!PermissionsUtils.checkPermission(context)) {
-               PermissionsUtils.requestPermission(context)
+                PermissionsUtils.requestPermission(context)
             } else {
                 try {
                     val idNameMappingFile: File = File(context.filesDir, "mobileconfig" + File.separator + "id_name_mapping.json")
@@ -118,16 +118,16 @@ class FileUtils {
                             }
                             val state: String? = writeContent(outputFile, contentFile)
                             if(state.equals("SUCCESS")){
-                                ToastUtils.showShortToast(context, "File saved in" + outputFile.path)
+                                ToastUtils.showShortToast(context, "File saved successfully at " + outputFile.path)
                             }else{
-                                ToastUtils.showShortToast(context, "Error: " + state)
+                                ToastUtils.showShortToast(context, "An error occurred while saving the file: " + state)
                             }
                         }
                     } else {
-                        ToastUtils.showShortToast(context, "The file (id_name_mapping.json) does not exist")
+                        ToastUtils.showShortToast(context, "The id_name_mapping.json file does not exist")
                     }
                 } catch (e: Exception) {
-                    ToastUtils.showShortToast(context, "An error occurred while save the file \"id name mapping.json\"")
+                    ToastUtils.showShortToast(context, "An error occurred while saving the id name mapping file")
                 }
             }
         }
@@ -135,7 +135,7 @@ class FileUtils {
         fun importMappingFile(activity: Activity, dataUri: Uri){
             val contentFile: String? = readFileFromUri(activity, dataUri)
             if(contentFile != null){
-                val mobileConfigDir: File = File(activity.filesDir, "mobileconfig")
+                val mobileConfigDir: File = StoragePaths.getMobileConfigDir(activity)
                 if (!mobileConfigDir.exists()) {
                     mobileConfigDir.mkdirs()
                 }
@@ -145,20 +145,20 @@ class FileUtils {
                 }
                 val state: String? = writeContent(idNameMappingFile, contentFile)
                 if(state.equals("SUCCESS")){
-                    ToastUtils.showShortToast(activity, "The file was imported successfully")
+                    ToastUtils.showShortToast(activity, "File imported successfully")
                     DialogUtils.showRestartAppDialog(activity)
                 }else{
-                    ToastUtils.showShortToast(activity, "Error: " + state)
+                    ToastUtils.showShortToast(activity, "An error occurred while importing the file: " + state)
                 }
             } else {
-                ToastUtils.showShortToast(activity, "Error: Failed to read file")
+                ToastUtils.showShortToast(activity, "Unable to read the selected file")
             }
         }
 
         fun deleteMCOverrides(context: Context): String? {
             try {
-                val fileMCOverrides: File? = loadMCOverridesFile(context)
-                if(fileMCOverrides!!.exists()){
+                val fileMCOverrides: File = loadMCOverridesFile(context)
+                if(fileMCOverrides.exists()){
                     if(fileMCOverrides.delete()){
                         return "SUCCESS"
                     }else{

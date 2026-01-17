@@ -42,7 +42,7 @@ class BackupManager {
                                 BackupUtils.processBackupContent(activity, contentFile, "")
                             }
                         }else{
-                            ToastUtils.showShortToast(activity, "Error: Incompatible backup")
+                            ToastUtils.showShortToast(activity, "The selected backup file is not compatible")
                         }
                     }
                     ".json" -> {
@@ -50,23 +50,25 @@ class BackupManager {
                     }
                 }
             } else {
-                ToastUtils.showShortToast(activity, "Error: Failed to read backup file")
+                ToastUtils.showShortToast(activity, "Unable to read the selected backup file")
             }
         }
 
+
         fun applyBackupToOverrides(context: Context, content: String) {
-            val fileMCOverrides: File? = FileUtils.loadMCOverridesFile(context)
-            if (!fileMCOverrides!!.exists()) {
+            val fileMCOverrides: File = FileUtils.loadMCOverridesFile(context)
+            if (!fileMCOverrides.exists()) {
                 fileMCOverrides.createNewFile()
             }
             val state: String? = FileUtils.writeContent(fileMCOverrides, content)
             if(state.equals("SUCCESS")){
-                ToastUtils.showShortToast(context, "The backup was imported successfully")
+                ToastUtils.showShortToast(context, "Backup imported successfully")
                 DialogUtils.showRestartAppDialog(context)
             }else{
-                ToastUtils.showShortToast(context, "Error: " + state)
+                ToastUtils.showShortToast(context, "An error occurred while importing the backup: " + state)
             }
         }
+
 
 
     }

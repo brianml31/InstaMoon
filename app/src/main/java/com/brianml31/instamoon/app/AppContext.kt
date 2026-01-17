@@ -5,6 +5,7 @@ import android.content.Context
 import com.brianml31.instamoon.utils.FontUtils
 import org.acra.ACRA
 
+
 class AppContext {
     companion object {
         private var context: Context? = null
@@ -13,6 +14,7 @@ class AppContext {
             return context
         }
 
+        @JvmStatic
         fun setContext(application: Application){
             ACRA.init(application)
             context = application.applicationContext
