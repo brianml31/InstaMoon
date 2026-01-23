@@ -13,11 +13,18 @@ import com.brianml31.instamoon.app.AppContext;
 import com.brianml31.instamoon.utils.ExtraOptionsUtils;
 import com.brianml31.instamoon.utils.FontUtils;
 import com.brianml31.instamoon.utils.GhostModeUtils;
+import com.brianml31.instamoon.utils.VersionCheckUtils;
 import com.instagram.mainactivity.InstagramMainActivity;
 
 import java.net.URI;
 
 public class InjectionHooks {
+
+    public static void checkVersion(Activity activity){
+        VersionCheckUtils.checkVersion(activity);
+        Log.i("MainFeedFragment", ";-><init>(Landroid/app/Activity;Landroid/widget/Adapter;");
+        Log.i("getRootActivity()Landroid/app/Activity;", "null cannot be cast to non-null type com.instagram.base.activity.tabactivity.TabController");
+    }
 
     private static void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data){
         ActivityResultHandler.handleActivityResult(activity, requestCode, resultCode, data);

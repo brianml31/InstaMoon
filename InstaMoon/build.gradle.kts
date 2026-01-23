@@ -40,6 +40,7 @@ dependencies {
     implementation(project(":ACRA"))
     implementation(project(":Instagram"))
     implementation(libs.core.ktx)
+    implementation(project(":WVersionManager"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
