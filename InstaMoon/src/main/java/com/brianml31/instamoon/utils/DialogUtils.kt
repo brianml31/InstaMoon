@@ -278,9 +278,13 @@ class DialogUtils {
                 false,
                 null,
                 null,
-                false,
-                null,
-                null,
+                true,
+                "GITHUB",
+                object : DialogInterface.OnClickListener {
+                    override fun onClick(dialog: DialogInterface, which: Int) {
+                        Utils.openLink(context, "https://github.com/brianml31/InstaMoon/")
+                    }
+                },
                 true,
                 "CLOSE",
                 object : DialogInterface.OnClickListener {

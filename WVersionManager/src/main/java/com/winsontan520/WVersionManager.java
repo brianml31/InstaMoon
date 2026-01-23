@@ -17,9 +17,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.text.Html;
@@ -353,7 +355,9 @@ public class WVersionManager implements IWVersionManager {
     private void updateNow(String url) {
         if (url != null) {
             try {
-
+                Uri uri = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                activity.startActivity(intent);
             } catch (Exception e) {
                 Log.e(TAG, "is update url correct?" + e);
             }
