@@ -71,18 +71,15 @@ jobs:
           if [ -d "$dir/androidx" ]; then
             find "$dir/androidx" -mindepth 1 -maxdepth 1 ! -name "concurrent" -exec rm -rf {} +
           fi
+          rm -rf "$dir/com/brianml31/activities"
+          rm -rf "$dir/com/brianml31/insta_moon"
           rm -rf "$dir/com/google/android"
           rm -rf "$dir/com/google/errorprone"
+          rm -rf "$dir/com/instagram"
+          rm -rf "$dir/org/apache"
           rm -rf "$dir/org/intellij"
           rm -rf "$dir/org/jetbrains"
           rm -rf "$dir/org/jspecify"
-          rm -rf "$dir/com/instagram"
-          if [ -d "$dir/com/brianml31/insta_moon" ]; then
-            find "$dir/com/brianml31/insta_moon" -type f -name "R*.smali" -delete
-          fi
-          if [ -d "$dir/com/brianml31/mainactivity" ]; then
-            find "$dir/com/brianml31/mainactivity" -type f -name "MainActivity*.smali" -delete
-          fi
           rm -rf "$dir/X"
         done
         
@@ -100,7 +97,7 @@ jobs:
       run: |
         packages=(
           "com/brianml31/app"
-          "com/brianml31/insta_moon"
+          "com/brianml31/injection"
         )
     
         for pkg in "${packages[@]}"; do

@@ -1,4 +1,4 @@
-package com.brianml31.insta_moon;
+package com.brianml31.injection;
 
 import android.app.Activity;
 import android.app.Application;
@@ -17,7 +17,7 @@ import com.instagram.mainactivity.InstagramMainActivity;
 
 import java.net.URI;
 
-public class Injection {
+public class InjectionHooks {
 
     private static void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data){
         ActivityResultHandler.handleActivityResult(activity, requestCode, resultCode, data);
