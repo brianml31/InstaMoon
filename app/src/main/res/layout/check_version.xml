@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.brianml31.activities.CheckVersionActivity">
+
+    <!-- TOOLBAR -->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- TITLE -->
+    <TextView
+        android:id="@+id/titleCheckVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check App Version"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- SCROLL -->
+    <ScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/titleCheckVersion"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/label_setVersionContentUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="setVersionContentUrl"
+                android:layout_gravity="start"/>
+
+            <EditText
+                android:id="@+id/versionContentUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:inputType="textUri"
+                android:text="https://raw.githubusercontent.com/brianml31/InstaMoon/server/Version/TestCheckVersion.json"
+                android:layout_marginTop="4dp"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxWithCallback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="With Callback"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="start"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxUseDefaultDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Use default library Dialog"
+                android:layout_gravity="start"/>
+
+            <TextView
+                android:id="@+id/text_setUpdateNowLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="setUpdateNowLabel"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="start"/>
+
+            <EditText
+                android:id="@+id/updateNowLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="Update now"/>
+
+            <TextView
+                android:id="@+id/text_setRemindMeLaterLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="setRemindMeLaterLabel"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="start"/>
+
+            <EditText
+                android:id="@+id/remindMeLaterLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="Remind me later"/>
+
+            <TextView
+                android:id="@+id/text_setIgnoreThisVersionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="setIgnoreThisVersionLabel"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="start"/>
+
+            <EditText
+                android:id="@+id/ignoreThisVersionLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:text="Ignore this version"/>
+
+            <TextView
+                android:id="@+id/text_setReminderTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="setReminderTimer (minutes)"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="start"/>
+
+            <EditText
+                android:id="@+id/reminderTimer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:inputType="number"
+                android:text="1"/>
+
+            <Button
+                android:id="@+id/check_version_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Check version"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

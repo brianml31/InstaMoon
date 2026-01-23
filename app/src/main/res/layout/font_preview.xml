@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.brianml31.activities.FontPreviewActivity">
+
+    <!-- TOOLBAR -->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- TEXT "FONT PREVIEW" -->
+    <TextView
+        android:id="@+id/font_preview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Font Preview"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp" />
+
+    <!-- EDITTEXT FONT PREVIEW -->
+    <EditText
+        android:id="@+id/editTextFontPreview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Test custom font app"
+        app:layout_constraintTop_toBottomOf="@id/font_preview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:minHeight="48dp"
+        android:padding="12dp"
+        android:layout_marginTop="40dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
