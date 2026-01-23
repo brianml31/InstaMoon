@@ -3,7 +3,7 @@ name: APK Build & Dex Extractor
 on:
   push:
     branches:
-      - InstaMoon_Restructured
+      - InstaMoon
   pull_request:
 
 jobs:
