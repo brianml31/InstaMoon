@@ -8,6 +8,7 @@ class UrlUtils {
         const val JOY_PIXEL_EMOJI: String = "Q3LehkrQaPfPuSFJF0tWGgfgQlJSuzWFEjFRt3/lhD8qb51ztSxsS39s+vJqqRCG"
         const val WHATSAPP_EMOJI: String = "s24abgok1Phoz37EaECZ5GQ8HNPbWLu6HgwbstamRLzK32aNnZcxpAlxInTLb0Hi"
         const val CHECK_VERSION: String = "BiQCmscDFneFqw9X8F8AwWGcyTrXEJTeSuFjzH8oauNRvcmdKsWaOmeHiAMFR/O4OBa+Ynqsg1L7qdq9PUUqkw=="
+        const val GITHUB: String = "pQXQnuCJR+dUF9JCwhHBVkeegOCCkoQdOR2QIJ3SlyaCSFKUv4l+j1Pw0IiQ+lRqEZdx+GcqibiGhmY/gDrFlw=="
 
         fun buildUrl(encryptedEndpoint: String): String {
             val baseUrl: String = AESUtils.decryptTextWithPassword(BASE_URL, "InstaMoon") ?: return ""

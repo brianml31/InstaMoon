@@ -29,5 +29,10 @@ class ExtraOptionsUtils {
                 return z
             }
         }
+
+        @JvmStatic
+        fun removeEmptySpace(): Boolean {
+            return PrefsUtils.getBoolean(PrefsUtils.arrayExtraOptionsKeys[5], false)
+        }
     }
 }

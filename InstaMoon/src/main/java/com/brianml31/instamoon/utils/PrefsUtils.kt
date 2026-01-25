@@ -21,7 +21,8 @@ class PrefsUtils {
             "disableAnalytics",
             "disableVideoAutoplay",
             "disableDoubleTapLike",
-            "hideSuggestedReels"
+            "hideSuggestedReels",
+            "removeEmptySpace"
         )
 
         private fun getSharedPreferences(context: Context, ): SharedPreferences {

@@ -95,6 +95,13 @@ public class InjectionHooks {
         return ExtraOptionsUtils.hideSuggestedReels(z);
     }
 
+    private static void removeEmptySpace() {
+        if(!ExtraOptionsUtils.removeEmptySpace()){
+            return;
+        }
+        Log.i("Nab bar height: old=%d new=%d, Activity=%s RetryCount=%d isFullScreenFlagSet=%b windowFlags=0x%X","if-gtz v0, :cond_xxx|2");
+    }
+
     //App font
     private static Typeface getCustomFont(Typeface typeface){
         Log.i(", does not have a backing source. You need to provide either a systemFontName, assetFontName, or a fileDescriptor.","Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;");

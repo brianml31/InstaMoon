@@ -103,7 +103,8 @@ class DialogUtils {
                 "Disable analytics",
                 "Disable video autoplay",
                 "Disable 'Like' with double tap",
-                "Hide suggested reels"
+                "Hide suggested reels",
+                "Remove empty bottom space"
             )
             val checkedItems: BooleanArray = PrefsUtils.loadPreferences(context, options, PrefsUtils.arrayExtraOptionsKeys)
             alertDialog.setMultiChoiceItems(options, checkedItems, object : DialogInterface.OnMultiChoiceClickListener {
@@ -282,7 +283,8 @@ class DialogUtils {
                 "GITHUB",
                 object : DialogInterface.OnClickListener {
                     override fun onClick(dialog: DialogInterface, which: Int) {
-                        Utils.openLink(context, "https://github.com/brianml31/InstaMoon/")
+                        val github: String? = AESUtils.decryptTextWithPassword(UrlUtils.GITHUB, "InstaMoon")
+                        Utils.openLink(context, github)
                     }
                 },
                 true,
