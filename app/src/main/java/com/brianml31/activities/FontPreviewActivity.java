@@ -32,9 +32,9 @@ public class FontPreviewActivity extends AppCompatActivity {
 
 
         //EditText FontPreview
-        EditText editTextCustomFont = findViewById(R.id.editTextFontPreview);
+        EditText editTextFontPreview = findViewById(R.id.editTextFontPreview);
         Typeface font = FontUtils.getCustomFont(Typeface.DEFAULT);
-        editTextCustomFont.setTypeface(font);
+        editTextFontPreview.setTypeface(font);
     }
 
 }

@@ -3,12 +3,21 @@
 
 
 # InstaMoon 🌙
-InstaMoon is a reverse-engineered injectable menu that enhances your Instagram experience.<br/><br/>
+InstaMoon is a modding framework for Instagram focused on enhancing the user experience by enabling custom features and improvements.<br/><br/>
+### A powerful **modding framework**
 
 <sub>Created with ❤️ by <a href="https://github.com/brianml31">brianml31</a></sub>
 </div>
 
 <hr>
+
+## 🏗️ Framework Architecture
+
+<p align="center">
+	<img src="https://github.com/brianml31/InstaMoon/blob/InstaMoon/assets/instamoon_architecture.png"
+	alt="InstaMoon Framework Architecture"
+	width="800"/>
+</p>
 
 > [!WARNING]  
 > This project is strictly for personal use and is not affiliated, endorsed, or certified by Instagram in any way. Use at your own risk.
@@ -30,35 +39,35 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
 - Hide (Replayed) in media
 - Hide (Seen) in live videos
 
-### ⚙️ Extra options
+### ⚙️ Other options
 - Disable ads
 - Disable analytics
 - Disable video autoplay
 - Disable 'Like' with double tap
 - Hide suggested reels
+- Remove empty bottom space
 
 ### 🅰️ App font
 - Set a custom font for the app
 
-### 🧪 Developer Mode
-- Access to instagram's in-development features
+### ‍💻 Developer options
+- Open developer mode
+- Export dev settings
+- Import dev settings (.json)
+- Import dev settings (.igmoon)
+- Save mapping file
+- Import mapping file
+- Reset dev settings
 
-### 📤 Export Developer Mode Settings
-- Export your developer mode configurations
-
-### 📥 Import Developer Mode Settings
-- Import your developer mode configurations
-
-### 🧹 Clear Developer Mode Settings
-
-### 💾 Save File (id_name_mapping.json)
+### 🌙 Dark mode
 </details>
 
 <details>
   <summary><h3>Screenshots</h3></summary>
   <p>
-    <img src="https://github.com/brianml31/InstaMoon/blob/InstaMoon/assets/1.png" width="200">
-    <img src="https://github.com/brianml31/InstaMoon/blob/InstaMoon/assets/2.png" width="200" style="margin-right:10px;">
+    <img src="https://github.com/brianml31/InstaMoon/blob/InstaMoon/assets/instamoon_1.png" width="200">
+    <img src="https://github.com/brianml31/InstaMoon/blob/InstaMoon/assets/instamoon_2.png" width="200" style="margin-right:10px;">
+	<img src="https://github.com/brianml31/InstaMoon/blob/InstaMoon/assets/instamoon_3.png" width="200" style="margin-right:10px;">
   </p>
 </details>
 
@@ -84,7 +93,7 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
           android:name="com.brianml31.instamoon.permissions.StoragePermissionActivity" />
       ```
 
-6. **Insert the required function calls** from the `Injection` class into Instagram's execution flow.
+6. **Insert the required function calls** from the `InjectionHooks` class into Instagram.
 </details>
 
 <hr>
@@ -96,3 +105,4 @@ InstaMoon is a reverse-engineered injectable menu that enhances your Instagram e
 - **Amàzing World**
 - [seven332 - library (UniFile)](https://github.com/seven332/UniFile)
 - [ACRA](https://github.com/ACRA/acra)
+- [winsontan520 - library (Android-WVersionManager)](https://github.com/winsontan520/Android-WVersionManager)
