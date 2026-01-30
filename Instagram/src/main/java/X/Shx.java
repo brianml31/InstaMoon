@@ -8,8 +8,8 @@ import androidx.fragment.app.FragmentActivity;
 import com.instagram.common.session.UserSession;
 
 
-public class VYl {
-    public static final VYl A00 = new VYl();
+public class Shx {
+    public static final Shx A00 = new Shx();
 
     public final void A02(Context context, FragmentActivity fragmentActivity, UserSession userSession){
         Toast.makeText(context, "Open developer options", Toast.LENGTH_SHORT).show();

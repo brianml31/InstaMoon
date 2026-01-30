@@ -1,6 +1,6 @@
 package com.brianml31.instamoon.utils
 
-import X.VYl
+import X.Shx
 import android.app.AlarmManager
 import android.app.AlertDialog
 import android.app.PendingIntent
@@ -223,7 +223,7 @@ class DialogUtils {
                     when (which) {
                         0 -> {
                             //"settings_devoptions"
-                            VYl.A00.A02(context, instagramMainActivity, instagramMainActivity.A05)
+                            Shx.A00.A02(context, instagramMainActivity, instagramMainActivity.A05)
                         }
                         1 -> {
                             BackupUtils.exportDevSettings(context)

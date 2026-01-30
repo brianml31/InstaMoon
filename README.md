@@ -25,7 +25,7 @@ InstaMoon is a modding framework for Instagram focused on enhancing the user exp
 > **Note:** If you use any of the materials in this repository, please give proper credit by mentioning **Instamoon**. A simple mention or link is appreciated!
 <hr>
 
-**Recommended Instagram version:** [`413.0.0.0.76 alpha`](https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-413-0-0-0-76-release/instagram-413-0-0-0-76-2-android-apk-download/)
+**Recommended Instagram version:** [`415.0.0.0.43 alpha`](https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-415-0-0-0-43-release/instagram-415-0-0-0-43-android-apk-download/)
 
 <details>
 <summary><h3>Features</h3></summary>

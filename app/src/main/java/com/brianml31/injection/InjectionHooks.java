@@ -22,7 +22,7 @@ public class InjectionHooks {
 
     public static void checkVersion(Activity activity){
         VersionCheckUtils.checkVersion(activity);
-        Log.i("MainFeedFragment", ";-><init>(Landroid/app/Activity;Landroid/widget/Adapter;");
+        Log.i("MainFeedQuickPromotionDelegate.onCreateView", "Lcom/instagram/quickpromotion/intf/QuickPromotionSlot;->");
         Log.i("getRootActivity()Landroid/app/Activity;", "null cannot be cast to non-null type com.instagram.base.activity.tabactivity.TabController");
     }
 
@@ -99,7 +99,7 @@ public class InjectionHooks {
         if(!ExtraOptionsUtils.removeEmptySpace()){
             return;
         }
-        Log.i("Nab bar height: old=%d new=%d, Activity=%s RetryCount=%d isFullScreenFlagSet=%b windowFlags=0x%X","if-gtz v0, :cond_xxx|2");
+        Log.i("Nab bar height: old=%d new=%d, Activity=%s RetryCount=%d isFullScreenFlagSet=%b windowFlags=0x%X","up|if-gtz v0, :cond_xxx|2");
     }
 
     //App font
